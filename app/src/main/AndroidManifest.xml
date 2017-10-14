@@ -31,12 +31,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="PopupActivity"
+            android:launchMode="singleInstance" android:excludeFromRecents="true"
+            android:taskAffinity="" android:theme="@android:style/Theme.Dialog"
+            android:label="Order Placed"/>
 
 
 
-        <activity android:name=".PopupActivity"
-            android:theme="@android:style/Theme.Dialog"
-            ></activity>
 
 
     </application>

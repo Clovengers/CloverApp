@@ -22,6 +22,7 @@ public class RefundReceiver extends BroadcastReceiver {
     public List<String> list = new ArrayList<String>();
 
     AlertDialog.Builder builder;
+    PopupActivity pa = new PopupActivity();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,6 +38,7 @@ public class RefundReceiver extends BroadcastReceiver {
             try {
                 Bundle bundle = intent.getExtras();
                 String message = "I need this to say something";
+                pa.setTitle("Title");
 
                 Intent newIntent = new Intent(context, PopupActivity.class);
                 newIntent.putExtra("alarm_message", message);
