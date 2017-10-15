@@ -27,7 +27,7 @@ public class RefundReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (action.equals(Intents.ACTION_ORDER_CREATED)) {
+        if (action.equals(Intents.ACTION_ORDER_CREATED) || action.equals(Intents.ACTION_REFUND)) {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
@@ -52,13 +52,7 @@ public class RefundReceiver extends BroadcastReceiver {
 
 
 
-           /* builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    list.add(orderId);
-                }
-            });*/
-            //builder.show();
+
 
         }
 

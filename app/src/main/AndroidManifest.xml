@@ -34,7 +34,7 @@
         <activity android:name="PopupActivity"
             android:launchMode="singleInstance" android:excludeFromRecents="true"
             android:taskAffinity="" android:theme="@android:style/Theme.Dialog"
-            android:label="Order Placed"/>
+            android:label="Prototype Event Heard"/>
 
 
 
