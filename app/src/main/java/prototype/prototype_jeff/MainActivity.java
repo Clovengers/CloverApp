@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.clover.sdk.v3.order.OrderConnector;
 
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     //Declaring objects in layout
     Button infoButton;
     Button helpButton;
+    Button settingsButton;
+
+    // things that inherit from View that will be shown/hidden by the settings button
+    ArrayList<View> settings;
 
     //Used to create pop up msgs
     AlertDialog.Builder builder;
@@ -36,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        settings = establishSettings();
+
         //Connecting buttons to their id's
         infoButton = (Button) findViewById(R.id.getInfoButton);
         helpButton = (Button) findViewById(R.id.functioButton);
+        settingsButton = (Button) findViewById(R.id.settingsButton);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +70,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSettingsVisibility();
+            }
+        });
+
     }
+
+    /**
+     * all settings will be established here so their visibility can be toggled
+     */
+    private ArrayList<View> establishSettings() {
+        ArrayList<View> list = new ArrayList<>();
+
+        list.add(findViewById(R.id.setting1CheckBox));
+
+        for(View v: list) {
+            v.setVisibility(View.INVISIBLE);
+        }
+
+        return list;
+    }
+
+    /**
+     * toggles visibility of all settings
+     */
+    private void toggleSettingsVisibility() {
+        if (settingsButton.getText().equals("Show Settings")) {
+            for (View v : settings) {
+                v.setVisibility(View.VISIBLE);
+            }
+            settingsButton.setText("Hide Settings");
+        } else {
+            for (View v : settings) {
+                v.setVisibility(View.INVISIBLE);
+            }
+            settingsButton.setText("Show Settings");
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
