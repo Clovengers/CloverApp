@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PROTOTYPE_JEFF</string>
+    <string name="title_activity_notification_wizard">NotificationWizard</string>
+    <string name="compose_email">Compose Email</string>
+    <string-array name="dropdown_array">
+        <item>Periodic</item>
+        <item>Custom</item>
+    </string-array>
+
+
+
 </resources>
