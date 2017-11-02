@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="prototype.prototype_jeff">
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
         <receiver
-            android:name="RefundReceiver"
+            android:name=".RefundReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.pycitup.BroadcastReceiver" />
             </intent-filter>
         </receiver>
-
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -30,16 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="PopupActivity"
-            android:launchMode="singleInstance" android:excludeFromRecents="true"
-            android:taskAffinity="" android:theme="@android:style/Theme.Dialog"
-            android:label="Prototype Event Heard"/>
-
-
-
-
-
+        <activity
+            android:name=".PopupActivity"
+            android:excludeFromRecents="true"
+            android:label="Prototype Event Heard"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".NotificationWizard"
+            android:label="@string/title_activity_notification_wizard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
