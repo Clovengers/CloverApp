@@ -36,6 +36,11 @@
             android:taskAffinity="" android:theme="@android:style/Theme.Dialog"
             android:label="Prototype Event Heard"/>
 
+        <activity
+            android:name="prototype.prototype_jeff.NotificationWizard"
+            android:label="@string/title_activity_notification_wizard"
+            android:theme="@style/AppTheme.NoActionBar" />
+
 
 
 
