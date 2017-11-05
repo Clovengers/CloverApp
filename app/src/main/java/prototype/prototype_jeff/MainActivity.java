@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        sendEmail();
+        sendEmail("Test email", "This is a test email");
     }
 
-    public void sendEmail() {
+    public void sendEmail(String mailSubject, String mailText) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
         final String pass = "S3n10rPr0j3ct";
@@ -112,8 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MailSenderTask mailSenderTask = new MailSenderTask();
-        mailSenderTask.mailSession = session;
+        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
         mailSenderTask.execute();
     }
 
@@ -123,20 +122,26 @@ public class MainActivity extends AppCompatActivity {
     private class MailSenderTask extends AsyncTask<String, Void, String> {
 
         Session mailSession;
+        String mailSubject;
+        String mailText;
+
+        public MailSenderTask(Session session, String subject, String text) {
+            mailSession = session;
+            mailSubject = subject;
+            mailText = text;
+        }
 
         @Override
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-                String to = "mendelsoa8@students.rowan.edu";
-                String subject = "Test email";
-                String messageText = "This is a test email";
+                String to = "SeniorProjectClover@gmail.com";
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
                 msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-                msg.setSubject(subject);
-                msg.setText(messageText);
+                msg.setSubject(mailSubject);
+                msg.setText(mailText);
 
                 Transport.send(msg);
             } catch (MessagingException e) {
