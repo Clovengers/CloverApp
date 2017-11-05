@@ -1,6 +1,7 @@
 package prototype.prototype_jeff;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -13,8 +14,6 @@ import android.widget.TextView;
 import com.clover.sdk.v3.order.OrderConnector;
 
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     private Account mAccount;
@@ -25,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
     //Declaring objects in layout
     Button infoButton;
     Button helpButton;
+    Button wizardButton;
 
     //Used to create pop up msgs
     AlertDialog.Builder builder;
-
 
 
     @Override
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //Connecting buttons to their id's
         infoButton = (Button) findViewById(R.id.getInfoButton);
         helpButton = (Button) findViewById(R.id.functioButton);
+        wizardButton = (Button) findViewById(R.id.WIZARD_BUTTON);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +61,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        wizardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                launchWizard();
+            }
+        });
+
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         Log.d("DEBUGGER_JEFF", "onResume START");
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -75,4 +85,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("DEBUGGER_JEFF", "PAUSE START");
     }
 
+    private void launchWizard() {
+
+        Intent intent = new Intent(this, NotificationWizard.class);
+        startActivity(intent);
     }
+
+}

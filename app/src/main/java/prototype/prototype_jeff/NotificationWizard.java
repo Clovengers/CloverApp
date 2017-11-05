@@ -28,7 +28,7 @@ public class NotificationWizard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_wizard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //TODO THIS WAS THROWING AN ERROR setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
