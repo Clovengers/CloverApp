@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendEmail();
-
+                sendEmail("Test email", "This is a test email");
             }
         });
 
@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        sendEmail("Test email", "This is a test email");
     }
 
     public void sendEmail(String mailSubject, String mailText) {

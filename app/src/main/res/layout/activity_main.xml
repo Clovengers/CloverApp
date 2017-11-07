@@ -65,9 +65,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:text="Show Settings"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/getInfoButton"
-        app:layout_constraintLeft_toRightOf="@+id/functioButton" />
+        app:layout_constraintLeft_toRightOf="@+id/functioButton"
+        app:layout_constraintRight_toLeftOf="@+id/getInfoButton" />
 
     <CheckBox
         android:id="@+id/setting1CheckBox"
