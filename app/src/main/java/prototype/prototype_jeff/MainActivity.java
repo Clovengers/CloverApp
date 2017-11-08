@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
 import java.lang.reflect.Array;
@@ -34,7 +35,7 @@ import javax.mail.internet.MimeMessage;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Account mAccount;
+    static public Account mAccount;
     private OrderConnector mOrderConnector;
     private TextView mTextView;
     private RefundReceiver refundReceiver = new RefundReceiver();
@@ -209,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         getApplicationContext().registerReceiver(refundReceiver, new IntentFilter("com.clover.intent.action.ORDER_CREATED"));
+        mAccount= CloverAccount.getAccount(this);
         Log.d("DEBUGGER_JEFF", "PAUSE START");
     }
 

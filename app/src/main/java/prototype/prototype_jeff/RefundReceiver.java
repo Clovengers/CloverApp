@@ -4,10 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.order.OrderConnector;
+
+
 import com.clover.sdk.v1.Intents;
+import android.accounts.Account;
+import com.clover.sdk.v3.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +29,9 @@ import java.util.List;
 public class RefundReceiver extends BroadcastReceiver {
     public String lastOrderId;
     public List<String> list = new ArrayList<String>();
+    private OrderConnector orderConnector;
+    private Account mAccount;
+    private Order lastOrder;
 
     AlertDialog.Builder builder;
     PopupActivity pa = new PopupActivity();
@@ -31,6 +43,25 @@ public class RefundReceiver extends BroadcastReceiver {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
+            mAccount=MainActivity.mAccount;
+            Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
+            orderConnector=new OrderConnector(null, mAccount, null);
+            Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR SUCCESS I THINK ");
+            try{lastOrder=orderConnector.getOrder(lastOrderId);
+                Log.d("LAST ORDER: ", lastOrder.toString());
+            }
+            catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ClientException e) {
+                e.printStackTrace();
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            } catch (BindingException e) {
+                e.printStackTrace();
+            }
+
+
+
             //builder = new AlertDialog.Builder(context);
             //builder.setTitle("Order Placed");
             //builder.setMessage("Order ID: " + lastOrderId.toString());
