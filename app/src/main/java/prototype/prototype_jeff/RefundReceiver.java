@@ -47,6 +47,7 @@ public class RefundReceiver extends BroadcastReceiver {
             Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
             orderConnector=new OrderConnector(null, mAccount, null);
             Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR SUCCESS I THINK ");
+            //ERROR HAPPENS IN TRY BLOCK, SERVICE INVOKED ON MAIN THREAD
             try{lastOrder=orderConnector.getOrder(lastOrderId);
                 Log.d("LAST ORDER: ", lastOrder.toString());
             }
