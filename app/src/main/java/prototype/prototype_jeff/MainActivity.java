@@ -4,7 +4,6 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.content.pm.PackageInstaller;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,14 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -60,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
+        refundReceiver.orderConnector.connect();
+
+
 
         settings = establishSettings();
 
