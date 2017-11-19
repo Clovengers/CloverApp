@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,7 +22,10 @@ public class NotificationWizard extends AppCompatActivity {
     CheckBox phoneBox;
     CheckBox emailBox;
 
+    Button submitButton;
 
+    public static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
+    public static String recipientPhoneNumber = "1234567890";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class NotificationWizard extends AppCompatActivity {
         phoneBox = (CheckBox) findViewById(R.id.phoneBox);
         emailBox = (CheckBox) findViewById(R.id.emailBox);
 
+        submitButton = (Button) findViewById(R.id.submitButton);
 
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_array, android.R.layout.simple_spinner_item);
@@ -78,12 +83,13 @@ public class NotificationWizard extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recipientEmailAddress = email.getText().toString();
+                recipientPhoneNumber = phoneNumber.getText().toString();
+            }
+        });
     }
 
 }

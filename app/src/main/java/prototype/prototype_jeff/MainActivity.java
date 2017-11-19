@@ -3,11 +3,15 @@ package prototype.prototype_jeff;
 import android.accounts.Account;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v3.employees.Permission;
 import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.jar.Manifest;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -110,6 +116,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void sendMobileText(String body) {
+//        String phoneNum = "1234567890";
+        String phoneNum = NotificationWizard.recipientPhoneNumber;
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS)
+                == PackageManager.PERMISSION_GRANTED) {
+            SmsManager.getDefault().sendTextMessage(phoneNum, null, body, null, null);
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Inadequate permissions", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void sendEmail(String mailSubject, String mailText) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
@@ -131,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
         MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
         mailSenderTask.execute();
+
+        sendMobileText(mailText);
     }
 
     /**
@@ -152,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-                String to = "SeniorProjectClover@gmail.com";
+//                String to = "SeniorProjectClover@gmail.com";
+                String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
