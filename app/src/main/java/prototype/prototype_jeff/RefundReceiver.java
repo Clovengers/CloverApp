@@ -29,8 +29,13 @@ public class RefundReceiver extends BroadcastReceiver {
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
+    private static MainActivity mainActivity;
 
     PopupActivity pa = new PopupActivity();
+
+    public RefundReceiver(MainActivity mainActivity) {
+        RefundReceiver.mainActivity = mainActivity;
+    }
 
     @Override
 
@@ -89,6 +94,14 @@ public class RefundReceiver extends BroadcastReceiver {
                 } else {
                     lastOrder=orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
+                    if (lastOrder.getTotal() == 0) { // it's just an order
+                        mainActivity.sendEmail("Order Detected",
+                                "An order was just placed.\n\n" +
+                                        "If that wasn't you, you may need to look into this.");
+                    } else if (lastOrder.getTotal() < -5000) // refund exceeds $50
+                        mainActivity.sendEmail("Large Refund Detected",
+                                "A refund was just issued that exceeded $50.\n\n" +
+                                        "If that wasn't you, you may need to look into this.");
                     return lastOrder;
                 }
 

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     static public Account mAccount;
     private OrderConnector mOrderConnector;
     private TextView mTextView;
-    private RefundReceiver refundReceiver = new RefundReceiver();
+    private RefundReceiver refundReceiver = new RefundReceiver(this);
 
     private Intent emailInent;
 
@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Used to create pop up msgs
     AlertDialog.Builder builder;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 toggleSettingsVisibility();
             }
         });
-
     }
 
     public void sendMobileText(String body) {
@@ -239,38 +236,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void sendEmail2(){
-        String emailTo = "brifrench@yahoo.com";
-
-        emailInent = new Intent(Intent.ACTION_SEND);
-        emailInent.setData(Uri.parse("mailto:"));
-        emailInent.setType("text/plain");
-
-        emailInent.putExtra(Intent.EXTRA_EMAIL, emailTo);
-        emailInent.putExtra(Intent.EXTRA_TEXT, "This is the email body ");
-    }
-
-    protected void sendEmail() {
-        Log.i("Send email", "");
-        String[] TO = {"brifrench@yahoo.com"};
-        String[] CC = {""};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            //Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void sendEmail2(){
+//        String emailTo = "brifrench@yahoo.com";
+//
+//        emailInent = new Intent(Intent.ACTION_SEND);
+//        emailInent.setData(Uri.parse("mailto:"));
+//        emailInent.setType("text/plain");
+//
+//        emailInent.putExtra(Intent.EXTRA_EMAIL, emailTo);
+//        emailInent.putExtra(Intent.EXTRA_TEXT, "This is the email body ");
+//    }
+//
+//    protected void sendEmail() {
+//        Log.i("Send email", "");
+//        String[] TO = {"brifrench@yahoo.com"};
+//        String[] CC = {""};
+//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//
+//        emailIntent.setData(Uri.parse("mailto:"));
+//        emailIntent.setType("text/plain");
+//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+//
+//        try {
+//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//            finish();
+//            //Log.i("Finished sending email...", "");
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 
 }
