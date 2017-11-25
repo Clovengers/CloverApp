@@ -18,8 +18,8 @@ import java.util.List;
  */
 
 public class RefundReceiver extends BroadcastReceiver {
-    public String lastOrderId;
-    public List<String> list = new ArrayList<String>();
+    protected String lastOrderId;
+    protected ArrayList<Notification> list = new ArrayList<Notification>();
 
     AlertDialog.Builder builder;
     PopupActivity pa = new PopupActivity();
@@ -31,9 +31,7 @@ public class RefundReceiver extends BroadcastReceiver {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
-            //builder = new AlertDialog.Builder(context);
-            //builder.setTitle("Order Placed");
-            //builder.setMessage("Order ID: " + lastOrderId.toString());
+
 
             try {
                 Bundle bundle = intent.getExtras();

@@ -21,7 +21,11 @@ public class NotificationWizard extends AppCompatActivity {
     CheckBox phoneBox;
     CheckBox emailBox;
 
+    CheckBox invCheckBox;
+    CheckBox refundCheckBox;
 
+    EditText inventoryInputText;
+    EditText refundInputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,62 @@ public class NotificationWizard extends AppCompatActivity {
         setContentView(R.layout.activity_notification_wizard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
+        //Init of Object
+        phoneNumber = (EditText) findViewById(R.id.phoneText);
+        email = (EditText) findViewById(R.id.emailText);
+
+        phoneBox = (CheckBox) findViewById(R.id.phoneBox);
+        emailBox = (CheckBox) findViewById(R.id.emailBox);
+
+        invCheckBox = (CheckBox) findViewById(R.id.invCheckBox);
+        refundCheckBox = (CheckBox) findViewById(R.id.refundCheckBox);
+
+        inventoryInputText = (EditText) findViewById(R.id.invInputText);
+        refundInputText = (EditText) findViewById(R.id.refundInputText);
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
+        invCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(invCheckBox.isChecked()){
+
+                }else{
+
+                }
+
+            }
+        });
+
+
+
+        spinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //if periodic
+                if(spinner.getSelectedItemPosition() == 0){
+
+                }
+                //if custom
+                if(spinner.getSelectedItemPosition() == 1){
+                    invCheckBox.setVisibility(View.VISIBLE);
+                    refundCheckBox.setVisibility(View.INVISIBLE);
+                }
+
+
+
+            }
+        });
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,21 +99,7 @@ public class NotificationWizard extends AppCompatActivity {
             }
         });
 
-
-        //Init of Object
-        phoneNumber = (EditText) findViewById(R.id.phoneText);
-        email = (EditText) findViewById(R.id.emailText);
-
-        phoneBox = (CheckBox) findViewById(R.id.phoneBox);
-        emailBox = (CheckBox) findViewById(R.id.emailBox);
-
-
-        spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-
+        //Phone number check box. Listens for on click
         phoneBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
