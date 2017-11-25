@@ -76,6 +76,21 @@ public class NotificationWizard extends AppCompatActivity {
 
             }
         });
+        refundBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stockBox.setChecked(false);
+
+            }
+        });
+        stockBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refundBox.setChecked(false);
+
+            }
+        });
+
 
         emailBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +108,6 @@ public class NotificationWizard extends AppCompatActivity {
                 recipientEmailAddress = email.getText().toString();
                 recipientPhoneNumber = phoneNumber.getText().toString();
                 if (refundBox.isChecked()) {
-
                     refund = createRefund();
                     MainActivity.refundReceiver.refundList.add(refund);
                 }
