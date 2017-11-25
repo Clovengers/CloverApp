@@ -41,9 +41,8 @@ public class MainActivity extends AppCompatActivity {
     static public Account mAccount;
     private OrderConnector mOrderConnector;
     private TextView mTextView;
-    private static MainActivity mainActivity;
 
-    static public RefundReceiver refundReceiver = new RefundReceiver(mainActivity);
+    static public RefundReceiver refundReceiver;
 
     private Intent emailInent;
 
@@ -67,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 
+        refundReceiver=new RefundReceiver(this);
 
 
         settings = establishSettings();
