@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     static public Account mAccount;
     private OrderConnector mOrderConnector;
     private TextView mTextView;
-    private RefundReceiver refundReceiver = new RefundReceiver(this);
+    static public RefundReceiver refundReceiver = new RefundReceiver();
 
     private Intent emailInent;
 

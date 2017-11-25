@@ -8,15 +8,15 @@ import com.clover.sdk.v3.inventory.Item;
  */
 
 public class Stock {
-    private ArrayList<String> emailList=new ArrayList<String>(); // Emails that will get the notifications
+    public ArrayList<String> emailList=new ArrayList<String>(); // Emails that will get the notifications
 
-    private ArrayList<String> phoneNumberList=new ArrayList<String>(); // Phone numbers that will get the notifications
+    public ArrayList<String> phoneNumberList=new ArrayList<String>(); // Phone numbers that will get the notifications
 
-    private Item stockItem; // Item that will be watched
+    private String stockItem; // Item that will be watched
 
     private int itemPercentage; // The percentage that the user will want to know when the stock goes below
 
-    public Stock (ArrayList<String> emails, ArrayList<String> phoneNumbers, Item item, int percentage){
+    public Stock (ArrayList<String> emails, ArrayList<String> phoneNumbers, String item, int percentage){
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setStockItem(item);
@@ -29,7 +29,7 @@ public class Stock {
     public void setPhoneNumberList (ArrayList<String> list){
         phoneNumberList=list;
     }
-    public void setStockItem (Item item){
+    public void setStockItem (String item){
         stockItem=item;
     }
     public void setItemPercentage(int percentage){
@@ -42,7 +42,7 @@ public class Stock {
     public ArrayList<String> getPhoneNumberList(){
         return phoneNumberList;
     }
-    public Item getStockItem(){
+    public String getStockItem(){
         return stockItem;
     }
     public int getItemPercentage(){

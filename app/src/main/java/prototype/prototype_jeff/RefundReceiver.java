@@ -25,7 +25,8 @@ import java.util.List;
 
 public class RefundReceiver extends BroadcastReceiver {
     public static String lastOrderId;
-    public List<String> list = new ArrayList<String>();
+    public ArrayList<Refund> refundList = new ArrayList<Refund>();
+    public ArrayList<Stock> stockList = new ArrayList<Stock>();
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
