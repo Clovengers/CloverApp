@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        refundReceiver=new RefundReceiver(this);
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 
-        refundReceiver=new RefundReceiver(this);
+
 
 
         settings = establishSettings();
