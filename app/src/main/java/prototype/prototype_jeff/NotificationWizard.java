@@ -32,8 +32,8 @@ public class NotificationWizard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_wizard);
 
-        refund=new Refund(null, null, 0);
-        stock=new Stock(null, null, null, 0);
+
+        stock = new Stock(null, null, null, 0);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         refundBox = (CheckBox) findViewById(R.id.refundCheckBox);
@@ -82,46 +82,53 @@ public class NotificationWizard extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(refundBox.isChecked()){
+                if (refundBox.isChecked()) {
 
-                    refund=createRefund();
+                    refund = createRefund();
                     MainActivity.refundReceiver.refundList.add(refund);
-                    Log.d("JEFF", MainActivity.refundReceiver.refundList.toString());
                 }
-                if(stockBox.isChecked()){
-                    createStock();
+                if (stockBox.isChecked()) {
+                    stock=createStock();
+                    MainActivity.refundReceiver.stockList.add(stock);
                 }
             }
-        });}
+        });
+    }
+
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
-        ArrayList<String> array = new ArrayList<String>();
-        String s=email.getText().toString();
-        if(emailBox.isChecked()&&s!=""&&s!=null){
-            array.add(s);
-            refund.setEmailList(array);
+        refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), 0);
+        String s = email.getText().toString();
+        Log.d("JEFF EMAIL CHECK", s);
+        if (emailBox.isChecked() && s != "" && s != null) {
+            refund.emailList.add(s);
+            Log.d("JEFF EMAIL ADD CHECK", s);
         }
-        s=phoneNumber.getText().toString();
-        if(phoneBox.isChecked()&&s!=""&&s!=null){
-            array=new ArrayList<String>();
-            array.add(s);
+        s = phoneNumber.getText().toString();
+        Log.d("JEFF PHONE CHECK", s);
+        if (phoneBox.isChecked() && s != "" && s != null) {
+            refund.phoneNumberList.add(s);
+            Log.d("JEFF PHONE ADD CHECK", s);
         }
         return refund;
     }
 
+
     //TODO NEED A WAY TO GET THE INVENTORY ITEM IN QUESTION
     private Stock createStock() {
-        ArrayList<String> array = new ArrayList<String>();
-        String s=email.getText().toString();
-        if(emailBox.isChecked()&&s!=""&&s!=null){
-            array.add(s);
-            stock.setEmailList(array);
+        stock = new Stock(new ArrayList<String>(), new ArrayList<String>(), null, 0);
+        String s = email.getText().toString();
+        Log.d("JEFF EMAIL CHECK", s);
+        if (emailBox.isChecked() && s != "" && s != null) {
+            stock.emailList.add(s);
+            Log.d("JEFF EMAIL ADD CHECK", s);
         }
-        s=phoneNumber.getText().toString();
-        if(phoneBox.isChecked()&&s!=""&&s!=null){
-            array=new ArrayList<String>();
-            array.add(s);
+        s = phoneNumber.getText().toString();
+        Log.d("JEFF PHONE CHECK", s);
+        if (phoneBox.isChecked() && s != "" && s != null) {
+            stock.phoneNumberList.add(s);
+            Log.d("JEFF PHONE ADD CHECK", s);
         }
         return stock;
     }

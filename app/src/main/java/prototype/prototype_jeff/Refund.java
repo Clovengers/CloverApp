@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 
 public class Refund {
-    private ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
+    public ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
 
-    private ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
+    public ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
 
     private int refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
