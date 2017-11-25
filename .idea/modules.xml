@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CloverApp.iml" filepath="$PROJECT_DIR$/CloverApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../Brian/Documents/GitHub/CloverApp/CloverAppMain.iml" filepath="$PROJECT_DIR$/../../../../Brian/Documents/GitHub/CloverApp/CloverAppMain.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

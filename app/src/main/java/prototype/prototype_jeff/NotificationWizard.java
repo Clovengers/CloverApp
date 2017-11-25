@@ -22,18 +22,15 @@ public class NotificationWizard extends AppCompatActivity {
     CheckBox phoneBox;
     CheckBox emailBox;
 
-<<<<<<< HEAD
     CheckBox invCheckBox;
     CheckBox refundCheckBox;
 
     EditText inventoryInputText;
     EditText refundInputText;
-=======
     Button submitButton;
 
     public static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
     public static String recipientPhoneNumber = "1234567890";
->>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +49,12 @@ public class NotificationWizard extends AppCompatActivity {
         phoneBox = (CheckBox) findViewById(R.id.phoneBox);
         emailBox = (CheckBox) findViewById(R.id.emailBox);
 
-<<<<<<< HEAD
         invCheckBox = (CheckBox) findViewById(R.id.invCheckBox);
         refundCheckBox = (CheckBox) findViewById(R.id.refundCheckBox);
 
         inventoryInputText = (EditText) findViewById(R.id.invInputText);
         refundInputText = (EditText) findViewById(R.id.refundInputText);
-=======
         submitButton = (Button) findViewById(R.id.submitButton);
->>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
 
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_array, android.R.layout.simple_spinner_item);
@@ -102,14 +96,7 @@ public class NotificationWizard extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         //Phone number check box. Listens for on click
         phoneBox.setOnClickListener(new View.OnClickListener() {

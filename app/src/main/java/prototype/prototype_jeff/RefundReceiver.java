@@ -24,17 +24,12 @@ import java.util.List;
  */
 
 public class RefundReceiver extends BroadcastReceiver {
-<<<<<<< HEAD
-    protected String lastOrderId;
     protected ArrayList<Notification> list = new ArrayList<Notification>();
-=======
-    public static String lastOrderId;
-    public List<String> list = new ArrayList<String>();
+    protected static String lastOrderId;
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
     private static MainActivity mainActivity;
->>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
 
     PopupActivity pa = new PopupActivity();
 
@@ -50,9 +45,7 @@ public class RefundReceiver extends BroadcastReceiver {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
-<<<<<<< HEAD
 
-=======
             mAccount=MainActivity.mAccount;
             Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
             //orderConnector=new OrderConnector(context, mAccount, null);
@@ -61,7 +54,6 @@ public class RefundReceiver extends BroadcastReceiver {
             if(orderConnector.isConnected()){
                 Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CONNECTED ");
             }
->>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
 
 
 
