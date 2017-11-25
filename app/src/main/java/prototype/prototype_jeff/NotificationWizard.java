@@ -90,6 +90,8 @@ public class NotificationWizard extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recipientEmailAddress = email.getText().toString();
+                recipientPhoneNumber = phoneNumber.getText().toString();
                 if (refundBox.isChecked()) {
 
                     refund = createRefund();
@@ -100,16 +102,7 @@ public class NotificationWizard extends AppCompatActivity {
                     MainActivity.refundReceiver.stockList.add(stock);
                 }
             }
-        });
-    }
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recipientEmailAddress = email.getText().toString();
-                recipientPhoneNumber = phoneNumber.getText().toString();
-            }
-        });
+        });}
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
