@@ -88,37 +88,37 @@
 
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="170dp"
+        android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:ems="10"
+        android:hint="example@gmail.com"
         android:inputType="textEmailAddress"
-        android:text="Enter Your Email"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/textView2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.601"
-        app:layout_constraintLeft_toRightOf="@+id/textView2"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp" />
+        app:layout_constraintVertical_bias="0.601" />
 
     <EditText
         android:id="@+id/phoneText"
         android:layout_width="170dp"
         android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="phone"
-        android:text="Enter Your Phone #"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752"
-        app:layout_constraintLeft_toRightOf="@+id/textView2"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="XXXXXXXXXX"
+        android:inputType="phone"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/textView2"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
 
     <Button
         android:id="@+id/submitButton"

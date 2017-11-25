@@ -1,13 +1,19 @@
 package prototype.prototype_jeff;
 
+import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.util.Log;
 
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.Intents;
+import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.order.Order;
+import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +24,49 @@ import java.util.List;
  */
 
 public class RefundReceiver extends BroadcastReceiver {
+<<<<<<< HEAD
     protected String lastOrderId;
     protected ArrayList<Notification> list = new ArrayList<Notification>();
+=======
+    public static String lastOrderId;
+    public List<String> list = new ArrayList<String>();
+    protected static OrderConnector orderConnector;
+    private Account mAccount;
+    private static Order lastOrder;
+    private static MainActivity mainActivity;
+>>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
 
-    AlertDialog.Builder builder;
     PopupActivity pa = new PopupActivity();
 
+    public RefundReceiver(MainActivity mainActivity) {
+        RefundReceiver.mainActivity = mainActivity;
+    }
+
     @Override
+
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (action.equals(Intents.ACTION_ORDER_CREATED) || action.equals(Intents.ACTION_REFUND)) {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
+<<<<<<< HEAD
+
+=======
+            mAccount=MainActivity.mAccount;
+            Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
+            //orderConnector=new OrderConnector(context, mAccount, null);
+            Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CREATED ");
+            //orderConnector.connect();
+            if(orderConnector.isConnected()){
+                Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CONNECTED ");
+            }
+>>>>>>> 1aeec6cb0b81baca1ae7e5f48a7a1d611a20aff7
+
 
 
             try {
-                Bundle bundle = intent.getExtras();
-                String message = "I need this to say something";
-                pa.setTitle("Title");
-
                 Intent newIntent = new Intent(context, PopupActivity.class);
-                newIntent.putExtra("alarm_message", message);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(newIntent);
@@ -48,6 +75,8 @@ public class RefundReceiver extends BroadcastReceiver {
 
             }
 
+            new OrderAsyncTask().execute();
+
 
 
 
@@ -55,4 +84,58 @@ public class RefundReceiver extends BroadcastReceiver {
         }
 
     }
+
+
+
+    protected static class OrderAsyncTask extends AsyncTask<Void, Void, Order> {
+
+        @Override
+        protected final Order doInBackground(Void... params) {
+
+            try {
+
+
+
+
+
+                if (lastOrderId == null) {
+                    orderConnector.disconnect();
+                } else {
+                    lastOrder=orderConnector.getOrder(lastOrderId);
+                    Log.d("LAST ORDER: ", lastOrder.toString());
+                    if (lastOrder.getTotal() == 0) { // it's just an order
+                        mainActivity.sendEmail("Order Detected",
+                                "An order was just placed.\n\n" +
+                                        "If that wasn't you, you may need to look into this.");
+                    } else if (lastOrder.getTotal() < -5000) // refund exceeds $50
+                        mainActivity.sendEmail("Large Refund Detected",
+                                "A refund was just issued that exceeded $50.\n\n" +
+                                        "If that wasn't you, you may need to look into this.");
+                    return lastOrder;
+                }
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ClientException e) {
+                e.printStackTrace();
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            } catch (BindingException e) {
+                e.printStackTrace();
+            } finally {
+
+            }
+            return null;
+        }
+
+
+    }
+
+
+
+
+
+
+
+
 }
