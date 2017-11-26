@@ -32,7 +32,7 @@ public class RefundReceiver extends BroadcastReceiver {
     private Account mAccount;
     private static Order lastOrder;
     private static MainActivity mainActivity;
-    static private int i=0;
+    static private int i = 0;
 
 
     PopupActivity pa = new PopupActivity();
@@ -67,10 +67,8 @@ public class RefundReceiver extends BroadcastReceiver {
                 context.startActivity(newIntent);
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
-
-                new OrderAsyncTask().execute();
+            new OrderAsyncTask().execute();
         }
     }
 
@@ -83,8 +81,7 @@ public class RefundReceiver extends BroadcastReceiver {
             try {
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
-                }
-                else {
+                } else {
                     lastOrder = orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
                     /*if (lastOrder.getTotal() == 0) { // it's just an order
@@ -95,13 +92,13 @@ public class RefundReceiver extends BroadcastReceiver {
                     } */
                     if (lastOrder.getTotal() < -5000) // refund exceeds $50 THIS IS A PLACEHOLDER
                     {
-                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
-                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-                            mainActivity.sendEmail("Large Refund Detected",
-                                    "A refund was just issued that exceeded $50.\n\n" +
-                                            "If that wasn't you, you may need to look into this.");
-                        }
+                        NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
+                        Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
+                        mainActivity.sendEmail("Large Refund Detected",
+                                "A refund was just issued that exceeded $50.\n\n" +
+                                        "If that wasn't you, you may need to look into this.");
                     }
+                }
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -111,9 +108,7 @@ public class RefundReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (BindingException e) {
                 e.printStackTrace();
-            }
-
-            finally {
+            } finally {
 
             }
             return null;
