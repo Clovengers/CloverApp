@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,12 +17,20 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class NotificationWizard extends AppCompatActivity {
+
+
     Spinner spinner;
     EditText email;
     EditText phoneNumber;
+
     CheckBox phoneBox;
     CheckBox emailBox;
 
+    CheckBox invCheckBox;
+    CheckBox refundCheckBox;
+
+    EditText inventoryInputText;
+    EditText refundInputText;
     Button submitButton;
 
     public static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
@@ -40,6 +49,12 @@ public class NotificationWizard extends AppCompatActivity {
 
         stock = new Stock(null, null, null, 0);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
+
+        //Init of Object
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         refundBox = (CheckBox) findViewById(R.id.refundCheckBox);
         stockBox = (CheckBox) findViewById(R.id.invCheckBox);
@@ -49,6 +64,11 @@ public class NotificationWizard extends AppCompatActivity {
         phoneBox = (CheckBox) findViewById(R.id.phoneBox);
         emailBox = (CheckBox) findViewById(R.id.emailBox);
 
+        invCheckBox = (CheckBox) findViewById(R.id.invCheckBox);
+        refundCheckBox = (CheckBox) findViewById(R.id.refundCheckBox);
+
+        inventoryInputText = (EditText) findViewById(R.id.invInputText);
+        refundInputText = (EditText) findViewById(R.id.refundInputText);
         submitButton = (Button) findViewById(R.id.submitButton);
 
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -65,6 +85,67 @@ public class NotificationWizard extends AppCompatActivity {
             }
         });
 
+        invCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(invCheckBox.isChecked()){
+                    inventoryInputText.setVisibility(View.VISIBLE);
+                }else{
+                    inventoryInputText.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+        });
+
+        refundCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(refundCheckBox.isChecked()){
+                    refundInputText.setVisibility(View.VISIBLE);
+                }else{
+                    refundInputText.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+        });
+
+
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //if periodic
+                if(spinner.getSelectedItemPosition() == 0){
+                    invCheckBox.setVisibility(View.INVISIBLE);
+                    refundCheckBox.setVisibility(View.INVISIBLE);
+                    inventoryInputText.setVisibility(View.INVISIBLE);
+                    refundInputText.setVisibility(View.INVISIBLE);
+                }
+                //if custom
+                if(spinner.getSelectedItemPosition() == 1){
+                    invCheckBox.setVisibility(View.VISIBLE);
+                    refundCheckBox.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                invCheckBox.setVisibility(View.INVISIBLE);
+                refundCheckBox.setVisibility(View.INVISIBLE);
+                inventoryInputText.setVisibility(View.INVISIBLE);
+                refundInputText.setVisibility(View.INVISIBLE);
+            }
+
+
+        });
+
+
+
+
+        //Phone number check box. Listens for on click
         phoneBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +181,7 @@ public class NotificationWizard extends AppCompatActivity {
                 } else {
                     email.setVisibility(View.INVISIBLE);
                 }
+
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {

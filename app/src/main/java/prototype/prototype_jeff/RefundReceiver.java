@@ -27,6 +27,8 @@ public class RefundReceiver extends BroadcastReceiver {
     public static String lastOrderId;
     public ArrayList<Refund> refundList = new ArrayList<Refund>();
     public ArrayList<Stock> stockList = new ArrayList<Stock>();
+    protected ArrayList<Notification> list = new ArrayList<Notification>();
+    protected static String lastOrderId;
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
@@ -46,6 +48,7 @@ public class RefundReceiver extends BroadcastReceiver {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId=orderId;
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
+
             mAccount=MainActivity.mAccount;
             Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
             //orderConnector=new OrderConnector(context, mAccount, null);
