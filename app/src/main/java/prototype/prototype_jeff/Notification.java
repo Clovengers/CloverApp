@@ -27,5 +27,29 @@ public class Notification {
         return phoneNumberList;
     }
 
+    protected void sendNotification(){
+
+    }
+
+    @Override
+    public String toString(){
+        String holder = getClass().getSimpleName() + " \n";
+        if(emailList.size()>0){
+            holder += "EMAIL: \n";
+            for(int x=0; x< emailList.size(); x++){
+                holder += emailList.get(x) + "\n";
+            }
+        }
+
+        if(phoneNumberList.size()>0){
+            holder += "PHONE NUMBER: \n";
+            for(int x=0; x< phoneNumberList.size(); x++){
+                holder += phoneNumberList.get(x) + "\n";
+            }
+        }
+
+        return holder;
+    }
+
 
 }

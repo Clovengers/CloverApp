@@ -6,7 +6,7 @@
         <item>Periodic</item>
         <item>Custom</item>
     </string-array>
-
+    <string name="title_activity_notification_manager">NotificationManager</string>
 
 
 </resources>

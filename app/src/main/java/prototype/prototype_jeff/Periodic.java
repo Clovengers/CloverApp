@@ -13,16 +13,18 @@ public class Periodic extends Notification {
 
     private ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
 
-    private int dayOfWeek; // TODO unsure how time will work, this is a placeholder
+    private int dayOfWeek;
 
-    private int numberOfDaysInterval = 7;
+    private int numberOfDaysInterval = 7; //7 would be weekly
+
+    private int daysSince;
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, int dayOfWeek, int numDays) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-        Calendar cal = Calendar.getInstance();
-        cal.get(Calendar.DAY_OF_WEEK);
+
+        daysSince = 0;
 
     }
 
@@ -42,11 +44,22 @@ public class Periodic extends Notification {
         return numberOfDaysInterval;
     }
 
-
-
     @Override
-    public String toString(){
+    protected void sendNotification(){
+        Calendar cal = Calendar.getInstance();
 
-        return "";
+        if ( cal.get(Calendar.DAY_OF_WEEK) == dayOfWeek){
+            daysSince =0;
+            if(emailList.size() >0 ){
+                //TODO send email about sales data or something
+                //TODO main activity get information from inventory
+            }
+
+            if(phoneNumberList.size() >0 ){
+                //TODO send text 
+            }
+        }
     }
+
+
 }

@@ -33,8 +33,8 @@ public class NotificationWizard extends AppCompatActivity {
     EditText refundInputText;
     Button submitButton;
 
-    public static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
-    public static String recipientPhoneNumber = "1234567890";
+    protected static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
+    protected static String recipientPhoneNumber = "1234567890";
     CheckBox refundBox;
     CheckBox stockBox;
     Button submit;
