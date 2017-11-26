@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private Button emailButton;
     private Button settingsButton;
 
+
+    protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
+
     // things that inherit from View that will be shown/hidden by the settings button
     ArrayList<View> settings;
 
@@ -85,13 +88,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //BEGIN BUTTON
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //Use this line of code to output popups, additional features can be added with more methods
-                //builder = new AlertDialog.Builder(MainActivity.this).setTitle("Inventory Data").setMessage("Some information formated into a string");
-                //builder.show();
+                //switches to a new screen
                 startActivity(new Intent(getApplicationContext(), NotificationWizard.class));
             }
         });
@@ -110,12 +112,13 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleSettingsVisibility();
+                startActivity(new Intent(getApplicationContext(), NotificationManager.class));
+
             }
         });
     }
 
-    public void sendMobileText(String body) {
+    protected void sendMobileText(String body) {
 //        String phoneNum = "1234567890";
         String phoneNum = NotificationWizard.recipientPhoneNumber;
 
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void sendEmail(String mailSubject, String mailText) {
+    protected void sendEmail(String mailSubject, String mailText) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
         final String pass = "S3n10rPr0j3ct";
@@ -197,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<View> establishSettings() {
         ArrayList<View> list = new ArrayList<>();
 
-        list.add(findViewById(R.id.setting1CheckBox));
+        //list.add(findViewById(R.id.setting1CheckBox));
 
         for(View v: list) {
             v.setVisibility(View.INVISIBLE);
@@ -238,38 +241,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    private void sendEmail2(){
-//        String emailTo = "brifrench@yahoo.com";
-//
-//        emailInent = new Intent(Intent.ACTION_SEND);
-//        emailInent.setData(Uri.parse("mailto:"));
-//        emailInent.setType("text/plain");
-//
-//        emailInent.putExtra(Intent.EXTRA_EMAIL, emailTo);
-//        emailInent.putExtra(Intent.EXTRA_TEXT, "This is the email body ");
-//    }
-//
-//    protected void sendEmail() {
-//        Log.i("Send email", "");
-//        String[] TO = {"brifrench@yahoo.com"};
-//        String[] CC = {""};
-//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//
-//        emailIntent.setData(Uri.parse("mailto:"));
-//        emailIntent.setType("text/plain");
-//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-//
-//        try {
-//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-//            finish();
-//            //Log.i("Finished sending email...", "");
-//        } catch (android.content.ActivityNotFoundException ex) {
-//            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    protected void onUpdate(){
+        //TODO add in timer for periodic checking of current data
+
+        for(int x =0; x< periodicList.size(); x++){
+            periodicList.get(x).sendNotification();
+        }
+
+
+    }
 
 
 }

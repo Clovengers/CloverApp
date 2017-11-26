@@ -114,4 +114,20 @@ public class RefundReceiver extends BroadcastReceiver {
             return null;
         }
     }
+
+    protected ArrayList<Notification> getNotifications(){
+
+        list = new ArrayList<Notification>();
+
+        for (int x =0; x< refundList.size(); x++){
+            list.add(refundList.get(x));
+        }
+        for (int x =0; x< stockList.size(); x++){
+            list.add(stockList.get(x));
+        }
+
+
+
+        return list;
+    }
 }

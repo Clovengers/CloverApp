@@ -7,7 +7,7 @@ import com.clover.sdk.v3.inventory.Item;
  * Created by Jeff on 11/5/2017.
  */
 
-public class Stock {
+public class Stock extends Notification{
     public ArrayList<String> emailList=new ArrayList<String>(); // Emails that will get the notifications
 
     public ArrayList<String> phoneNumberList=new ArrayList<String>(); // Phone numbers that will get the notifications
