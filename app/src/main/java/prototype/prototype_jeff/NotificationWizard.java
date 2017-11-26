@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -66,8 +67,22 @@ public class NotificationWizard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(invCheckBox.isChecked()){
-
+                    inventoryInputText.setVisibility(View.VISIBLE);
                 }else{
+                    inventoryInputText.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+        });
+
+        refundCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(refundCheckBox.isChecked()){
+                    refundInputText.setVisibility(View.VISIBLE);
+                }else{
+                    refundInputText.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -76,23 +91,33 @@ public class NotificationWizard extends AppCompatActivity {
 
 
 
-        spinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //if periodic
                 if(spinner.getSelectedItemPosition() == 0){
-
+                    invCheckBox.setVisibility(View.INVISIBLE);
+                    refundCheckBox.setVisibility(View.INVISIBLE);
+                    inventoryInputText.setVisibility(View.INVISIBLE);
+                    refundInputText.setVisibility(View.INVISIBLE);
                 }
                 //if custom
                 if(spinner.getSelectedItemPosition() == 1){
                     invCheckBox.setVisibility(View.VISIBLE);
-                    refundCheckBox.setVisibility(View.INVISIBLE);
+                    refundCheckBox.setVisibility(View.VISIBLE);
                 }
-
-
-
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                invCheckBox.setVisibility(View.INVISIBLE);
+                refundCheckBox.setVisibility(View.INVISIBLE);
+                inventoryInputText.setVisibility(View.INVISIBLE);
+                refundInputText.setVisibility(View.INVISIBLE);
+            }
+
+
         });
 
 
