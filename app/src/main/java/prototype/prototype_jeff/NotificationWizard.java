@@ -180,8 +180,8 @@ public class NotificationWizard extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recipientEmailAddress = email.getText().toString();
-                recipientPhoneNumber = phoneNumber.getText().toString();
+                //recipientEmailAddress = email.getText().toString();
+                //recipientPhoneNumber = phoneNumber.getText().toString();
                 if (refundBox.isChecked()) {
                     refund = createRefund();
                     MainActivity.refundReceiver.refundList.add(refund);
