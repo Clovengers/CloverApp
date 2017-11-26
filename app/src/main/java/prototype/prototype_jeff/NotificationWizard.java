@@ -1,5 +1,6 @@
 package prototype.prototype_jeff;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,7 +32,6 @@ public class NotificationWizard extends AppCompatActivity {
 
     EditText inventoryInputText;
     EditText refundInputText;
-    Button submitButton;
 
     protected static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
     protected static String recipientPhoneNumber = "1234567890";
@@ -68,7 +68,6 @@ public class NotificationWizard extends AppCompatActivity {
 
         inventoryInputText = (EditText) findViewById(R.id.invInputText);
         refundInputText = (EditText) findViewById(R.id.refundInputText);
-        submitButton = (Button) findViewById(R.id.submitButton);
 
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_array, android.R.layout.simple_spinner_item);
@@ -83,6 +82,7 @@ public class NotificationWizard extends AppCompatActivity {
             public void onClick(View v) {
                 if(invCheckBox.isChecked()){
                     inventoryInputText.setVisibility(View.VISIBLE);
+                    refundCheckBox.setChecked(false);
                 }else{
                     inventoryInputText.setVisibility(View.INVISIBLE);
 
@@ -96,6 +96,7 @@ public class NotificationWizard extends AppCompatActivity {
             public void onClick(View v) {
                 if(refundCheckBox.isChecked()){
                     refundInputText.setVisibility(View.VISIBLE);
+                    invCheckBox.setChecked(false);
                 }else{
                     refundInputText.setVisibility(View.INVISIBLE);
 
@@ -150,20 +151,7 @@ public class NotificationWizard extends AppCompatActivity {
 
             }
         });
-        refundBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stockBox.setChecked(false);
 
-            }
-        });
-        stockBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refundBox.setChecked(false);
-
-            }
-        });
 
 
         emailBox.setOnClickListener(new View.OnClickListener() {
@@ -190,22 +178,26 @@ public class NotificationWizard extends AppCompatActivity {
                     stock=createStock();
                     MainActivity.refundReceiver.stockList.add(stock);
                 }
+
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+
             }
         });}
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
-        refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), 0);
+        Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), Double.parseDouble(refundInputText.getText().toString()) );
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {
-            refund.emailList.add(s);
+            refund.addEmail(s);
             Log.d("JEFF EMAIL ADD CHECK", s);
         }
         s = phoneNumber.getText().toString();
         Log.d("JEFF PHONE CHECK", s);
         if (phoneBox.isChecked() && s != "" && s != null) {
-            refund.phoneNumberList.add(s);
+            refund.addPhoneNumber(s);
             Log.d("JEFF PHONE ADD CHECK", s);
         }
         return refund;
@@ -214,7 +206,7 @@ public class NotificationWizard extends AppCompatActivity {
 
     //TODO NEED A WAY TO GET THE INVENTORY ITEM IN QUESTION
     private Stock createStock() {
-        stock = new Stock(new ArrayList<String>(), new ArrayList<String>(), null, 0);
+        stock = new Stock(new ArrayList<String>(), new ArrayList<String>(), null, Integer.parseInt(inventoryInputText.getText().toString()) );
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {

@@ -11,9 +11,9 @@ public class Refund extends Notification{
 
     public ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
 
-    private int refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
+    private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
-    public Refund(ArrayList<String> emails, ArrayList<String> phoneNumbers, int amount) {
+    public Refund(ArrayList<String> emails, ArrayList<String> phoneNumbers, double amount) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setRefundAmount(amount);
@@ -27,7 +27,7 @@ public class Refund extends Notification{
         phoneNumberList = list;
     }
 
-    public void setRefundAmount(int refund) {
+    public void setRefundAmount(double refund) {
         refundAmount = refund;
     }
 
@@ -39,7 +39,7 @@ public class Refund extends Notification{
         return phoneNumberList;
     }
 
-    public int getRefundAmount() {
+    public double getRefundAmount() {
         return refundAmount;
     }
 }

@@ -1,10 +1,12 @@
 package prototype.prototype_jeff;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,13 +40,19 @@ public class NotificationManager extends AppCompatActivity {
         numberOfText = (TextView) findViewById(R.id.numberOfText);
         infoText = (TextView) findViewById(R.id.infoText);
 
+        notifications = MainActivity.refundReceiver.getNotifications();
         updateInfo();
 
         prevButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
+
+
                 if(currentIndex >0){
                     currentIndex--;
+                    updateInfo();
                 }
             }
         });
@@ -52,13 +60,29 @@ public class NotificationManager extends AppCompatActivity {
         nexButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(currentIndex +1 < notifications.size()){
+                    currentIndex++;
+                    updateInfo();
+                }
             }
         });
 
         delButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Refund")){
+                    MainActivity.refundReceiver.refundList.remove(notifications.get(currentIndex));
+                }
+
+                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Stock")){
+                    MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
+                }
+
+                notifications.remove(currentIndex);
+
+                    currentIndex =0;
+                    updateInfo();
 
             }
         });
@@ -68,13 +92,21 @@ public class NotificationManager extends AppCompatActivity {
 
 
     private void updateInfo(){
-        if(notifications != null) {
+        notifications = MainActivity.refundReceiver.getNotifications();
+        Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
+
+
+        if(notifications != null && notifications.size() != 0) {
             numberOfText.setText(currentIndex + " of " + notifications.size());
 
             if(notifications.get(currentIndex) != null){
+                Log.d("MANAGER", "Test Update Info notification to string " + notifications.get(currentIndex).toString());
                 infoText.setText((CharSequence) notifications.get(currentIndex).toString());
 
             }
+        }else{
+            numberOfText.setText("0 of 0");
+            infoText.setText("No Notifcations Saved");
         }
     }
 

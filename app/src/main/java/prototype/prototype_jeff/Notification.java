@@ -1,5 +1,8 @@
 package prototype.prototype_jeff;
 
+import android.os.Debug;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -7,9 +10,9 @@ import java.util.ArrayList;
  */
 
 public class Notification {
-    private ArrayList<String> emailList;
+    private ArrayList<String> emailList = new ArrayList<String>();
 
-    private ArrayList<String> phoneNumberList;
+    private ArrayList<String> phoneNumberList = new ArrayList<String>();
 
     protected void setEmailList(ArrayList<String> list) {
         emailList = list;
@@ -17,6 +20,14 @@ public class Notification {
 
     protected void setPhoneNumberList(ArrayList<String> list) {
         phoneNumberList = list;
+    }
+
+    protected void addEmail(String email){
+        emailList.add(email);
+    }
+
+    protected void addPhoneNumber(String phoneNumber){
+        phoneNumberList.add(phoneNumber);
     }
 
     protected ArrayList<String> getEmailList() {
@@ -34,6 +45,7 @@ public class Notification {
     @Override
     public String toString(){
         String holder = getClass().getSimpleName() + " \n";
+        Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
             holder += "EMAIL: \n";
             for(int x=0; x< emailList.size(); x++){
