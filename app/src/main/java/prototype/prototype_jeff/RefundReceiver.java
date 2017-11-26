@@ -24,14 +24,16 @@ import java.util.List;
  */
 
 public class RefundReceiver extends BroadcastReceiver {
-    public ArrayList<Refund> refundList = new ArrayList<Refund>();
-    public ArrayList<Stock> stockList = new ArrayList<Stock>();
+    static public ArrayList<Refund> refundList = new ArrayList<Refund>();
+    static public ArrayList<Stock> stockList = new ArrayList<Stock>();
     protected ArrayList<Notification> list = new ArrayList<Notification>();
     protected static String lastOrderId;
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
     private static MainActivity mainActivity;
+    static private int i=0;
+
 
     PopupActivity pa = new PopupActivity();
 
@@ -45,18 +47,17 @@ public class RefundReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action.equals(Intents.ACTION_ORDER_CREATED) || action.equals(Intents.ACTION_REFUND)) {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
-            lastOrderId=orderId;
-            Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: "+lastOrderId.toString());
+            lastOrderId = orderId;
+            Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: " + lastOrderId.toString());
 
-            mAccount=MainActivity.mAccount;
-            Log.d("DEBUGGER_JEFF", "ACCOUNT: "+mAccount);
+            mAccount = MainActivity.mAccount;
+            Log.d("DEBUGGER_JEFF", "ACCOUNT: " + mAccount);
             //orderConnector=new OrderConnector(context, mAccount, null);
             Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CREATED ");
             //orderConnector.connect();
-            if(orderConnector.isConnected()){
+            if (orderConnector.isConnected()) {
                 Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CONNECTED ");
             }
-
 
 
             try {
@@ -69,16 +70,9 @@ public class RefundReceiver extends BroadcastReceiver {
 
             }
 
-            new OrderAsyncTask().execute();
-
-
-
-
-
+                new OrderAsyncTask().execute();
         }
-
     }
-
 
 
     protected static class OrderAsyncTask extends AsyncTask<Void, Void, Order> {
@@ -89,19 +83,25 @@ public class RefundReceiver extends BroadcastReceiver {
             try {
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
-                } else {
-                    lastOrder=orderConnector.getOrder(lastOrderId);
+                }
+                else {
+                    lastOrder = orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
-                    if (lastOrder.getTotal() == 0) { // it's just an order
+                    /*if (lastOrder.getTotal() == 0) { // it's just an order
+
                         mainActivity.sendEmail("Order Detected",
                                 "An order was just placed.\n\n" +
                                         "If that wasn't you, you may need to look into this.");
-                    } else if (lastOrder.getTotal() < -5000) // refund exceeds $50
-                        mainActivity.sendEmail("Large Refund Detected",
-                                "A refund was just issued that exceeded $50.\n\n" +
-                                        "If that wasn't you, you may need to look into this.");
-                    return lastOrder;
-                }
+                    } */
+                    if (lastOrder.getTotal() < -5000) // refund exceeds $50 THIS IS A PLACEHOLDER
+                    {
+                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
+                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
+                            mainActivity.sendEmail("Large Refund Detected",
+                                    "A refund was just issued that exceeded $50.\n\n" +
+                                            "If that wasn't you, you may need to look into this.");
+                        }
+                    }
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -111,7 +111,9 @@ public class RefundReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (BindingException e) {
                 e.printStackTrace();
-            } finally {
+            }
+
+            finally {
 
             }
             return null;
