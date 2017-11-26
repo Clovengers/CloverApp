@@ -24,7 +24,6 @@ import java.util.List;
  */
 
 public class RefundReceiver extends BroadcastReceiver {
-    public static String lastOrderId;
     public ArrayList<Refund> refundList = new ArrayList<Refund>();
     public ArrayList<Stock> stockList = new ArrayList<Stock>();
     protected ArrayList<Notification> list = new ArrayList<Notification>();
@@ -88,11 +87,6 @@ public class RefundReceiver extends BroadcastReceiver {
         protected final Order doInBackground(Void... params) {
 
             try {
-
-
-
-
-
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
                 } else {
@@ -122,15 +116,5 @@ public class RefundReceiver extends BroadcastReceiver {
             }
             return null;
         }
-
-
     }
-
-
-
-
-
-
-
-
 }
