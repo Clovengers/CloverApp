@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -175,7 +176,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
-        mailSenderTask.execute();
+
+        try {
+            String holder = mailSenderTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         sendMobileText(mailText);
     }

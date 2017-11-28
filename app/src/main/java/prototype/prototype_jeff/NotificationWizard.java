@@ -193,7 +193,8 @@ public class NotificationWizard extends AppCompatActivity {
 
                 //Periodic Notification
                 if(spinner.getSelectedItemPosition() == 0){
-
+                    periodicList.add(createPeriodic());
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
 
                 }
