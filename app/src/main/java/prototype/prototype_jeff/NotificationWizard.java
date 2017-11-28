@@ -2,8 +2,6 @@ package prototype.prototype_jeff;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class NotificationWizard extends AppCompatActivity {
 
@@ -35,6 +34,10 @@ public class NotificationWizard extends AppCompatActivity {
 
     protected static String recipientEmailAddress = "SeniorProjectClover@gmail.com";
     protected static String recipientPhoneNumber = "1234567890";
+
+    protected static ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
+
+
     CheckBox refundBox;
     CheckBox stockBox;
     Button submit;
@@ -168,22 +171,59 @@ public class NotificationWizard extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //recipientEmailAddress = email.getText().toString();
-                //recipientPhoneNumber = phoneNumber.getText().toString();
-                if (refundBox.isChecked()) {
-                    refund = createRefund();
-                    MainActivity.refundReceiver.refundList.add(refund);
+
+                //Custom Notification
+                if(spinner.getSelectedItemPosition() == 1) {
+
+
+                    if (refundBox.isChecked()) {
+                        refund = createRefund();
+                        MainActivity.refundReceiver.refundList.add(refund);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                    }
+                    if (stockBox.isChecked()) {
+                        stock = createStock();
+                        MainActivity.refundReceiver.stockList.add(stock);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                    }
+
                 }
-                if (stockBox.isChecked()) {
-                    stock=createStock();
-                    MainActivity.refundReceiver.stockList.add(stock);
+
+                //Periodic Notification
+                if(spinner.getSelectedItemPosition() == 0){
+
+
+
                 }
 
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-
-            }
+                }
         });}
+
+
+    private Periodic createPeriodic(){
+        //7 number of days inbetween sending or weekly
+        Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+        String s = email.getText().toString();
+        Log.d("JEFF EMAIL CHECK", s);
+        if (emailBox.isChecked() && s != "" && s != null) {
+            refund.addEmail(s);
+            Log.d("JEFF EMAIL ADD CHECK", s);
+        }
+        s = phoneNumber.getText().toString();
+        Log.d("JEFF PHONE CHECK", s);
+        if (phoneBox.isChecked() && s != "" && s != null) {
+            refund.addPhoneNumber(s);
+            Log.d("JEFF PHONE ADD CHECK", s);
+        }
+
+
+        return periodic;
+    }
+
+
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
