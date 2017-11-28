@@ -84,18 +84,13 @@ public class RefundReceiver extends BroadcastReceiver {
                 } else {
                     lastOrder = orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
-                    /*if (lastOrder.getTotal() == 0) { // it's just an order
-
-                        mainActivity.sendEmail("Order Detected",
-                                "An order was just placed.\n\n" +
-                                        "If that wasn't you, you may need to look into this.");
-                    } */
-                    if (lastOrder.getTotal() < -5000) // refund exceeds $50 THIS IS A PLACEHOLDER
+                    double amt=refundList.get(0).getRefundAmount();
+                    if (lastOrder.getTotal() < amt*-1*100) // refund exceeds $50 THIS IS A PLACEHOLDER
                     {
                         NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
                         Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
                         mainActivity.sendEmail("Large Refund Detected",
-                                "A refund was just issued that exceeded $50.\n\n" +
+                                "A refund was just issued that exceeded $"+amt+"\n\n" +
                                         "If that wasn't you, you may need to look into this.");
                     }
                 }
