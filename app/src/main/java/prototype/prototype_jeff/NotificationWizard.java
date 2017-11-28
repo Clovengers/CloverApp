@@ -82,6 +82,7 @@ public class NotificationWizard extends AppCompatActivity {
             public void onClick(View v) {
                 if(invCheckBox.isChecked()){
                     inventoryInputText.setVisibility(View.VISIBLE);
+                    refundInputText.setVisibility(View.INVISIBLE);
                     refundCheckBox.setChecked(false);
                 }else{
                     inventoryInputText.setVisibility(View.INVISIBLE);
@@ -96,6 +97,7 @@ public class NotificationWizard extends AppCompatActivity {
             public void onClick(View v) {
                 if(refundCheckBox.isChecked()){
                     refundInputText.setVisibility(View.VISIBLE);
+                    inventoryInputText.setVisibility(View.INVISIBLE);
                     invCheckBox.setChecked(false);
                 }else{
                     refundInputText.setVisibility(View.INVISIBLE);
@@ -113,15 +115,17 @@ public class NotificationWizard extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //if periodic
                 if(spinner.getSelectedItemPosition() == 0){
-                    invCheckBox.setVisibility(View.INVISIBLE);
-                    refundCheckBox.setVisibility(View.INVISIBLE);
-                    inventoryInputText.setVisibility(View.INVISIBLE);
-                    refundInputText.setVisibility(View.INVISIBLE);
+                    invCheckBox.setVisibility(View.VISIBLE);
+                    refundCheckBox.setVisibility(View.VISIBLE);
+                    inventoryInputText.setHint("HHMM");
+                    refundInputText.setHint("HHMM");
                 }
                 //if custom
                 if(spinner.getSelectedItemPosition() == 1){
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
+                    inventoryInputText.setHint("Dollars");
+                    refundInputText.setHint("Dollars");
                 }
             }
 
