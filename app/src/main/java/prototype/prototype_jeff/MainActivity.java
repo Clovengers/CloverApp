@@ -20,6 +20,7 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -97,7 +98,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendEmail();
-                sendEmail("Test email", "This is a test email");
+                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+                ArrayList<String> emailTestList = new ArrayList<String>();
+                emailTestList.add("First");
+                emailTestList.add("Second");
+                emailTestList.add("Third");
+
+                for(String s: emailTestList){
+                    sendEmail("Test email", s);
+
+                }
+
             }
         });
 
@@ -188,8 +199,8 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-//                String to = "SeniorProjectClover@gmail.com";
-                String to = NotificationWizard.recipientEmailAddress;
+                String to = "SeniorProjectClover@gmail.com";
+                //String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));

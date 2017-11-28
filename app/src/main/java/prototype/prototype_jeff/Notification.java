@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -109,8 +110,13 @@ public class Notification extends AppCompatActivity {
         });
 
         MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
-        mailSenderTask.execute();
-
+        try {
+            String holder = mailSenderTask.execute().get();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         //sendMobileText(mailText);
     }
 
@@ -133,8 +139,8 @@ public class Notification extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-//                String to = "SeniorProjectClover@gmail.com";
-                String to = NotificationWizard.recipientEmailAddress;
+                String to = "SeniorProjectClover@gmail.com";
+                //String to = emailList.get(0);
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
