@@ -183,7 +183,9 @@ public class RefundReceiver extends BroadcastReceiver {
         for (int x =0; x< stockList.size(); x++){
             list.add(stockList.get(x));
         }
-
+        for (Periodic p: NotificationWizard.periodicList) {
+            list.add(p);
+        }
 
 
         return list;

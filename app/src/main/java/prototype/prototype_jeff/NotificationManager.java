@@ -78,6 +78,10 @@ public class NotificationManager extends AppCompatActivity {
                     MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
                 }
 
+                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")){
+                    NotificationWizard.periodicList.remove(notifications.get(currentIndex));
+                }
+
                 notifications.remove(currentIndex);
 
                     currentIndex =0;
@@ -96,7 +100,7 @@ public class NotificationManager extends AppCompatActivity {
 
 
         if(notifications != null && notifications.size() != 0) {
-            numberOfText.setText(currentIndex + " of " + notifications.size());
+            numberOfText.setText((currentIndex + 1) + " of " + notifications.size());
 
             if(notifications.get(currentIndex) != null){
                 Log.d("MANAGER", "Test Update Info notification to string " + notifications.get(currentIndex).toString());
