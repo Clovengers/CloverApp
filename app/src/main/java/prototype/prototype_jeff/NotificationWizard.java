@@ -210,13 +210,13 @@ public class NotificationWizard extends AppCompatActivity {
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {
-            refund.addEmail(s);
+            periodic.addEmail(s);
             Log.d("JEFF EMAIL ADD CHECK", s);
         }
         s = phoneNumber.getText().toString();
         Log.d("JEFF PHONE CHECK", s);
         if (phoneBox.isChecked() && s != "" && s != null) {
-            refund.addPhoneNumber(s);
+            periodic.addPhoneNumber(s);
             Log.d("JEFF PHONE ADD CHECK", s);
         }
 

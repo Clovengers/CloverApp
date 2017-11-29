@@ -24,8 +24,9 @@ public class Periodic extends Notification {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-
+        numberOfDaysInterval = numDays;
         daysSince = 0;
+        this.calendar = calendar;
 
     }
 
@@ -48,8 +49,8 @@ public class Periodic extends Notification {
     @Override
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
-
-        if ( cal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR) >= daysSince){
+        daysSince = cal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
+        if (daysSince >= numberOfDaysInterval){
             daysSince =0;
             calendar = cal;
             if(emailList.size() >0 ){

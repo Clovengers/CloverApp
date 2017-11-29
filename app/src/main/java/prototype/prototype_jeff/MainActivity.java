@@ -76,11 +76,16 @@ public class MainActivity extends AppCompatActivity {
         TimerTask hourlyTask = new TimerTask () {
             @Override
             public void run () {
-                //send notification method call on each saved periodic
-                ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
-                for(Periodic p: periodicArrayList){
-                    p.sendNotification();
+
+                if(NotificationWizard.periodicList != null){
+                    //send notification method call on each saved periodic
+                    ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
+
+                    for(Periodic p: periodicArrayList){
+                        p.sendNotification();
+                    }
                 }
+
             }
         };
 
