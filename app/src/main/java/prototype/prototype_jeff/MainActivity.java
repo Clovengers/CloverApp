@@ -4,14 +4,12 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v3.employees.Permission;
 import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
-import java.util.jar.Manifest;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     //Used to create pop up msgs
     AlertDialog.Builder builder;
 
+    private Timer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +71,26 @@ public class MainActivity extends AppCompatActivity {
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 
+        //periodic Time check once an hour
+        timer = new Timer();
+        TimerTask hourlyTask = new TimerTask () {
+            @Override
+            public void run () {
 
+                if(NotificationWizard.periodicList != null){
+                    //send notification method call on each saved periodic
+                    ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
 
+                    for(Periodic p: periodicArrayList){
+                        p.sendNotification();
+                    }
+                }
+
+            }
+        };
+
+        // schedule the task to run starting now and then every hour...
+        timer.schedule (hourlyTask, 0l, 1000*60*60);
 
         settings = establishSettings();
 
@@ -84,7 +104,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendEmail();
-                sendEmail("Test email", "This is a test email");
+                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+                ArrayList<String> emailTestList = new ArrayList<String>();
+                emailTestList.add("First");
+                emailTestList.add("Second");
+                emailTestList.add("Third");
+
+                for(String s: emailTestList){
+                    sendEmail("Test email", s);
+
+                }
+
             }
         });
 
@@ -151,7 +181,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
-        mailSenderTask.execute();
+
+        try {
+            String holder = mailSenderTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         sendMobileText(mailText);
     }
@@ -175,8 +212,8 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-//                String to = "SeniorProjectClover@gmail.com";
-                String to = NotificationWizard.recipientEmailAddress;
+                String to = "SeniorProjectClover@gmail.com";
+                //String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
