@@ -19,27 +19,21 @@ public class Refund extends Notification{
         setRefundAmount(amount);
     }
 
-    public void setEmailList(ArrayList<String> list) {
-        emailList = list;
-    }
 
-    public void setPhoneNumberList(ArrayList<String> list) {
-        phoneNumberList = list;
-    }
 
     public void setRefundAmount(double refund) {
         refundAmount = refund;
     }
 
-    public ArrayList<String> getEmailList() {
-        return emailList;
-    }
-
-    public ArrayList<String> getPhoneNumberList() {
-        return phoneNumberList;
-    }
-
     public double getRefundAmount() {
         return refundAmount;
     }
+
+    protected String message = "A refund has been made that is greater than " + -1*refundAmount + "$";
+
+
+
+
 }
+
+

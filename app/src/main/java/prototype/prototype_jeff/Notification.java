@@ -25,9 +25,9 @@ import javax.mail.internet.MimeMessage;
  */
 
 public class Notification extends AppCompatActivity {
-    private ArrayList<String> emailList = new ArrayList<String>();
+    protected ArrayList<String> emailList = new ArrayList<String>();
 
-    private ArrayList<String> phoneNumberList = new ArrayList<String>();
+    protected ArrayList<String> phoneNumberList = new ArrayList<String>();
 
     protected void setEmailList(ArrayList<String> list) {
         emailList = list;
@@ -53,8 +53,25 @@ public class Notification extends AppCompatActivity {
         return phoneNumberList;
     }
 
-    protected void sendNotification(){
+    protected String message = "Generic Notification Alert";
 
+    protected String emailToBeSent;
+
+    protected void sendNotification(){
+        if(emailList.size() >0 ){
+            //TODO send email about sales data or something
+            //TODO main activity get information from inventory
+            for(String s : emailList){
+                sendEmail(this.getClass().getSimpleName() + " Alert", message, s );
+
+            }
+
+        }
+
+        if(phoneNumberList.size() >0 ){
+            //TODO send text
+            sendMobileText("Periodic Test");
+        }
     }
 
     @Override
@@ -90,11 +107,11 @@ public class Notification extends AppCompatActivity {
         }
     }
 
-    protected void sendEmail(String mailSubject, String mailText) {
+    protected void sendEmail(String mailSubject, String mailText, String address) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
         final String pass = "S3n10rPr0j3ct";
-
+        emailToBeSent = address;
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.socketFactory.port", "465");
@@ -139,8 +156,8 @@ public class Notification extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-                String to = "SeniorProjectClover@gmail.com";
-                //String to = emailList.get(0);
+                //String to = "SeniorProjectClover@gmail.com";
+                String to = emailToBeSent;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));

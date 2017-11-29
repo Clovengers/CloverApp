@@ -112,6 +112,12 @@ public class RefundReceiver extends BroadcastReceiver {
 
                     //sendEmail("Order Detected","An order was just placed.\n\n" + "If that wasn't you, you may need to look into this.");
                    // }
+
+                    for(Refund r : refundList){
+                        if(lastOrder.getTotal() <= r.getRefundAmount()){
+                            r.sendNotification();
+                        }
+                    }
                     if (lastOrder.getTotal() < -5000) // refund exceeds $50 THIS IS A PLACEHOLDER
                     {
                             NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);

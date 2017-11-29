@@ -9,9 +9,6 @@ import java.util.Calendar;
 
 public class Periodic extends Notification {
 
-    private ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
-
-    private ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
 
     private int dayOfWeek;
 
@@ -20,13 +17,18 @@ public class Periodic extends Notification {
     private int daysSince;
     private Calendar calendar;
 
-    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
+    protected String message = "Generic Notification Alert";
+    protected int type;
+
+    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays, int type) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
         numberOfDaysInterval = numDays;
         daysSince = 0;
         this.calendar = calendar;
+        this.type = type;
+
 
     }
 
@@ -48,6 +50,18 @@ public class Periodic extends Notification {
 
     @Override
     protected void sendNotification(){
+        //type 1 = inventory
+        //type 2 = sales data
+
+        if(type == 1){
+            message = "Your periodic inventory alert";
+        }
+        if(type == 2){
+            message = "Your periodic sales alert";
+        }
+
+
+
         Calendar cal = Calendar.getInstance();
         daysSince = cal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
         if (daysSince >= numberOfDaysInterval){
@@ -56,8 +70,10 @@ public class Periodic extends Notification {
             if(emailList.size() >0 ){
                 //TODO send email about sales data or something
                 //TODO main activity get information from inventory
+                for(String s : emailList){
+                    sendEmail("Periodic Alert", "The body of the email", s );
 
-                sendEmail("Test email from periodic", "The body of the email");
+                }
 
             }
 

@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendEmail();
-                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7,1);
                 ArrayList<String> emailTestList = new ArrayList<String>();
                 emailTestList.add("First");
                 emailTestList.add("Second");
