@@ -83,7 +83,7 @@ public class Notification extends AppCompatActivity {
 //        String phoneNum = "1234567890";
         String phoneNum = phoneNumberList.get(0);
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS)
+        if (ContextCompat.checkSelfPermission(MainActivity.mainActivity, android.Manifest.permission.SEND_SMS)
                 == PackageManager.PERMISSION_GRANTED) {
             SmsManager.getDefault().sendTextMessage(phoneNum, null, body, null, null);
         } else {
@@ -139,8 +139,8 @@ public class Notification extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-                String to = "SeniorProjectClover@gmail.com";
-                //String to = emailList.get(0);
+//                String to = "SeniorProjectClover@gmail.com";
+                String to = emailList.get(0);
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
 
     static public RefundReceiver refundReceiver;
+    static public MainActivity mainActivity;
 
     private Intent emailInent;
 
@@ -66,16 +67,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.mainActivity = this;
         setContentView(R.layout.activity_main);
-        refundReceiver=new RefundReceiver(this);
+        refundReceiver=new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
-        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
-        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
-        refund1.emailList.add("jeffreylehman94@gmail.com");
-        refund2.emailList.add("lehmanj3@students.rowan.edu");
-        RefundReceiver.refundList.add(refund1);
-        RefundReceiver.refundList.add(refund2);
+//        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
+//        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
+//        refund1.emailList.add("SeniorProjectClover@gmail.com");
+//        refund2.emailList.add("mendelsoa8@students.rowan.edu");
+//        RefundReceiver.refundList.add(refund1);
+//        RefundReceiver.refundList.add(refund2);
 
         //periodic Time check once an hour
         timer = new Timer();
@@ -218,8 +220,8 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-                String to = "SeniorProjectClover@gmail.com";
-                //String to = NotificationWizard.recipientEmailAddress;
+//                String to = "SeniorProjectClover@gmail.com";
+                String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));

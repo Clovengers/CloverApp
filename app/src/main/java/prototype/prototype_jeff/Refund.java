@@ -42,8 +42,15 @@ public class Refund extends Notification{
 
     @Override
     protected void sendNotification(){
-        sendEmail("Large Refund Detected",
-                "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
-                        "If that wasn't you, you may need to look into this.");
+        if (!emailList.isEmpty()) {
+            sendEmail("Large Refund Detected",
+                    "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
+                            "If that wasn't you, you may need to look into this.");
+        }
+        if (!phoneNumberList.isEmpty()) {
+            sendMobileText("A refund was just issued that exceeded $"
+                    + getRefundAmount() + "\n\n" +
+                    "If that wasn't you, you may need to look into this.");
+        }
     }
 }

@@ -44,18 +44,13 @@ public class RefundReceiver extends BroadcastReceiver {
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
-    private static MainActivity mainActivity;
+//    private static MainActivity mainActivity;
     static private int i = 0;
 
 
     PopupActivity pa = new PopupActivity();
 
-    public RefundReceiver(MainActivity mainActivity) {
-        RefundReceiver.mainActivity = mainActivity;
-    }
-
     @Override
-
     public void onReceive(Context context, Intent intent) {
         for(int i=0;i<refundList.size();i++){
             emails.push(refundList.get(i).emailList.get(0));
@@ -247,7 +242,7 @@ public class RefundReceiver extends BroadcastReceiver {
             try {
                 String from = "SeniorProjectClover@gmail.com";
                 String to = "SeniorProjectClover@gmail.com";
-                //String to = NotificationWizard.recipientEmailAddress;
+//                String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
