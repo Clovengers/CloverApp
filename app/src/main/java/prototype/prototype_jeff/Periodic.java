@@ -9,22 +9,20 @@ import java.util.Calendar;
 
 public class Periodic extends Notification {
 
-    private ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
-
-    private ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
-
     private int dayOfWeek;
 
     private int numberOfDaysInterval = 7; //7 would be weekly
 
     private int daysSince;
+    private Calendar calendar;
 
-    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, int dayOfWeek, int numDays) {
+    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-
+        numberOfDaysInterval = numDays;
         daysSince = 0;
+        this.calendar = calendar;
 
     }
 
@@ -47,16 +45,21 @@ public class Periodic extends Notification {
     @Override
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
-
-        if ( cal.get(Calendar.DAY_OF_WEEK) == dayOfWeek){
+        daysSince = cal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
+        if (daysSince >= numberOfDaysInterval){
             daysSince =0;
+            calendar = cal;
             if(emailList.size() >0 ){
                 //TODO send email about sales data or something
                 //TODO main activity get information from inventory
+
+                sendEmail("Test email from periodic", "The body of the email");
+
             }
 
             if(phoneNumberList.size() >0 ){
-                //TODO send text 
+                //TODO send text
+                sendMobileText("Periodic Test");
             }
         }
     }
