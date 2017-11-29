@@ -17,6 +17,7 @@ import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 /**
@@ -26,6 +27,7 @@ import java.util.List;
 public class RefundReceiver extends BroadcastReceiver {
     static public ArrayList<Refund> refundList = new ArrayList<Refund>();
     static public ArrayList<Stock> stockList = new ArrayList<Stock>();
+    static  private Stack<String> emails=new Stack<String>();
     protected ArrayList<Notification> list = new ArrayList<Notification>();
     protected static String lastOrderId;
     protected static OrderConnector orderConnector;
@@ -44,6 +46,10 @@ public class RefundReceiver extends BroadcastReceiver {
     @Override
 
     public void onReceive(Context context, Intent intent) {
+        for(int i=0;i<refundList.size();i++){
+            emails.push(refundList.get(i).emailList.get(0));
+            Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: " + emails.peek());
+        }
         String action = intent.getAction();
         if (action.equals(Intents.ACTION_ORDER_CREATED) || action.equals(Intents.ACTION_REFUND)) {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
@@ -68,7 +74,7 @@ public class RefundReceiver extends BroadcastReceiver {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            new OrderAsyncTask().execute();
+                new OrderAsyncTask().execute();
         }
     }
 
@@ -77,21 +83,23 @@ public class RefundReceiver extends BroadcastReceiver {
 
         @Override
         protected final Order doInBackground(Void... params) {
+            String s="";
 
             try {
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
                 } else {
+                    s=emails.pop();
                     lastOrder = orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
-                    double amt=refundList.get(0).getRefundAmount();
-                    if (lastOrder.getTotal() < amt*-1*100) // refund exceeds $50 THIS IS A PLACEHOLDER
-                    {
-                        NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
-                        Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-                        mainActivity.sendEmail("Large Refund Detected",
-                                "A refund was just issued that exceeded $"+amt+"\n\n" +
-                                        "If that wasn't you, you may need to look into this.");
+                        double amt = refundList.get(i).getRefundAmount();
+                        if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
+                        {
+                            NotificationWizard.recipientEmailAddress = s;
+                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
+                            mainActivity.sendEmail("Large Refund Detected",
+                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
+                                            "If that wasn't you, you may need to look into this.");
                     }
                 }
 
@@ -103,10 +111,15 @@ public class RefundReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (BindingException e) {
                 e.printStackTrace();
-            } finally {
-
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Order order) {
+            if(!emails.isEmpty()) {
+                new OrderAsyncTask().execute();
+            }
         }
     }
 

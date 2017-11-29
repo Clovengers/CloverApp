@@ -32,7 +32,6 @@ public class NotificationManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_manager);
 
-
         prevButton = (Button) findViewById(R.id.prevButton);
         nexButton = (Button) findViewById(R.id.nextButton);
         delButton = (Button) findViewById(R.id.deleteButton);

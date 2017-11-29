@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         refundReceiver=new RefundReceiver(this);
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
+        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
+        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
+        refund1.emailList.add("jeffreylehman94@gmail.com");
+        refund2.emailList.add("lehmanj3@students.rowan.edu");
+        RefundReceiver.refundList.add(refund1);
+        RefundReceiver.refundList.add(refund2);
 
 
 
