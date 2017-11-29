@@ -25,9 +25,9 @@ import javax.mail.internet.MimeMessage;
  */
 
 public class Notification extends AppCompatActivity {
-    private ArrayList<String> emailList = new ArrayList<String>();
+    protected ArrayList<String> emailList = new ArrayList<String>();
 
-    private ArrayList<String> phoneNumberList = new ArrayList<String>();
+    protected ArrayList<String> phoneNumberList = new ArrayList<String>();
 
     protected void setEmailList(ArrayList<String> list) {
         emailList = list;

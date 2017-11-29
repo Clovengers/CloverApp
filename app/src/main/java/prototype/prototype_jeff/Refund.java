@@ -7,9 +7,6 @@ import java.util.ArrayList;
  */
 
 public class Refund extends Notification{
-    public ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
-
-    public ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
@@ -41,5 +38,12 @@ public class Refund extends Notification{
 
     public double getRefundAmount() {
         return refundAmount;
+    }
+
+    @Override
+    protected void sendNotification(){
+        sendEmail("Large Refund Detected",
+                "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
+                        "If that wasn't you, you may need to look into this.");
     }
 }

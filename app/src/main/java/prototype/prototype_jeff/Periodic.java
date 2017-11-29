@@ -9,10 +9,6 @@ import java.util.Calendar;
 
 public class Periodic extends Notification {
 
-    private ArrayList<String> emailList = new ArrayList<String>(); // Emails that will get the notifications
-
-    private ArrayList<String> phoneNumberList = new ArrayList<String>(); // Phone numbers that will get the notifications
-
     private int dayOfWeek;
 
     private int numberOfDaysInterval = 7; //7 would be weekly

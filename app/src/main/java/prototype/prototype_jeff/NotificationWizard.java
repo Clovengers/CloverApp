@@ -210,7 +210,7 @@ public class NotificationWizard extends AppCompatActivity {
 
     private Periodic createPeriodic(){
         //7 number of days inbetween sending or weekly
-        Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+        Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 0);
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {

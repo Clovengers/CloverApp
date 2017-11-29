@@ -108,15 +108,18 @@ public class RefundReceiver extends BroadcastReceiver {
                     //if (lastOrder.getTotal() == 0) { // it's just an order
                     Log.d("MAIL CHECK: ", "Test to see if code is reached");
 
-                    double amt=refundList.get(0).getRefundAmount();
-                    if (lastOrder.getTotal() < amt*-1*100) // refund exceeds $50 THIS IS A PLACEHOLDER
-                    {
-                        NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
-                        Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-                        mainActivity.sendEmail("Large Refund Detected",
-                                "A refund was just issued that exceeded $"+amt+"\n\n" +
-                                        "If that wasn't you, you may need to look into this.");
-                    }
+//                    for (Refund refund: refundList) {
+//                        double amt=refundList.get(0).getRefundAmount();
+//                        if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
+//                        {
+////                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
+//                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
+////                            mainActivity.sendEmail("Large Refund Detected",
+////                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
+////                                            "If that wasn't you, you may need to look into this.");
+//                            refund.sendNotification();
+//                        }
+//                    }
                 }
 
             } catch (RemoteException e) {
@@ -131,6 +134,24 @@ public class RefundReceiver extends BroadcastReceiver {
 
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Order order) {
+            super.onPostExecute(order);
+
+            for (Refund refund: refundList) {
+                double amt=refundList.get(0).getRefundAmount();
+                if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
+                {
+//                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
+                    Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
+//                            mainActivity.sendEmail("Large Refund Detected",
+//                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
+//                                            "If that wasn't you, you may need to look into this.");
+                    refund.sendNotification();
+                }
+            }
         }
     }
 
