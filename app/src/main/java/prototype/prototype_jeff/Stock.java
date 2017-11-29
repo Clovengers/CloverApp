@@ -1,7 +1,6 @@
 package prototype.prototype_jeff;
 
 import java.util.ArrayList;
-import com.clover.sdk.v3.inventory.Item;
 
 /**
  * Created by Jeff on 11/5/2017.
@@ -18,30 +17,18 @@ public class Stock extends Notification{
         setStockItem(item);
         setItemPercentage(percentage);
     }
-    public void setEmailList(ArrayList<String> list){
-        emailList=list;
-    }
 
-    public void setPhoneNumberList (ArrayList<String> list){
-        phoneNumberList=list;
-    }
-    public void setStockItem (String item){
+    protected void setStockItem (String item){
         stockItem=item;
     }
-    public void setItemPercentage(int percentage){
+    protected void setItemPercentage(int percentage){
         itemPercentage=percentage;
     }
 
-    public ArrayList<String> getEmailList(){
-        return emailList;
-    }
-    public ArrayList<String> getPhoneNumberList(){
-        return phoneNumberList;
-    }
-    public String getStockItem(){
+    protected String getStockItem(){
         return stockItem;
     }
-    public int getItemPercentage(){
+    protected int getItemPercentage(){
         return itemPercentage;
     }
 }

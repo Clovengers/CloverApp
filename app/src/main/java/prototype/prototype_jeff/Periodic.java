@@ -1,5 +1,7 @@
 package prototype.prototype_jeff;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -42,6 +44,10 @@ public class Periodic extends Notification {
         return numberOfDaysInterval;
     }
 
+    protected String message = "Periodc message email";
+
+    protected String phoneMessage = "Periodic message text";
+
     @Override
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
@@ -49,17 +55,22 @@ public class Periodic extends Notification {
         if (daysSince >= numberOfDaysInterval){
             daysSince =0;
             calendar = cal;
-            if(emailList.size() >0 ){
-                //TODO send email about sales data or something
-                //TODO main activity get information from inventory
+            if (!emailList.isEmpty()) {
 
-                sendEmail("Test email from periodic", "The body of the email");
+                for(String s : emailList){
+                    sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
+                    Log.d("EMAIL SENDING TO:", s );
+                }
+
+
 
             }
+            if (!phoneNumberList.isEmpty()) {
 
-            if(phoneNumberList.size() >0 ){
-                //TODO send text
-                sendMobileText("Periodic Test");
+                for(String p : phoneNumberList){
+                    sendMobileText(phoneMessage, p);
+                }
+
             }
         }
     }

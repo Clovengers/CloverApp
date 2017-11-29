@@ -53,8 +53,28 @@ public class Notification extends AppCompatActivity {
         return phoneNumberList;
     }
 
-    protected void sendNotification(){
+    private String emailToBeSent;
+    protected String message = "Generic Notification Alert";
+    protected String phoneMessage = "Generic Phone Notification Alert";
 
+    protected void sendNotification(){
+        if (!emailList.isEmpty()) {
+
+            for(String s : emailList){
+                sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
+                Log.d("EMAIL SENDING TO:", s );
+            }
+
+
+
+        }
+        if (!phoneNumberList.isEmpty()) {
+
+            for(String p : phoneNumberList){
+                sendMobileText(phoneMessage, p);
+            }
+
+        }
     }
 
     @Override
@@ -79,9 +99,8 @@ public class Notification extends AppCompatActivity {
     }
 
 
-    protected void sendMobileText(String body) {
+    protected void sendMobileText(String body, String phoneNum) {
 //        String phoneNum = "1234567890";
-        String phoneNum = phoneNumberList.get(0);
 
         if (ContextCompat.checkSelfPermission(MainActivity.mainActivity, android.Manifest.permission.SEND_SMS)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -90,10 +109,11 @@ public class Notification extends AppCompatActivity {
         }
     }
 
-    protected void sendEmail(String mailSubject, String mailText) {
+    protected void sendEmail(String mailSubject, String mailText, String address) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
         final String pass = "S3n10rPr0j3ct";
+        emailToBeSent = address;
 
         Properties props = new Properties();
         props.put("mail.smtp.host", host);

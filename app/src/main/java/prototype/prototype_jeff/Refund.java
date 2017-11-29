@@ -1,5 +1,7 @@
 package prototype.prototype_jeff;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -10,47 +12,45 @@ public class Refund extends Notification{
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
+    protected String message = "A refund was just issued that exceeded $" + refundAmount + "\n\n" +
+            "If that wasn't you, you may need to look into this.";
+
+    protected String phoneMessage = "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
+            "If that wasn't you, you may need to look into this.";
+
+
     public Refund(ArrayList<String> emails, ArrayList<String> phoneNumbers, double amount) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setRefundAmount(amount);
     }
 
-    public void setEmailList(ArrayList<String> list) {
-        emailList = list;
-    }
-
-    public void setPhoneNumberList(ArrayList<String> list) {
-        phoneNumberList = list;
-    }
-
-    public void setRefundAmount(double refund) {
+    protected void setRefundAmount(double refund) {
         refundAmount = refund;
     }
 
-    public ArrayList<String> getEmailList() {
-        return emailList;
-    }
-
-    public ArrayList<String> getPhoneNumberList() {
-        return phoneNumberList;
-    }
-
-    public double getRefundAmount() {
+    protected double getRefundAmount() {
         return refundAmount;
     }
 
-    @Override
     protected void sendNotification(){
         if (!emailList.isEmpty()) {
-            sendEmail("Large Refund Detected",
-                    "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
-                            "If that wasn't you, you may need to look into this.");
+
+            for(String s : emailList){
+                sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
+                Log.d("EMAIL SENDING TO:", s );
+            }
+
+
+
         }
         if (!phoneNumberList.isEmpty()) {
-            sendMobileText("A refund was just issued that exceeded $"
-                    + getRefundAmount() + "\n\n" +
-                    "If that wasn't you, you may need to look into this.");
+
+            for(String p : phoneNumberList){
+                sendMobileText(phoneMessage, p);
+            }
+
         }
     }
+
 }

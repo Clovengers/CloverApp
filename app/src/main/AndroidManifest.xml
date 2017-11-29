@@ -35,7 +35,8 @@
             android:label="Prototype Event Heard"
             android:launchMode="singleInstance"
             android:taskAffinity=""
-            android:theme="@android:style/Theme.Dialog" />
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".NotificationWizard"
             android:label="@string/title_activity_notification_wizard"

@@ -17,6 +17,7 @@ import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 
 import javax.mail.Authenticator;
@@ -27,8 +28,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.List;
-import java.util.Stack;
 
 
 /**
@@ -47,11 +46,15 @@ public class RefundReceiver extends BroadcastReceiver {
 //    private static MainActivity mainActivity;
     static private int i = 0;
 
+    //TODO fix the need for this
+    protected  static Boolean holder = true;//quick fix for two intents being sent each time
 
     PopupActivity pa = new PopupActivity();
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+
         for(int i=0;i<refundList.size();i++){
             emails.push(refundList.get(i).emailList.get(0));
             Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: " + emails.peek());
@@ -76,6 +79,7 @@ public class RefundReceiver extends BroadcastReceiver {
                 Intent newIntent = new Intent(context, PopupActivity.class);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //wait();
                 context.startActivity(newIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,9 +93,7 @@ public class RefundReceiver extends BroadcastReceiver {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            if(lastOrder != null){
-                sendEmail("test refund reciever", "refund reciever");
-            }
+
         }
     }
 
@@ -106,7 +108,7 @@ public class RefundReceiver extends BroadcastReceiver {
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
                 } else {
-                    s=emails.pop();
+                    //s=emails.pop();
                     lastOrder = orderConnector.getOrder(lastOrderId);
                     Log.d("LAST ORDER: ", lastOrder.toString());
                     //if (lastOrder.getTotal() == 0) { // it's just an order
@@ -149,28 +151,19 @@ public class RefundReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(Order order) {
-            super.onPostExecute(order);
+            //super.onPostExecute(order);
 
             for (Refund refund: refundList) {
                 double amt=refundList.get(0).getRefundAmount();
-                if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
+                holder = !holder;
+                if (lastOrder.getTotal() < amt * -1 * 100 && holder)
                 {
-//                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
-                    Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-//                            mainActivity.sendEmail("Large Refund Detected",
-//                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
-//                                            "If that wasn't you, you may need to look into this.");
                     refund.sendNotification();
+
                 }
             }
         }
 
-//        @Override
-//        protected void onPostExecute(Order order) {
-//            if(!emails.isEmpty()) {
-//                new OrderAsyncTask().execute();
-//            }
-//        }
     }
 
     protected ArrayList<Notification> getNotifications(){
