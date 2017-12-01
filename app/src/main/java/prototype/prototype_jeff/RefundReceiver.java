@@ -35,7 +35,7 @@ import javax.mail.internet.MimeMessage;
  * When detected, these intents will be checked against ArrayLists of notifications
  * If criteria is met, an email and/or text message will be sent
  * This class now also contains the required methods for sending an email
- * <p>
+ *
  * Updated: 1 December 2017
  */
 

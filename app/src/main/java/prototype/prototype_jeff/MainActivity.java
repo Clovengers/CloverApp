@@ -15,17 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,6 +31,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+/*
+ * Astract: The first activity to run when the app is started
+ * This creates all required parts of the application including layout functionality
+ *
+ * Updated: 1 December 2017
+ */
 
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MainActivity.mainActivity = this;
         setContentView(R.layout.activity_main);
-        refundReceiver=new RefundReceiver();
+        refundReceiver = new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 //        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
@@ -81,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
 
         //periodic Time check once an hour
         timer = new Timer();
-        TimerTask hourlyTask = new TimerTask () {
+        TimerTask hourlyTask = new TimerTask() {
             @Override
-            public void run () {
+            public void run() {
 
-                if(NotificationWizard.periodicList != null){
+                if (NotificationWizard.periodicList != null) {
                     //send notification method call on each saved periodic
                     ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
 
-                    for(Periodic p: periodicArrayList){
+                    for (Periodic p : periodicArrayList) {
                         p.sendNotification();
                     }
                 }
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // schedule the task to run starting now and then every hour...
-        timer.schedule (hourlyTask, 0l, 1000*60*60);
+        timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
 
         settings = establishSettings();
 
@@ -112,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendEmail();
-                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 7);
+                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 7);
                 ArrayList<String> emailTestList = new ArrayList<String>();
                 emailTestList.add("First");
                 emailTestList.add("Second");
                 emailTestList.add("Third");
 
-                for(String s: emailTestList){
+                for (String s : emailTestList) {
                     sendEmail("Test email", s);
 
                 }
@@ -247,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
         //list.add(findViewById(R.id.setting1CheckBox));
 
-        for(View v: list) {
+        for (View v : list) {
             v.setVisibility(View.INVISIBLE);
         }
 
@@ -274,27 +278,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("DEBUGGER_JEFF", "onResume START");
-
     }
+
     @Override
     public void onPause() {
         super.onPause();
         getApplicationContext().registerReceiver(refundReceiver, new IntentFilter("com.clover.intent.action.ORDER_CREATED"));
-        mAccount= CloverAccount.getAccount(this);
-        Log.d("DEBUGGER_JEFF", "PAUSE START");
+        mAccount = CloverAccount.getAccount(this);
     }
 
-
-    protected void onUpdate(){
+    protected void onUpdate() {
         //TODO add in timer for periodic checking of current data
 
-        for(int x =0; x< periodicList.size(); x++){
+        for (int x = 0; x < periodicList.size(); x++) {
             periodicList.get(x).sendNotification();
         }
-
-
     }
-
-
 }
