@@ -31,60 +31,44 @@ import javax.mail.internet.MimeMessage;
 
 
 /**
- * Created by Jeff on 10/12/2017.
+ * Abstract: When created, a RefundReceiver object will receive specific broadcasted intents
+ * When detected, these intents will be checked against ArrayLists of notifications
+ * If criteria is met, an email and/or text message will be sent
+ * This class now also contains the required methods for sending an email
+ * <p>
+ * Updated: 1 December 2017
  */
 
 public class RefundReceiver extends BroadcastReceiver {
     static public ArrayList<Refund> refundList = new ArrayList<Refund>();
     static public ArrayList<Stock> stockList = new ArrayList<Stock>();
-    static  private Stack<String> emails=new Stack<String>();
+    static private Stack<String> emails = new Stack<String>();
     protected ArrayList<Notification> list = new ArrayList<Notification>();
     protected static String lastOrderId;
     protected static OrderConnector orderConnector;
     private Account mAccount;
     private static Order lastOrder;
-//    private static MainActivity mainActivity;
-    static private int i = 0;
-
     //TODO fix the need for this
-    protected  static Boolean holder = true;//quick fix for two intents being sent each time
+    protected static Boolean holder = true;//quick fix for two intents being sent each time
 
     PopupActivity pa = new PopupActivity();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-
-        for(int i=0;i<refundList.size();i++){
-            emails.push(refundList.get(i).emailList.get(0));
-            Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: " + emails.peek());
-        }
         String action = intent.getAction();
-        if (action.equals(Intents.ACTION_ORDER_CREATED) || action.equals(Intents.ACTION_REFUND)) {
+        if (action.equals(Intents.ACTION_ORDER_CREATED)) {
             final String orderId = intent.getStringExtra(Intents.EXTRA_CLOVER_ORDER_ID);
             lastOrderId = orderId;
-            Log.d("DEBUGGER_JEFF", "ORDER FIRED, id of order: " + lastOrderId.toString());
-
             mAccount = MainActivity.mAccount;
-            Log.d("DEBUGGER_JEFF", "ACCOUNT: " + mAccount);
-            //orderConnector=new OrderConnector(context, mAccount, null);
-            Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CREATED ");
-            //orderConnector.connect();
-            if (orderConnector.isConnected()) {
-                Log.d("DEBUGGER_JEFF", "ORDER CONNECTOR CONNECTED ");
-            }
-
 
             try {
                 Intent newIntent = new Intent(context, PopupActivity.class);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //wait();
                 context.startActivity(newIntent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
             try {
                 Order o = new OrderAsyncTask().execute().get();
@@ -93,48 +77,21 @@ public class RefundReceiver extends BroadcastReceiver {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
 
-    protected static class OrderAsyncTask extends AsyncTask<Void, Void, Order> {
+    private static class OrderAsyncTask extends AsyncTask<Void, Void, Order> {
 
         @Override
         protected final Order doInBackground(Void... params) {
-            String s="";
+            String s = "";
 
             try {
                 if (lastOrderId == null) {
                     orderConnector.disconnect();
                 } else {
-                    //s=emails.pop();
                     lastOrder = orderConnector.getOrder(lastOrderId);
-                    Log.d("LAST ORDER: ", lastOrder.toString());
-                    //if (lastOrder.getTotal() == 0) { // it's just an order
-                    Log.d("MAIL CHECK: ", "Test to see if code is reached");
-
-//                    for (Refund refund: refundList) {
-//                        double amt=refundList.get(0).getRefundAmount();
-//                        if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
-//                        {
-////                            NotificationWizard.recipientEmailAddress = refundList.get(0).getEmailList().get(0);
-//                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-////                            mainActivity.sendEmail("Large Refund Detected",
-////                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
-////                                            "If that wasn't you, you may need to look into this.");
-//                            refund.sendNotification();
-//                        }
-//                    }
-//                        double amt = refundList.get(i).getRefundAmount();
-//                        if (lastOrder.getTotal() < amt * -1 * 100) // refund exceeds $50 THIS IS A PLACEHOLDER
-//                        {
-//                            NotificationWizard.recipientEmailAddress = s;
-//                            Log.d("EMAIL SENDING TO:", NotificationWizard.recipientEmailAddress);
-//                            mainActivity.sendEmail("Large Refund Detected",
-//                                    "A refund was just issued that exceeded $" + amt + "\n\n" +
-//                                            "If that wasn't you, you may need to look into this.");
-//                        }
                 }
 
             } catch (RemoteException e) {
@@ -151,39 +108,30 @@ public class RefundReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(Order order) {
-            //super.onPostExecute(order);
-
-            for (Refund refund: refundList) {
-                double amt=refundList.get(0).getRefundAmount();
+            for (Refund refund : refundList) {
+                double amt = refundList.get(0).getRefundAmount();
                 holder = !holder;
-                if (lastOrder.getTotal() < amt * -1 * 100 && holder)
-                {
+                if (lastOrder.getTotal() < amt * -1 * 100 && holder) {
                     refund.sendNotification();
 
                 }
             }
         }
-
     }
 
-    protected ArrayList<Notification> getNotifications(){
-
+    protected ArrayList<Notification> getNotifications() {
         list = new ArrayList<Notification>();
-
-        for (int x =0; x< refundList.size(); x++){
+        for (int x = 0; x < refundList.size(); x++) {
             list.add(refundList.get(x));
         }
-        for (int x =0; x< stockList.size(); x++){
+        for (int x = 0; x < stockList.size(); x++) {
             list.add(stockList.get(x));
         }
-        for (Periodic p: NotificationWizard.periodicList) {
+        for (Periodic p : NotificationWizard.periodicList) {
             list.add(p);
         }
-
-
         return list;
     }
-
 
 
     protected static void sendEmail(String mailSubject, String mailText) {
@@ -237,7 +185,6 @@ public class RefundReceiver extends BroadcastReceiver {
             try {
                 String from = "SeniorProjectClover@gmail.com";
                 String to = "SeniorProjectClover@gmail.com";
-//                String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
                 msg.setFrom(new InternetAddress(from));
@@ -249,11 +196,7 @@ public class RefundReceiver extends BroadcastReceiver {
             } catch (MessagingException e) {
                 System.err.println(e);
             }
-
             return null;
         }
-
     }
-
-
 }
