@@ -21,7 +21,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Created by Brian French on 11/24/2017.
+ * Abstract: A class which will act as a Super to other notification classes due to their
+ *           similarities
+ *
+ * Updated: 1 December 2017
  */
 
 public class Notification extends AppCompatActivity {
