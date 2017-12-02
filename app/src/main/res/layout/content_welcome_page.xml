@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="prototype.prototype_jeff.WelcomePage"
+    tools:showIn="@layout/activity_welcome_page">
+
+    <LinearLayout
+        android:layout_width="619dp"
+        android:layout_height="295dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:fontFamily="serif-monospace"
+            android:text="NOTIFI"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:text="\n Handling your data so you don't have to"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="158dp"
+            android:background="@color/colorPrimary"
+            android:elevation="0dp"
+            android:fontFamily="serif-monospace"
+            android:text="Start"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
