@@ -202,14 +202,14 @@ public class NotificationWizard extends AppCompatActivity {
                     if (refundBox.isChecked()) {
                         refund = createRefund();
                         MainActivity.refundReceiver.refundList.add(createRefund());
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                     if (stockBox.isChecked()) {
                         stock = createStock();
                         MainActivity.refundReceiver.stockList.add(stock);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
 
                 }
@@ -219,7 +219,8 @@ public class NotificationWizard extends AppCompatActivity {
                     Periodic createdPeriodic = createPeriodic();
                     if (createdPeriodic != null) {
                         periodicList.add(createdPeriodic);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 }
 

@@ -60,14 +60,14 @@ public class RefundReceiver extends BroadcastReceiver {
             lastOrderId = orderId;
             mAccount = MainActivity.mAccount;
 
-            try {
-                Intent newIntent = new Intent(context, PopupActivity.class);
-                newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(newIntent);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Intent newIntent = new Intent(context, PopupActivity.class);
+//                newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                context.startActivity(newIntent);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             try {
                 Order o = new OrderAsyncTask().execute().get();
@@ -110,10 +110,10 @@ public class RefundReceiver extends BroadcastReceiver {
         @Override
         protected void onPostExecute(Order order) {
             for (Refund refund : refundList) {
-                double amt = refundList.get(0).getRefundAmount();
+                double amt = refund.getRefundAmount();
                 holder = !holder;
                 if (lastOrder.getTotal() < amt * -1 * 100 && holder) {
-                    refund.sendNotification(lastOrder.getTotal());
+                    refund.sendNotification(lastOrder.getTotal() * -1 / 100.0);
 
                 }
             }
