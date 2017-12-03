@@ -134,16 +134,16 @@ public class NotificationWizard extends AppCompatActivity {
                 if(spinner.getSelectedItemPosition() == 0){
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
-                    inventoryInputText.setHint("HHMM");  //TODO: what should these really say?
-                    refundInputText.setHint("HHMM"); //TODO: what should these really say?
+                    inventoryInputText.setHint("????");  //TODO: what should these really say?
+                    refundInputText.setHint("????"); //TODO: what should these really say?
                     chosenIntervalRGroup.setVisibility(View.VISIBLE);
                 }
                 //if custom
                 if(spinner.getSelectedItemPosition() == 1){
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
-                    inventoryInputText.setHint("Dollars"); //TODO: what should these really say?
-                    refundInputText.setHint("Dollars"); //TODO: what should these really say?
+                    inventoryInputText.setHint("???????"); //TODO: what should these really say?
+                    refundInputText.setHint("Dollars");
                     chosenIntervalRGroup.setVisibility(View.INVISIBLE);
                 }
             }
@@ -216,20 +216,34 @@ public class NotificationWizard extends AppCompatActivity {
 
                 //Periodic Notification
                 if(spinner.getSelectedItemPosition() == 0){
-                    periodicList.add(createPeriodic());
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
+                    Periodic createdPeriodic = createPeriodic();
+                    if (createdPeriodic != null) {
+                        periodicList.add(createdPeriodic);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
                 }
 
 
                 }
-        });}
+        });
+    }
 
 
     private Periodic createPeriodic(){
         //7 number of days inbetween sending or weekly
-        Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 0);
+        Periodic periodic;
+        if (minuteRBN.isChecked()) {
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0);
+        } else if (hourRBN.isChecked()) {
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, 60);
+        } else if (dayRBN.isChecked()) {
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 1);
+        } else if (monthRBN.isChecked()){
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 30);
+        } else {
+            return null;
+        }
+
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {
