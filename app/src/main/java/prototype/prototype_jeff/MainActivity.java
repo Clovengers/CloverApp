@@ -1,6 +1,7 @@
 package prototype.prototype_jeff;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -15,9 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
+import com.twilio.client.Twilio;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,7 +26,6 @@ import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,7 +34,19 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import java.io.IOException;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 /*
  * Astract: The first activity to run when the app is started
  * This creates all required parts of the application including layout functionality
@@ -44,6 +56,9 @@ import javax.mail.internet.MimeMessage;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private OkHttpClient mClient = new OkHttpClient();
+    private Context mContext;
 
     static public Account mAccount;
     private OrderConnector mOrderConnector;
@@ -83,7 +98,15 @@ public class MainActivity extends AppCompatActivity {
         refundReceiver = new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
+        mContext = getApplicationContext();
+//        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
+//        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
+//        refund1.emailList.add("SeniorProjectClover@gmail.com");
+//        refund2.emailList.add("mendelsoa8@students.rowan.edu");
+//        RefundReceiver.refundList.add(refund1);
+//        RefundReceiver.refundList.add(refund2);
 
+        //periodic Time check once an hour
         timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
@@ -97,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                     for (Periodic p : periodicArrayList) {
                         p.sendNotification();
                     }
-
                 }
 
             }
@@ -124,16 +146,26 @@ public class MainActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendEmail();
-                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 7);
-                ArrayList<String> emailTestList = new ArrayList<String>();
-                emailTestList.add("First");
-                emailTestList.add("Second");
-                emailTestList.add("Third");
+                try {
+                    post("http://15cdc230.ngrok.io", new  Callback(){
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                        }
 
-                for (String s : emailTestList) {
-                    sendEmail("Test email", s);
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"SMS Sent!",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
 
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -302,5 +334,15 @@ public class MainActivity extends AppCompatActivity {
         for (int x = 0; x < periodicList.size(); x++) {
             periodicList.get(x).sendNotification();
         }
+    }
+
+
+    Call post(String url, Callback callback) throws IOException {
+        RequestBody formBody = new FormBody.Builder().add("To", "6094206366").add("Body", "TEST").build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+        Call response = mClient.newCall(request);
+        response.enqueue(callback);
+        Log.d("CALL: ", response.toString()+ "     " + callback.toString());
+        return response;
     }
 }

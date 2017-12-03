@@ -19,6 +19,12 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -31,4 +37,6 @@ dependencies {
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.sun.mail:android-mail:1.6.0'
     compile 'com.sun.mail:android-activation:1.6.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.twilio:client-android:1.2.21'
 }
