@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -20,6 +22,13 @@ public class NotificationWizard extends AppCompatActivity {
 
 
     Spinner spinner;
+
+    RadioGroup chosenIntervalRGroup;
+    RadioButton minuteRBN;
+    RadioButton hourRBN;
+    RadioButton dayRBN;
+    RadioButton monthRBN;
+
     EditText email;
     EditText phoneNumber;
 
@@ -78,6 +87,11 @@ public class NotificationWizard extends AppCompatActivity {
         spinner.setAdapter(adapter);
         setSupportActionBar(toolbar);
 
+        chosenIntervalRGroup = (RadioGroup) findViewById(R.id.chosenIntervalRGroup);
+        minuteRBN = (RadioButton) findViewById(R.id.minuteRBN);
+        hourRBN = (RadioButton) findViewById(R.id.hourRBN);
+        dayRBN = (RadioButton) findViewById(R.id.dayRBN);
+        monthRBN = (RadioButton) findViewById(R.id.monthRBN);
 
 
         invCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -120,15 +134,17 @@ public class NotificationWizard extends AppCompatActivity {
                 if(spinner.getSelectedItemPosition() == 0){
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
-                    inventoryInputText.setHint("HHMM");
-                    refundInputText.setHint("HHMM");
+                    inventoryInputText.setHint("HHMM");  //TODO: what should these really say?
+                    refundInputText.setHint("HHMM"); //TODO: what should these really say?
+                    chosenIntervalRGroup.setVisibility(View.VISIBLE);
                 }
                 //if custom
                 if(spinner.getSelectedItemPosition() == 1){
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
-                    inventoryInputText.setHint("Dollars");
-                    refundInputText.setHint("Dollars");
+                    inventoryInputText.setHint("Dollars"); //TODO: what should these really say?
+                    refundInputText.setHint("Dollars"); //TODO: what should these really say?
+                    chosenIntervalRGroup.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -138,6 +154,7 @@ public class NotificationWizard extends AppCompatActivity {
                 refundCheckBox.setVisibility(View.INVISIBLE);
                 inventoryInputText.setVisibility(View.INVISIBLE);
                 refundInputText.setVisibility(View.INVISIBLE);
+                chosenIntervalRGroup.setVisibility(View.INVISIBLE);
             }
 
 
