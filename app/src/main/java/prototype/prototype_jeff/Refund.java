@@ -12,28 +12,34 @@ public class Refund extends Notification{
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
-    protected String message = "A refund was just issued that exceeded $" + refundAmount + "\n\n" +
-            "If that wasn't you, you may need to look into this.";
 
-    protected String phoneMessage = "A refund was just issued that exceeded $" + getRefundAmount() + "\n\n" +
-            "If that wasn't you, you may need to look into this.";
 
 
     public Refund(ArrayList<String> emails, ArrayList<String> phoneNumbers, double amount) {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
-        setRefundAmount(amount);
+        //setRefundAmount(amount);
+        this.refundAmount = amount;
+        Log.d("erfund amount:", "" + refundAmount );
+
     }
 
-    protected void setRefundAmount(double refund) {
-        refundAmount = refund;
+    protected void setRefundAmount(double amount) {
+
+        this.refundAmount = amount;
     }
 
     protected double getRefundAmount() {
         return refundAmount;
     }
 
-    protected void sendNotification(){
+    protected void sendNotification(double amount){
+        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount + "\n\n" +
+                "If that wasn't you, you may need to look into this.";
+
+        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount + "\n\n" +
+                "If that wasn't you, you may need to look into this.";
+
         if (!emailList.isEmpty()) {
 
             for(String s : emailList){

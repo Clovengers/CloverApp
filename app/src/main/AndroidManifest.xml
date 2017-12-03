@@ -34,8 +34,8 @@
             android:excludeFromRecents="true"
             android:label="Prototype Event Heard"
             android:launchMode="singleInstance"
-            android:taskAffinity=""
             android:noHistory="true"
+            android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".NotificationWizard"
@@ -44,6 +44,19 @@
         <activity
             android:name=".NotificationManager"
             android:label="@string/title_activity_notification_manager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WelcomePage"
+            android:label="@string/title_activity_welcome_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".InformationSelection"
+            android:label="@string/title_activity_information_selection"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

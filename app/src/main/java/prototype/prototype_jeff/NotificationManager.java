@@ -1,11 +1,7 @@
 package prototype.prototype_jeff;
 
 import android.os.Bundle;
-import android.os.Debug;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,22 +66,25 @@ public class NotificationManager extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Refund")){
-                    MainActivity.refundReceiver.refundList.remove(notifications.get(currentIndex));
-                }
+                if(notifications.size()  != 0) {
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Refund")) {
+                        MainActivity.refundReceiver.refundList.remove(notifications.get(currentIndex));
+                    }
 
-                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Stock")){
-                    MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
-                }
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Stock")) {
+                        MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
+                    }
 
-                if(notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")){
-                    NotificationWizard.periodicList.remove(notifications.get(currentIndex));
-                }
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")) {
+                        NotificationWizard.periodicList.remove(notifications.get(currentIndex));
+                    }
 
-                notifications.remove(currentIndex);
+                    notifications.remove(currentIndex);
 
-                    currentIndex =0;
+                    currentIndex = 0;
                     updateInfo();
+
+                }
 
             }
         });

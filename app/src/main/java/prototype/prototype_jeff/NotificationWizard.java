@@ -172,6 +172,8 @@ public class NotificationWizard extends AppCompatActivity {
 
             }
         });
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +184,7 @@ public class NotificationWizard extends AppCompatActivity {
 
                     if (refundBox.isChecked()) {
                         refund = createRefund();
-                        MainActivity.refundReceiver.refundList.add(refund);
+                        MainActivity.refundReceiver.refundList.add(createRefund());
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                     }
@@ -232,7 +234,10 @@ public class NotificationWizard extends AppCompatActivity {
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
-        Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), Double.parseDouble(refundInputText.getText().toString()) );
+        double amount = Double.parseDouble(refundInputText.getText().toString());
+        Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), amount );
+        Log.d("NW RA:", "" + amount );
+
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {
