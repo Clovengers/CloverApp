@@ -84,17 +84,6 @@ public class MainActivity extends AppCompatActivity {
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 
-
-//        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
-//        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
-//        refund1.emailList.add("SeniorProjectClover@gmail.com");
-//        refund2.emailList.add("mendelsoa8@students.rowan.edu");
-//        RefundReceiver.refundList.add(refund1);
-//        RefundReceiver.refundList.add(refund2);
-
-        //periodic Time check once an hour
-
-
         timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
@@ -117,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if(demo){
             // schedule the task to run starting now and then every minute...
             //TODO multiple by 60
-            timer.schedule(hourlyTask, 0l,  1000);
+            timer.schedule(hourlyTask, 0l,  1000*60);
         }else{
             // schedule the task to run starting now and then every hour...
             timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
