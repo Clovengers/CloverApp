@@ -8,6 +8,7 @@
     </string-array>
     <string name="title_activity_notification_manager">NotificationManager</string>
     <string name="title_activity_welcome_page">WelcomePage</string>
+    <string name="title_activity_information_selection">InformationSelection</string>
 
 
 </resources>

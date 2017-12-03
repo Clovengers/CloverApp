@@ -48,11 +48,16 @@
         <activity
             android:name=".WelcomePage"
             android:label="@string/title_activity_welcome_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".InformationSelection"
+            android:label="@string/title_activity_information_selection"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

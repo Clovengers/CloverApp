@@ -17,6 +17,9 @@ public class Periodic extends Notification {
 
     private int daysSince;
     private Calendar calendar;
+    private boolean testing = true;
+
+
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
         setEmailList(emails);
@@ -52,6 +55,11 @@ public class Periodic extends Notification {
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
         daysSince = cal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
+
+        if(testing){
+            numberOfDaysInterval = -1;
+        }
+
         if (daysSince >= numberOfDaysInterval){
             daysSince =0;
             calendar = cal;

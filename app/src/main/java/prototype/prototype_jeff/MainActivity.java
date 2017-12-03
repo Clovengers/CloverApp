@@ -15,14 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -56,9 +59,13 @@ public class MainActivity extends AppCompatActivity {
     private Button helpButton;
     private Button emailButton;
     private Button settingsButton;
+    private boolean demo = true;
 
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
+
+    protected static double totalSales = 0;
+
 
     // things that inherit from View that will be shown/hidden by the settings button
     ArrayList<View> settings;
@@ -76,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         refundReceiver = new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
+
+
 //        Refund refund1 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 50);
 //        Refund refund2 = new Refund(new ArrayList<String>(), new ArrayList<String>(), 500);
 //        refund1.emailList.add("SeniorProjectClover@gmail.com");
@@ -84,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
 //        RefundReceiver.refundList.add(refund2);
 
         //periodic Time check once an hour
+
+
         timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
             public void run() {
+                Log.d("Sales data testing", "" + totalSales);
 
                 if (NotificationWizard.periodicList != null) {
                     //send notification method call on each saved periodic
@@ -96,13 +108,21 @@ public class MainActivity extends AppCompatActivity {
                     for (Periodic p : periodicArrayList) {
                         p.sendNotification();
                     }
+
                 }
 
             }
         };
 
-        // schedule the task to run starting now and then every hour...
-        timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
+        if(demo){
+            // schedule the task to run starting now and then every minute...
+            //TODO multiple by 60
+            timer.schedule(hourlyTask, 0l,  1000);
+        }else{
+            // schedule the task to run starting now and then every hour...
+            timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
+        }
+
 
         settings = establishSettings();
 

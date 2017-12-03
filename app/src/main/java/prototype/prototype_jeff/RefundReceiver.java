@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.RemoteException;
-import android.util.Log;
 
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -92,6 +91,8 @@ public class RefundReceiver extends BroadcastReceiver {
                     orderConnector.disconnect();
                 } else {
                     lastOrder = orderConnector.getOrder(lastOrderId);
+                    MainActivity.totalSales += lastOrder.getTotal();
+
                 }
 
             } catch (RemoteException e) {
@@ -112,10 +113,11 @@ public class RefundReceiver extends BroadcastReceiver {
                 double amt = refundList.get(0).getRefundAmount();
                 holder = !holder;
                 if (lastOrder.getTotal() < amt * -1 * 100 && holder) {
-                    refund.sendNotification();
+                    refund.sendNotification(lastOrder.getTotal());
 
                 }
             }
+            orderConnector.disconnect();
         }
     }
 
