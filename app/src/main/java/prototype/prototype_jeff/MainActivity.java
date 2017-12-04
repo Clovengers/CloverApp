@@ -19,8 +19,10 @@ import android.widget.Toast;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,6 +34,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -169,19 +172,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void sendMobileText(String body) {
-//        String phoneNum = "1234567890";
-        String phoneNum = NotificationWizard.recipientPhoneNumber;
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS)
-                == PackageManager.PERMISSION_GRANTED) {
-            SmsManager.getDefault().sendTextMessage(phoneNum, null, body, null, null);
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    "Inadequate permissions", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     protected void sendEmail(String mailSubject, String mailText) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
@@ -210,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        sendMobileText(mailText);
     }
 
     /**
@@ -243,6 +231,37 @@ public class MainActivity extends AppCompatActivity {
                 msg.setText(mailText);
 
                 Transport.send(msg);
+
+//                HashSet<String> gateways = new HashSet<>();
+//                gateways.add("@txt.att.net");
+//                gateways.add("@tmomail.net");
+//                gateways.add("@vtext.com");
+//                gateways.add("@messaging.sprintpcs.com");
+//                gateways.add("@pm.sprint.com");
+//                gateways.add("@vmobl.com");
+//                gateways.add("@mmst5.tracfone.com");
+//                gateways.add("@mymetropcs.com");
+//                gateways.add("@myboostmobile.com");
+//                gateways.add("@mms.cricketwireless.net");
+//                gateways.add("@ptel.com");
+//                gateways.add("@text.republicwireless.com");
+//                gateways.add("@msg.fi.google.com");
+//                gateways.add("@tms.suncom.com");
+//                gateways.add("@message.ting.com");
+//                gateways.add("@email.uscc.net");
+//                gateways.add("@cingularme.com");
+//                gateways.add("@cspire1.com");
+
+//                to = NotificationWizard.recipientPhoneNumber + "@vtext.com";
+//                msg = new MimeMessage(mailSession);
+//                msg.setFrom(new InternetAddress(from));
+//                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+//                msg.setSubject(mailSubject);
+//                msg.setText(mailText);
+//
+//                Transport.send(msg);
+
+
             } catch (MessagingException e) {
                 System.err.println(e);
             }
