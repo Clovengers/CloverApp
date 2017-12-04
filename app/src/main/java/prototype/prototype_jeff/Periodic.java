@@ -54,9 +54,9 @@ public class Periodic extends Notification {
         return numberOfDaysInterval;
     }
 
-    protected String message = "Periodic message email";
-
-    protected String phoneMessage = "Periodic message text";
+//    protected String message = "Periodic message email";
+//
+//    protected String phoneMessage = "Periodic message text";
 
     @Override
     protected void sendNotification(){
@@ -77,6 +77,7 @@ public class Periodic extends Notification {
                 calendar = cal;
                 if (!emailList.isEmpty()) {
 
+                    message = "Sales data total $" + (MainActivity.totalSales / 100.0);
                     for (String s : emailList) {
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
                         Log.d("EMAIL SENDING TO:", s);
@@ -86,6 +87,7 @@ public class Periodic extends Notification {
                 }
                 if (!phoneNumberList.isEmpty()) {
 
+                    phoneMessage = "Sales data total $" + (MainActivity.totalSales / 100.0);
                     for (String p : phoneNumberList) {
                         sendMobileText(phoneMessage, p);
                     }
