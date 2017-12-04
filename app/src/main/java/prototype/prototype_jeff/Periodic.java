@@ -19,7 +19,7 @@ public class Periodic extends Notification {
     private int daysSince;
     private long timeSince;
     private Calendar calendar;
-    private boolean testing = true;
+    private boolean testing = false;
 
 
 

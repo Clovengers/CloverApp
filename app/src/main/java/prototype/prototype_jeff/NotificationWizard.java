@@ -237,9 +237,9 @@ public class NotificationWizard extends AppCompatActivity {
         } else if (hourRBN.isChecked()) {
             periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, 60);
         } else if (dayRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 1);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 1, 0);
         } else if (monthRBN.isChecked()){
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 30);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 30, 0);
         } else {
             return null;
         }
@@ -254,7 +254,7 @@ public class NotificationWizard extends AppCompatActivity {
         Log.d("JEFF PHONE CHECK", s);
         if (phoneBox.isChecked() && s != "" && s != null) {
             periodic.addPhoneNumber(s);
-            periodic.addEmail(phoneNumber + "@vtext.com");
+//            periodic.addEmail(phoneNumber + "@vtext.com");
             Log.d("JEFF PHONE ADD CHECK", s);
         }
 
