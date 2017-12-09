@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     private Button settingsButton;
     private boolean demo = true;
     private String inputText = "";
-    AlertDialog alert;
 
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
@@ -156,11 +155,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                builder = new AlertDialog.Builder(MainActivity.this);
-                alert = builder.create();
                View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
                 final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
                 Button mSubmit2 = (Button) mView.findViewById(R.id.etSubmit);
-               // Button mCancel = (Button) mView.findViewById(R.id.dismiss);
                 mSubmit2.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -172,18 +169,25 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
                         }
 
-
                     }
 
+                // Set up the input
+                //final EditText input = new EditText(MainActivity.this);
+                //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                //builder.setView(input);
 
+                // Set up the buttons
+                //builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    //@Override
+                  //  public void onClick(DialogInterface dialog, int which) {
+                  //      inputText = input.getText().toString();
+           //           }
                 });
-                //mCancel.setOnClickListener(new View.OnClickListener(){
-
-
-                  //  @Override
-                   // public void onClick(View view) {
-                    //    alert.dismiss();
-                    //}
+                //builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    //@Override
+                //    public void onClick(DialogInterface dialog, int which) {
+                //        dialog.cancel();
+                 //   }
                 //});
 
                 builder.setView(mView);
