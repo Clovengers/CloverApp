@@ -1,28 +1,26 @@
 package prototype.prototype_jeff;
 
 import android.accounts.Account;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,7 +32,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private Button emailButton;
     private Button settingsButton;
     private boolean demo = true;
+    private String inputText = "";
 
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
@@ -156,11 +154,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                builder = new AlertDialog.Builder(MainActivity.this).setTitle("App Functionality").setMessage("Information About the app");
-                builder.show();
+                builder = new AlertDialog.Builder(MainActivity.this);
+                final AlertDialog alert  = builder.create();
+                View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
+                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
+                Button mCancel = (Button) mView.findViewById(R.id.dismiss);
+                Button mSubmit2 = (Button) mView.findViewById(R.id.etSubmit);
+                mSubmit2.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        if(!mEmail.getText().toString().isEmpty()){
+                            Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                // Set up the input
+                //final EditText input = new EditText(MainActivity.this);
+                //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                //builder.setView(input);
+
+                // Set up the buttons
+                //builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    //@Override
+                  //  public void onClick(DialogInterface dialog, int which) {
+                  //      inputText = input.getText().toString();
+           //           }
+                });
+                mCancel.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        alert.dismiss();
+                    }
+                                           });
+             
+                builder.setView(mView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
 
-            }
+                }
         });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
