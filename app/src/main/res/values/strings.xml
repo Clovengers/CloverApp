@@ -9,6 +9,10 @@
     <string name="title_activity_notification_manager">NotificationManager</string>
     <string name="title_activity_welcome_page">WelcomePage</string>
     <string name="title_activity_information_selection">InformationSelection</string>
+    <string name="popupactivity">Popup Activity</string>
+    <string name="email">Email</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>
