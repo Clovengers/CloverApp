@@ -22,12 +22,13 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * Abstract: A class which will act as a Super to other notification classes due to their
- *           similarities
- *
+ * similarities
+ * <p>
  * Updated: 1 December 2017
  */
 
 public class Notification extends AppCompatActivity {
+
     protected ArrayList<String> emailList = new ArrayList<String>();
 
     protected ArrayList<String> phoneNumberList = new ArrayList<String>();
@@ -40,11 +41,11 @@ public class Notification extends AppCompatActivity {
         phoneNumberList = list;
     }
 
-    protected void addEmail(String email){
+    protected void addEmail(String email) {
         emailList.add(email);
     }
 
-    protected void addPhoneNumber(String phoneNumber){
+    protected void addPhoneNumber(String phoneNumber) {
         phoneNumberList.add(phoneNumber);
     }
 
@@ -60,20 +61,19 @@ public class Notification extends AppCompatActivity {
     protected String message = "Generic Notification Alert";
     protected String phoneMessage = "Generic Phone Notification Alert";
 
-    protected void sendNotification(){
+    protected void sendNotification() {
         if (!emailList.isEmpty()) {
 
-            for(String s : emailList){
-                sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
-                Log.d("EMAIL SENDING TO:", s );
+            for (String s : emailList) {
+                sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
+                Log.d("EMAIL SENDING TO:", s);
             }
-
 
 
         }
         if (!phoneNumberList.isEmpty()) {
 
-            for(String p : phoneNumberList){
+            for (String p : phoneNumberList) {
                 sendMobileText(phoneMessage, p);
             }
 
@@ -81,19 +81,19 @@ public class Notification extends AppCompatActivity {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String holder = getClass().getSimpleName() + " \n";
-        Log.d("Notfication", "Notification, email check size" + emailList.size() );
-        if(emailList.size()>0){
+        Log.d("Notfication", "Notification, email check size" + emailList.size());
+        if (emailList.size() > 0) {
             holder += "EMAIL: \n";
-            for(int x=0; x< emailList.size(); x++){
+            for (int x = 0; x < emailList.size(); x++) {
                 holder += emailList.get(x) + "\n";
             }
         }
 
-        if(phoneNumberList.size()>0){
+        if (phoneNumberList.size() > 0) {
             holder += "PHONE NUMBER: \n";
-            for(int x=0; x< phoneNumberList.size(); x++){
+            for (int x = 0; x < phoneNumberList.size(); x++) {
                 holder += phoneNumberList.get(x) + "\n";
             }
         }
@@ -103,12 +103,31 @@ public class Notification extends AppCompatActivity {
 
 
     protected void sendMobileText(String body, String phoneNum) {
-//        String phoneNum = "1234567890";
+        ArrayList<String> phoneCarriers = new ArrayList<>();
+        phoneCarriers.add("@txt.att.net");
+        phoneCarriers.add("@txt.att.net");
+        phoneCarriers.add("@tmomail.net");
+        phoneCarriers.add("@vtext.com");
+        phoneCarriers.add("@messaging.sprintpcs.com");
+        phoneCarriers.add("@pm.sprint.com");
+        phoneCarriers.add("@vmobl.com");
+        phoneCarriers.add("@mmst5.tracfone.com");
+        phoneCarriers.add("@mymetropcs.com");
+        phoneCarriers.add("@myboostmobile.com");
+        phoneCarriers.add("@mms.cricketwireless.net");
+        phoneCarriers.add("@ptel.com");
+        phoneCarriers.add("@text.republicwireless.com");
+        phoneCarriers.add("@msg.fi.google.com");
+        phoneCarriers.add("@tms.suncom.com");
+        phoneCarriers.add("@message.ting.com");
+        phoneCarriers.add("@email.uscc.net");
+        phoneCarriers.add("@cingularme.com");
+        phoneCarriers.add("@cspire1.com");
 
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
         final String pass = "S3n10rPr0j3ct";
-        emailToBeSent = phoneNum + "@vtext.com";
+
 
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
@@ -123,14 +142,16 @@ public class Notification extends AppCompatActivity {
                 return new PasswordAuthentication(user, pass);
             }
         });
-
-        MailSenderTask mailSenderTask = new MailSenderTask(session, getClass().getSimpleName(), body, emailToBeSent);
-        try {
-            String holder = mailSenderTask.execute().get();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        for (int i = 0; i < phoneCarriers.size(); i++) {
+            emailToBeSent = phoneNum + phoneCarriers.get(i);
+            MailSenderTask mailSenderTask = new MailSenderTask(session, getClass().getSimpleName(), body, emailToBeSent);
+            try {
+                String holder = mailSenderTask.execute().get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -157,7 +178,7 @@ public class Notification extends AppCompatActivity {
         MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText, emailToBeSent);
         try {
             String holder = mailSenderTask.execute().get();
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -204,6 +225,4 @@ public class Notification extends AppCompatActivity {
         }
 
     }
-
-
 }
