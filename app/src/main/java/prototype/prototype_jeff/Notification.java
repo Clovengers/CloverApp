@@ -105,7 +105,6 @@ public class Notification extends AppCompatActivity {
     protected void sendMobileText(String body, String phoneNum) {
         ArrayList<String> phoneCarriers = new ArrayList<>();
         phoneCarriers.add("@txt.att.net");
-        phoneCarriers.add("@txt.att.net");
         phoneCarriers.add("@tmomail.net");
         phoneCarriers.add("@vtext.com");
         phoneCarriers.add("@messaging.sprintpcs.com");
