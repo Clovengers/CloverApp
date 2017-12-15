@@ -63,8 +63,6 @@ public class NotificationWizard extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
-
         //Init of Object
         refundBox = (CheckBox) findViewById(R.id.refundCheckBox);
         stockBox = (CheckBox) findViewById(R.id.invCheckBox);
@@ -96,11 +94,11 @@ public class NotificationWizard extends AppCompatActivity {
         invCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(invCheckBox.isChecked()){
+                if (invCheckBox.isChecked()) {
                     inventoryInputText.setVisibility(View.VISIBLE);
                     refundInputText.setVisibility(View.INVISIBLE);
                     refundCheckBox.setChecked(false);
-                }else{
+                } else {
                     inventoryInputText.setVisibility(View.INVISIBLE);
 
                 }
@@ -111,11 +109,11 @@ public class NotificationWizard extends AppCompatActivity {
         refundCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(refundCheckBox.isChecked()){
+                if (refundCheckBox.isChecked()) {
                     refundInputText.setVisibility(View.VISIBLE);
                     inventoryInputText.setVisibility(View.INVISIBLE);
                     invCheckBox.setChecked(false);
-                }else{
+                } else {
                     refundInputText.setVisibility(View.INVISIBLE);
 
                 }
@@ -124,13 +122,11 @@ public class NotificationWizard extends AppCompatActivity {
         });
 
 
-
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //if periodic
-                if(spinner.getSelectedItemPosition() == 0){
+                if (spinner.getSelectedItemPosition() == 0) {
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
                     inventoryInputText.setHint("????");  //TODO: what should these really say?
@@ -138,7 +134,7 @@ public class NotificationWizard extends AppCompatActivity {
                     chosenIntervalRGroup.setVisibility(View.VISIBLE);
                 }
                 //if custom
-                if(spinner.getSelectedItemPosition() == 1){
+                if (spinner.getSelectedItemPosition() == 1) {
                     invCheckBox.setVisibility(View.VISIBLE);
                     refundCheckBox.setVisibility(View.VISIBLE);
                     inventoryInputText.setHint("???????"); //TODO: what should these really say?
@@ -160,8 +156,6 @@ public class NotificationWizard extends AppCompatActivity {
         });
 
 
-
-
         //Phone number check box. Listens for on click
         phoneBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +168,6 @@ public class NotificationWizard extends AppCompatActivity {
 
             }
         });
-
 
 
         emailBox.setOnClickListener(new View.OnClickListener() {
@@ -195,18 +188,27 @@ public class NotificationWizard extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Custom Notification
-                if(spinner.getSelectedItemPosition() == 1) {
+                if (spinner.getSelectedItemPosition() == 1) {
 
 
                     if (refundBox.isChecked()) {
-                        refund = createRefund();
-                        MainActivity.refundReceiver.refundList.add(createRefund());
+                        Refund createdRefund = createRefund();
+                        MainActivity.refundReceiver.refundList.add(createdRefund);
+
 //                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+
+
+
+                        //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
+                        MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, createdRefund.emailList.get(0), createdRefund.phoneNumberList.get(0));
                         finish();
+
                     }
                     if (stockBox.isChecked()) {
                         stock = createStock();
-                        MainActivity.refundReceiver.stockList.add(stock);
+                       MainActivity.refundReceiver.stockList.add(stock);
+
 //                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }
@@ -214,22 +216,29 @@ public class NotificationWizard extends AppCompatActivity {
                 }
 
                 //Periodic Notification
-                if(spinner.getSelectedItemPosition() == 0){
+                if (spinner.getSelectedItemPosition() == 0) {
                     Periodic createdPeriodic = createPeriodic();
                     if (createdPeriodic != null) {
+
                         periodicList.add(createdPeriodic);
+                        //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
+                        //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
+                        if(sizeChecker(createdPeriodic.emailList)!=null||sizeChecker(createdPeriodic.phoneNumberList)!=null) {
+                            MainActivity.myDB.insertData("PERIODIC", -1.0, -1, sizeChecker(createdPeriodic.emailList), sizeChecker(createdPeriodic.phoneNumberList));
+                            finish();
+                        }
 //                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+
                     }
                 }
 
 
-                }
+            }
         });
     }
 
 
-    private Periodic createPeriodic(){
+    private Periodic createPeriodic() {
         //7 number of days inbetween sending or weekly
         Periodic periodic;
         if (minuteRBN.isChecked()) {
@@ -237,9 +246,9 @@ public class NotificationWizard extends AppCompatActivity {
         } else if (hourRBN.isChecked()) {
             periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, 60);
         } else if (dayRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 1, 0);
-        } else if (monthRBN.isChecked()){
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance() , 30, 0);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 1, 0);
+        } else if (monthRBN.isChecked()) {
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 30, 0);
         } else {
             return null;
         }
@@ -263,12 +272,11 @@ public class NotificationWizard extends AppCompatActivity {
     }
 
 
-
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
         double amount = Double.parseDouble(refundInputText.getText().toString());
-        Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), amount );
-        Log.d("NW RA:", "" + amount );
+        Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), amount);
+        Log.d("NW RA:", "" + amount);
 
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
@@ -288,7 +296,7 @@ public class NotificationWizard extends AppCompatActivity {
 
     //TODO NEED A WAY TO GET THE INVENTORY ITEM IN QUESTION
     private Stock createStock() {
-        stock = new Stock(new ArrayList<String>(), new ArrayList<String>(), null, Integer.parseInt(inventoryInputText.getText().toString()) );
+        stock = new Stock(new ArrayList<String>(), new ArrayList<String>(), null, Integer.parseInt(inventoryInputText.getText().toString()));
         String s = email.getText().toString();
         Log.d("JEFF EMAIL CHECK", s);
         if (emailBox.isChecked() && s != "" && s != null) {
@@ -302,5 +310,12 @@ public class NotificationWizard extends AppCompatActivity {
             Log.d("JEFF PHONE ADD CHECK", s);
         }
         return stock;
+    }
+    private String sizeChecker(ArrayList<String> list){
+        if(list.size()>0){
+            return list.get(0);
+        }
+        return null;
+
     }
 }

@@ -76,7 +76,7 @@ public class Periodic extends Notification {
                 calendar = cal;
                 if (!emailList.isEmpty()) {
 
-                    message = "Sales data total $" + (MainActivity.totalSales / 100.0);
+                    message = "DICKS";
                     for (String s : emailList) {
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
                         Log.d("EMAIL SENDING TO:", s);

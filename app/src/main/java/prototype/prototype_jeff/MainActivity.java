@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private Button settingsButton;
     private boolean demo = true;
     private String inputText = "";
-
+    static public  DatabaseHelper myDB;
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
 
@@ -80,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.mainActivity = this;
+        myDB= new DatabaseHelper(this);
+
+
+
+        Log.d("DATABASE", myDB.getDatabaseName());
+
+
         setContentView(R.layout.activity_main);
         refundReceiver = new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
