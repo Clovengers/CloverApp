@@ -311,6 +311,7 @@ public class NotificationWizard extends AppCompatActivity {
         }
         return stock;
     }
+    //Checks the size of a String array and that the first string is not empty
     private String sizeChecker(ArrayList<String> list){
         if(list.size()>0&&!list.get(0).equals("")){
             return list.get(0);
