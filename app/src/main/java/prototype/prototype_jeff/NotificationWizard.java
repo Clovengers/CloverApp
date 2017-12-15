@@ -312,7 +312,7 @@ public class NotificationWizard extends AppCompatActivity {
         return stock;
     }
     private String sizeChecker(ArrayList<String> list){
-        if(list.size()>0){
+        if(list.size()>0&&!list.get(0).equals("")){
             return list.get(0);
         }
         return null;
