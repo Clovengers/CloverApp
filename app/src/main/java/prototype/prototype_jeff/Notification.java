@@ -174,7 +174,7 @@ public class Notification extends AppCompatActivity {
             }
         });
 
-        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText, emailToBeSent);
+        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText + MainActivity.RECEIVEDINERROR, emailToBeSent);
         try {
             String holder = mailSenderTask.execute().get();
         } catch (InterruptedException e) {

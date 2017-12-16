@@ -155,7 +155,7 @@ public class RefundReceiver extends BroadcastReceiver {
             }
         });
 
-        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
+        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText + MainActivity.RECEIVEDINERROR);
 
         try {
             String holder = mailSenderTask.execute().get();

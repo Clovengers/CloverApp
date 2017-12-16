@@ -34,11 +34,11 @@ public class Refund extends Notification{
     }
 
     protected void sendNotification(double amount){
-        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount + "\n\n" +
-                "If that wasn't you, you may need to look into this.";
+        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount
+                + "\n\n" + "If that wasn't you, you may need to look into this.";
 
-        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount + "\n\n" +
-                "If that wasn't you, you may need to look into this.";
+        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount
+                + "\n\n" + "If that wasn't you, you may need to look into this.";
 
         if (!emailList.isEmpty()) {
 

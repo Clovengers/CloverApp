@@ -65,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
     private String inputText = "";
     static public DatabaseHelper myDB;
 
+    // Set this constant to "" if you don't think it should be included in the emails sent
+    public static final String RECEIVEDINERROR = "\n\nIf you received this in error, " +
+            "please delete it and block seniorprojectclover@gmail.com.";
+
+
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
 
     protected static double totalSales = 0;
@@ -275,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
+        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText + RECEIVEDINERROR);
 
         try {
             String holder = mailSenderTask.execute().get();
