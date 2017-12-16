@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -55,13 +56,14 @@ public class MainActivity extends AppCompatActivity {
     private Intent emailInent;
 
     //Declaring objects in layout
+    private String type = null;
     private Button infoButton;
     private Button helpButton;
     private Button emailButton;
     private Button settingsButton;
     private boolean demo = true;
     private String inputText = "";
-    static public  DatabaseHelper myDB;
+    static public DatabaseHelper myDB;
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
 
@@ -73,18 +75,57 @@ public class MainActivity extends AppCompatActivity {
 
     //Used to create pop up msgs
     AlertDialog.Builder builder;
-
+    private ArrayList<String> dataArray= new ArrayList<String>();
     private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.mainActivity = this;
-        myDB= new DatabaseHelper(this);
 
-
-
+        //start database
+        myDB = new DatabaseHelper(this);
         Log.d("DATABASE", myDB.getDatabaseName());
+        // uncomment code below to wipe the database
+        // myDB.deleteAll();
+        Cursor result = myDB.getData();
+
+
+        if (result.getCount() == 0) {
+            //START FIRST TIME USE ACTIVITY
+            /*contentValues.put(COL_2, type);
+            contentValues.put(COL_3, threshhold);
+            contentValues.put(COL_4, time);
+            contentValues.put(COL_5, email);
+            contentValues.put(COL_6, phone);*/
+        } else {
+            StringBuffer buffer = new StringBuffer();
+            while (result.moveToNext()) {
+                type = result.getString(1);
+                Log.d("DATABASE", type);
+                if (type.equals("REFUND")) {
+                    //creates a Refund with just the threshhold in constructor
+                    Refund refund= new Refund(null, null, Double.parseDouble(result.getString(2)));
+                    Log.d("REFUND CREATION", "THRESHHOLD=" + refund.getRefundAmount());
+
+                    // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
+                    dataArray.add(result.getString(4));
+                    refund.emailList=dataArray;
+
+                    // create empty arraylist, repeat for phone number
+                    dataArray=new ArrayList<String>();
+                    dataArray.add(result.getString(5));
+                    refund.phoneNumberList=dataArray;
+
+                    // Adds the refund notification
+                    Log.d("REFUND CREATION", "DATA= " + refund.toString());
+                    refundReceiver.refundList.add(refund);
+
+                } else if (type.equals("PERIODIC")) {
+
+                }
+            }
+        }
 
 
         setContentView(R.layout.activity_main);
@@ -111,11 +152,11 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if(demo){
+        if (demo) {
             // schedule the task to run starting now and then every minute...
             //TODO multiple by 60
-            timer.schedule(hourlyTask, 0l,  1000*60);
-        }else{
+            timer.schedule(hourlyTask, 0l, 1000 * 60);
+        } else {
             // schedule the task to run starting now and then every hour...
             timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
         }
@@ -162,49 +203,48 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 builder = new AlertDialog.Builder(MainActivity.this);
-                final AlertDialog alert  = builder.create();
+                final AlertDialog alert = builder.create();
                 View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
                 final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
                 Button mCancel = (Button) mView.findViewById(R.id.dismiss);
                 Button mSubmit2 = (Button) mView.findViewById(R.id.etSubmit);
-                mSubmit2.setOnClickListener(new View.OnClickListener(){
+                mSubmit2.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view){
-                        if(!mEmail.getText().toString().isEmpty()){
-                            Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
+                    public void onClick(View view) {
+                        if (!mEmail.getText().toString().isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        }
-                        else{
-                            Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
 
                     }
 
-                // Set up the input
-                //final EditText input = new EditText(MainActivity.this);
-                //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                //builder.setView(input);
+                    // Set up the input
+                    //final EditText input = new EditText(MainActivity.this);
+                    //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    //builder.setView(input);
 
-                // Set up the buttons
-                //builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    // Set up the buttons
+                    //builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     //@Override
-                  //  public void onClick(DialogInterface dialog, int which) {
-                  //      inputText = input.getText().toString();
-           //           }
+                    //  public void onClick(DialogInterface dialog, int which) {
+                    //      inputText = input.getText().toString();
+                    //           }
                 });
-                mCancel.setOnClickListener(new View.OnClickListener(){
+                mCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view){
+                    public void onClick(View view) {
                         alert.dismiss();
                     }
-                                           });
-             
+                });
+
                 builder.setView(mView);
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
 
-                }
+            }
         });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -366,4 +406,17 @@ public class MainActivity extends AppCompatActivity {
             periodicList.get(x).sendNotification();
         }
     }
+
+    private static ArrayList<Refund> getRefundsDB() {
+        ArrayList<Refund> list = new ArrayList<Refund>();
+
+        return list;
+    }
+
+    private static ArrayList<Periodic> getPeriodicsDB() {
+        ArrayList<Periodic> list = new ArrayList<Periodic>();
+        myDB.getReadableDatabase();
+        return list;
+    }
+
 }

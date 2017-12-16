@@ -2,9 +2,12 @@ package prototype.prototype_jeff;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jeff on 12/13/2017.
@@ -59,5 +62,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             return true;
         }
+    }
+    public Cursor getData(){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " + TABLE_NAME, null);
+        return result;
+    }
+    public void deleteAll()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME,null,null);
+        db.execSQL("delete from "+ TABLE_NAME);
+        db.close();
     }
 }
