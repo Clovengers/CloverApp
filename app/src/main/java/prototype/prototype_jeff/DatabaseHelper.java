@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String type, Double threshhold, int time, String email, String phone) {
+    public boolean insertData(String type, Double threshhold, long time, String email, String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, type);

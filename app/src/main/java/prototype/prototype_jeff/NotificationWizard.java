@@ -224,7 +224,8 @@ public class NotificationWizard extends AppCompatActivity {
                         //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
                         //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
                         if(sizeChecker(createdPeriodic.emailList)!=null||sizeChecker(createdPeriodic.phoneNumberList)!=null) {
-                            MainActivity.myDB.insertData("PERIODIC", -1.0, -1, sizeChecker(createdPeriodic.emailList), sizeChecker(createdPeriodic.phoneNumberList));
+                            long holder = Calendar.getInstance().getTimeInMillis();
+                            MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(createdPeriodic.emailList), sizeChecker(createdPeriodic.phoneNumberList));
                             finish();
                         }
 //                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
