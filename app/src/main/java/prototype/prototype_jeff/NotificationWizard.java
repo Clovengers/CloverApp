@@ -191,7 +191,7 @@ public class NotificationWizard extends AppCompatActivity {
                 if (spinner.getSelectedItemPosition() == 1) {
 
 
-                    if (refundBox.isChecked()) {
+                    if (refundBox.isChecked()&&refundValidation()) {
                         Refund createdRefund = createRefund();
                         MainActivity.refundReceiver.refundList.add(createdRefund);
 
@@ -201,7 +201,7 @@ public class NotificationWizard extends AppCompatActivity {
 
 
                         //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
-                        MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, createdRefund.emailList.get(0), createdRefund.phoneNumberList.get(0));
+                        MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, sizeChecker(createdRefund.emailList), sizeChecker(createdRefund.phoneNumberList));
                         finish();
 
                     }
@@ -274,6 +274,7 @@ public class NotificationWizard extends AppCompatActivity {
 
     // TODO NEED A WAY TO GET THE REFUND PRICE WANTED (TEXTBOX)
     private Refund createRefund() {
+
         double amount = Double.parseDouble(refundInputText.getText().toString());
         Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), amount);
         Log.d("NW RA:", "" + amount);
@@ -317,6 +318,19 @@ public class NotificationWizard extends AppCompatActivity {
             return list.get(0);
         }
         return null;
+    }
+    private boolean refundValidation(){
+        String s = email.getText().toString();
+        String t = phoneNumber.getText().toString();
 
+        if(refundInputText.getText().toString().equals("")||refundInputText.getText().toString().equals(null)){
+            return false;
+        }
+        if(s.equals("")&&t.equals("")){
+            return false;
+        }
+
+
+        return true;
     }
 }
