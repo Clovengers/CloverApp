@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
 
     static public RefundReceiver refundReceiver;
-    static public MainActivity mainActivity;
 
     private Intent emailInent;
 
@@ -61,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
     private Button settingsButton;
     private boolean demo = true;
     private String inputText = "";
+
+    // Set this constant to "" if you don't think it should be included in the emails sent
+    public static final String RECEIVEDINERROR = "\n\nIf you received this in error, " +
+            "please delete it and block seniorprojectclover@gmail.com.";
 
 
     protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
@@ -79,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity.mainActivity = this;
         setContentView(R.layout.activity_main);
         refundReceiver = new RefundReceiver();
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
@@ -228,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText);
+        MailSenderTask mailSenderTask = new MailSenderTask(session, mailSubject, mailText + RECEIVEDINERROR);
 
         try {
             String holder = mailSenderTask.execute().get();

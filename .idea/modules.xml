@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CloverApp.iml" filepath="$PROJECT_DIR$/CloverApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CloverApp2.iml" filepath="$PROJECT_DIR$/CloverApp2.iml" />
+      <module fileurl="file://C:\Users\Alex\Desktop\Senior Project 4\CloverApp\CloverApp2.iml" filepath="C:\Users\Alex\Desktop\Senior Project 4\CloverApp\CloverApp2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
