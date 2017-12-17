@@ -195,11 +195,6 @@ public class NotificationWizard extends AppCompatActivity {
                         Refund createdRefund = createRefund();
                         MainActivity.refundReceiver.refundList.add(createdRefund);
 
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
-
-
                         //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
                         MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, sizeChecker(createdRefund.emailList), sizeChecker(createdRefund.phoneNumberList));
                         finish();

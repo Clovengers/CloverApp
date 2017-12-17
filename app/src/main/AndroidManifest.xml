@@ -37,7 +37,6 @@
             android:noHistory="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".NotificationWizard"
             android:label="@string/title_activity_notification_wizard"
@@ -58,6 +57,10 @@
         <activity
             android:name=".InformationSelection"
             android:label="@string/title_activity_information_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TypeSelection"
+            android:label="@string/title_activity_type_selection"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

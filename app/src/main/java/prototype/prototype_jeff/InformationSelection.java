@@ -1,10 +1,23 @@
 package prototype.prototype_jeff;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class InformationSelection extends AppCompatActivity {
+
+    private Button refundButton;
+    private Button periodicButton;
+    protected Double refundAmount;
+    private String type ="";
+    private double value =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +26,91 @@ public class InformationSelection extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        refundButton = (Button) findViewById(R.id.refundButton);
+        periodicButton = (Button) findViewById(R.id.periodicButton);
 
+
+        refundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(InformationSelection.this);
+                View mView = getLayoutInflater().inflate(R.layout.refund_pop_up_activity, null);
+                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
+                //final TextView title = (TextView) mView.findViewById(R.id.TitleTextView);
+                //title.setText("Testing This");
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setView(mView);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (true ) {
+                            refundAmount = Double.parseDouble(mEmail.getText().toString());
+                            refundAmount *= -1;
+
+                            type = "REFUND";
+                            value = refundAmount;
+                            //Send refund amount to next screen
+                            MainActivity.informationSelection.setType(type);
+                            MainActivity.informationSelection.setValue(value);
+                            startActivity(new Intent(getApplicationContext(), TypeSelection.class));
+
+
+
+                            dialog.dismiss();
+
+                        } else {
+                            Toast.makeText(InformationSelection.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        periodicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                type = "PERIODIC";
+
+                //TODO attach periodic popup to this
+                startActivity(new Intent(getApplicationContext(), InformationSelection.class));
+            }
+        });
+
+
+    }
+
+
+
+    protected String getType(){
+        return type;
+    }
+
+    protected double getValue(){
+        return value;
+    }
+
+    protected void setType(String type){
+        this.type = type;
+    }
+
+    protected void setValue(double value){
+            this.value = value;
     }
 
     //TODO popup menu to read refund amount

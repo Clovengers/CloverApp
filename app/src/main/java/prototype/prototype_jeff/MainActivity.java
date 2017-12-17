@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     static public RefundReceiver refundReceiver;
     static public MainActivity mainActivity;
+    static public InformationSelection informationSelection;
 
     private Intent emailInent;
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             "please delete it and block seniorprojectclover@gmail.com.";
 
 
-    protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
+    static protected ArrayList<Periodic> periodicList = new ArrayList<Periodic>();
 
     protected static double totalSales = 0;
 
@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.mainActivity = this;
+        informationSelection = new InformationSelection();
+
 
         //start database
         myDB = new DatabaseHelper(this);
@@ -198,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //switches to a new screen
-                startActivity(new Intent(getApplicationContext(), NotificationWizard.class));
+                startActivity(new Intent(getApplicationContext(), WelcomePage.class));
+
             }
         });
 
@@ -208,20 +210,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 builder = new AlertDialog.Builder(MainActivity.this);
-                final AlertDialog alert = builder.create();
                 View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
                 final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
-               // mSubmit2.setOnClickListener(new View.OnClickListener() {
-                //    @Override
-                  //  public void onClick(View view) {
-                 //       if (!mEmail.getText().toString().isEmpty()) {
-                   //         Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
-                     //   } else {
-                       //     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                        //}
-
-                //    }
+                //final TextView title = (TextView) mView.findViewById(R.id.TitleTextView);
+                //title.setText("Testing This");
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
