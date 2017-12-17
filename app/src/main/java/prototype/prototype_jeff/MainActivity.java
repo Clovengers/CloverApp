@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
 
     static public RefundReceiver refundReceiver;
-    static public MainActivity mainActivity;
+//    static public MainActivity mainActivity;
     static public InformationSelection informationSelection;
 
     private Intent emailInent;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity.mainActivity = this;
+//        MainActivity.mainActivity = this;
         informationSelection = new InformationSelection();
 
 
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getApplicationContext(), WelcomePage.class));
+                startActivity(new Intent(getApplicationContext(), InformationSelection.class));
 
             }
         });

@@ -68,8 +68,7 @@ public class InformationSelection extends AppCompatActivity {
                             MainActivity.informationSelection.setType(type);
                             MainActivity.informationSelection.setValue(value);
                             startActivity(new Intent(getApplicationContext(), TypeSelection.class));
-
-
+                            finish();
 
                             dialog.dismiss();
 
@@ -89,6 +88,7 @@ public class InformationSelection extends AppCompatActivity {
 
                 //TODO attach periodic popup to this
                 startActivity(new Intent(getApplicationContext(), InformationSelection.class));
+                finish();
             }
         });
 
