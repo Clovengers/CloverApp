@@ -14,6 +14,11 @@
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_type_selection">TypeSelection</string>
+    <string name="refund_limit">Refund Limit</string>
+    <string name="enter_phone">Enter Your Phone Number</string>
+    <string name="cell_number">Cell Number</string>
+    <string name="amount">Amount</string>
+    <string name="enter_amount">Enter Inventory amount</string>
 
 
 </resources>

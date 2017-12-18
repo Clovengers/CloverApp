@@ -230,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

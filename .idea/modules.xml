@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CloverApp.iml" filepath="$PROJECT_DIR$/CloverApp.iml" />
-      <module fileurl="file://C:\Users\Brian\Documents\GitHub\CloverApp\CloverApp2.iml" filepath="C:\Users\Brian\Documents\GitHub\CloverApp\CloverApp2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Dell\AndroidStudioProjects\CloverApp\app\app.iml" filepath="C:\Users\Dell\AndroidStudioProjects\CloverApp\app\app.iml" />
     </modules>
   </component>
 </project>

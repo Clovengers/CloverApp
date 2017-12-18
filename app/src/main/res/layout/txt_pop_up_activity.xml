@@ -7,23 +7,23 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/TitleTextView"
+        android:id="@+id/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_weight="0.37"
-        android:text="Enter The Refund Limit"
+        android:text="@string/enter_phone"
         android:textSize="25sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/etRefund"
+        android:id="@+id/etText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/refund_limit"
-        android:inputType="numberDecimal" />
+        android:hint="@string/cell_number"
+        android:inputType="phone" />
 
 
 

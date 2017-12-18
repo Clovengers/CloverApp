@@ -36,7 +36,7 @@ public class InformationSelection extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(InformationSelection.this);
                 View mView = getLayoutInflater().inflate(R.layout.refund_pop_up_activity, null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
+                final EditText mRefund = (EditText) mView.findViewById(R.id.etRefund);
                 //final TextView title = (TextView) mView.findViewById(R.id.TitleTextView);
                 //title.setText("Testing This");
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -55,11 +55,12 @@ public class InformationSelection extends AppCompatActivity {
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (true ) {
-                            refundAmount = Double.parseDouble(mEmail.getText().toString());
+                            refundAmount = Double.parseDouble(mRefund.getText().toString());
                             refundAmount *= -1;
 
                             type = "REFUND";

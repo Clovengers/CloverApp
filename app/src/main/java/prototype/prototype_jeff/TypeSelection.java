@@ -61,6 +61,7 @@ public class TypeSelection extends AppCompatActivity {
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
 
                 //Handles the data and acts like the previous submit button it gets the type from previous screen and then checks
                 //works for both Refund and Periodic
@@ -122,9 +123,9 @@ public class TypeSelection extends AppCompatActivity {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(TypeSelection.this);
-                View mView = getLayoutInflater().inflate(R.layout.refund_pop_up_activity, null);
+                View mView = getLayoutInflater().inflate(R.layout.txt_pop_up_activity, null);
                 //Is actually a phone number in the case but copied for use
-                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
+                final EditText mText = (EditText) mView.findViewById(R.id.etText);
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -141,17 +142,18 @@ public class TypeSelection extends AppCompatActivity {
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //Checks for standard phone number can be changed
-                        if (mEmail.getText().toString().length() != 10 ) {
+                        if (mText.getText().toString().length() != 10 ) {
                             Toast.makeText(TypeSelection.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             //TODO Now a Refund or Periodic has to be created
                             if(type.equals("REFUND")){
                                 Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), value);
-                                refund.phoneNumberList.add(mEmail.getText().toString());
+                                refund.phoneNumberList.add(mText.getText().toString());
 
 
                                 MainActivity.refundReceiver.refundList.add(refund);
@@ -162,7 +164,7 @@ public class TypeSelection extends AppCompatActivity {
                             }
                             if(type.equals("PERIODIC")){
                                 Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, (long)value);
-                                periodic.phoneNumberList.add(mEmail.getText().toString());
+                                periodic.phoneNumberList.add(mText.getText().toString());
 
                                 MainActivity.periodicList.add(periodic);
                                 //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
