@@ -105,9 +105,8 @@ public class Periodic extends Notification {
         if(emailList.size()>0){
             holder += "EMAIL: \n";
             for(String s : emailList){
-                if(s != null){
                     holder += s + "\n";
-                }
+
             }
         }
 
@@ -115,9 +114,8 @@ public class Periodic extends Notification {
             holder += "PHONE NUMBER: \n";
 
             for(String s : phoneNumberList){
-                if(s != null){
                     holder += s + "\n";
-                }
+
 
             }
             /**

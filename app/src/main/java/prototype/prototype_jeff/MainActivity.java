@@ -110,9 +110,10 @@ public class MainActivity extends AppCompatActivity {
             //START FIRST TIME USE ACTIVITY
             /*contentValues.put(COL_2, type);
             contentValues.put(COL_3, threshhold);
-            contentValues.put(COL_4, time);
+            contentValues.put(COL_4, data);
             contentValues.put(COL_5, email);
-            contentValues.put(COL_6, phone);*/
+            contentValues.put(COL_6, phone);
+            contentValues(Col_7, value*/
         } else {
             StringBuffer buffer = new StringBuffer();
             while (result.moveToNext()) {
@@ -124,13 +125,21 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("REFUND CREATION", "THRESHHOLD=" + refund.getRefundAmount());
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
+
                     dataArray.add(result.getString(4));
-                    refund.emailList=dataArray;
+                    if(dataArray != null){
+                        refund.emailList=dataArray;
+
+                    }
 
                     // create empty arraylist, repeat for phone number
                     dataArray=new ArrayList<String>();
                     dataArray.add(result.getString(5));
-                    refund.phoneNumberList=dataArray;
+                    if(dataArray != null){
+                        refund.phoneNumberList=dataArray;
+
+                    }
+
 
                     // Adds the refund notification
                     Log.d("REFUND CREATION", "DATA= " + refund.toString());

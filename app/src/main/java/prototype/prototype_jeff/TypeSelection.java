@@ -87,7 +87,7 @@ public class TypeSelection extends AppCompatActivity {
                                 MainActivity.refundReceiver.refundList.add(refund);
 
                                 //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
-                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), null);
+                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), (long)0);
                                 finish();
 
                             }
