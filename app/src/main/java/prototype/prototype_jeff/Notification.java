@@ -62,8 +62,11 @@ public class Notification extends AppCompatActivity {
         if (!emailList.isEmpty()) {
 
             for (String s : emailList) {
-                sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
-                Log.d("EMAIL SENDING TO:", s);
+                if(s != null){
+                    sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
+                    Log.d("EMAIL SENDING TO:", s);
+                }
+
             }
 
 
@@ -71,7 +74,10 @@ public class Notification extends AppCompatActivity {
         if (!phoneNumberList.isEmpty()) {
 
             for (String p : phoneNumberList) {
-                sendMobileText(phoneMessage, p);
+                if(p != null){
+                    sendMobileText(phoneMessage, p);
+
+                }
             }
 
         }
