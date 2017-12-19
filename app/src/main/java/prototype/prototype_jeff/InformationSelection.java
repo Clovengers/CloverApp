@@ -36,6 +36,11 @@ public class InformationSelection extends AppCompatActivity {
         refundButton = (Button) findViewById(R.id.refundButton);
         periodicButton = (Button) findViewById(R.id.periodicButton);
 
+
+        //sets background to consitent color
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+
+
         refundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

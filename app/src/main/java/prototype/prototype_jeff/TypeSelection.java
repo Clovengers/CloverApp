@@ -102,6 +102,7 @@ public class TypeSelection extends AppCompatActivity {
                                         MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long) value);
                                         Log.d("DATABSE ENTRY: ", periodic.toString());
 
+
                                         finish();
 
 

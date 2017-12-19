@@ -145,17 +145,20 @@ public class MainActivity extends AppCompatActivity {
                     // Adds the refund notification
                     Log.d("REFUND CREATION", "DATA= " + refund.toString());
                     refundReceiver.refundList.add(refund);
+                    dataArray = new ArrayList<String>();
 
                 } else if (type.equals("PERIODIC")) {
                     dataArray=new ArrayList<String>();
 
                     String x = result.getString(3);
+
                     DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     long milliSeconds= Long.parseLong(x);
                     System.out.println(milliSeconds);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(milliSeconds);
                     Long numMinutes = Long.parseLong(result.getString(6));
+
 
                     Periodic periodic = new Periodic(dataArray, dataArray, calendar, numMinutes);
 
@@ -483,6 +486,7 @@ public class MainActivity extends AppCompatActivity {
     //Checks the size of a String array and that the first string is not empty
     private static String sizeChecker(ArrayList<String> list){
         if(list.size()>0&&!list.get(0).equals("")){
+
             return list.get(0);
         }
         return null;

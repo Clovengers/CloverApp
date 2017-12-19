@@ -14,6 +14,7 @@ public class Periodic extends Notification {
     private int dayOfWeek;
 
     private int numberOfDaysInterval; //7 would be weekly
+
     protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
     private int daysSince;
@@ -53,6 +54,8 @@ public class Periodic extends Notification {
     protected int getNumberOfDaysInterval(){
         return numberOfDaysInterval;
     }
+
+    public long getNumberOfMinutesInterval() { return numberOfMinutesInterval; }
 
 //    protected String message = "Periodic message email";
 //
