@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (result.getCount() == 0) {
+            Log.d("DATABASE", "EMPTY");
             //START FIRST TIME USE ACTIVITY
             /*contentValues.put(COL_2, type);
             contentValues.put(COL_3, threshhold);

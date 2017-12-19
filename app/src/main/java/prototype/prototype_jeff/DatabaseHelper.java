@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "notifications.db";
-    public static final String TABLE_NAME = "notifications_table";
+    public static final String DATABASE_NAME = "notificationsS.db";
+    public static final String TABLE_NAME = "notifications2_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "type";
     public static final String COL_3 = "threshhold";
