@@ -66,16 +66,27 @@ public class Refund extends Notification{
         Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
             holder += "EMAIL: \n";
-            for(int x=0; x< emailList.size(); x++){
-                holder += emailList.get(x) + "\n";
+            for(String s : emailList){
+                if(s != null){
+                    holder += s + "\n";
+                }
             }
         }
 
-        if(phoneNumberList.size()>0){
+        if (phoneNumberList.size() > 0) {
             holder += "PHONE NUMBER: \n";
-            for(int x=0; x< phoneNumberList.size(); x++){
-                holder += phoneNumberList.get(x) + "\n";
+
+            for(String s : phoneNumberList){
+                if(s != null){
+                    holder += s + "\n";
+                }
+
             }
+            /**
+             for (int x = 0; x < phoneNumberList.size(); x++) {
+             holder += phoneNumberList.get(x) + "\n";
+             }
+             **/
         }
         holder += "AMOUNT: " + refundAmount;
 

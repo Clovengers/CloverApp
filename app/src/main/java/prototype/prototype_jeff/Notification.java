@@ -1,10 +1,7 @@
 package prototype.prototype_jeff;
 
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -84,18 +81,29 @@ public class Notification extends AppCompatActivity {
     public String toString() {
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size());
-        if (emailList.size() > 0) {
+        if(emailList.size()>0){
             holder += "EMAIL: \n";
-            for (int x = 0; x < emailList.size(); x++) {
-                holder += emailList.get(x) + "\n";
+            for(String s : emailList){
+                if(s != null){
+                    holder += s + "\n";
+                }
             }
         }
 
         if (phoneNumberList.size() > 0) {
             holder += "PHONE NUMBER: \n";
+
+            for(String s : phoneNumberList){
+                if(s != null){
+                    holder += s + "\n";
+                }
+
+            }
+            /**
             for (int x = 0; x < phoneNumberList.size(); x++) {
                 holder += phoneNumberList.get(x) + "\n";
             }
+             **/
         }
 
         return holder;
