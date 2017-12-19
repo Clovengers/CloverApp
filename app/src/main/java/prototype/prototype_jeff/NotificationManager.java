@@ -74,7 +74,7 @@ public class NotificationManager extends AppCompatActivity {
                         }
 
                         if (n.getClass().getSimpleName().equals("Periodic")) {
-                            NotificationWizard.periodicList.remove(n);
+                            MainActivity.periodicList.remove(n);
                         }
 
                         //Currently recreates the DB with new info
