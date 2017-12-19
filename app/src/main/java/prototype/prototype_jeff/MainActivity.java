@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         Log.d("DATABASE", myDB.getDatabaseName());
         // uncomment code below to wipe the database
-        myDB.deleteAll();
+        //myDB.deleteAll();
         Cursor result = myDB.getData();
 
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(milliSeconds);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(milliSeconds);
-                    Long numMinutes = Long.parseLong(result.getColumnName(6));
+                    Long numMinutes = Long.parseLong(result.getString(6));
 
                     Periodic periodic = new Periodic(dataArray, dataArray, calendar, numMinutes);
 

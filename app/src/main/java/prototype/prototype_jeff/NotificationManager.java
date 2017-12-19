@@ -97,6 +97,8 @@ public class NotificationManager extends AppCompatActivity {
 
 
     private void updateInfo(){
+        notifications = new ArrayList<Notification>();
+
         notifications = MainActivity.refundReceiver.getNotifications();
         Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
 
