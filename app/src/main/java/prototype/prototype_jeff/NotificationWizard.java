@@ -240,11 +240,11 @@ public class NotificationWizard extends AppCompatActivity {
         if (minuteRBN.isChecked()) {
             periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0);
         } else if (hourRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, 60);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  60);
         } else if (dayRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 1, 0);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  0);
         } else if (monthRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 30, 0);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  0);
         } else {
             return null;
         }
