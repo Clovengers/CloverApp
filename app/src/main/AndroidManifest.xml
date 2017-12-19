@@ -43,7 +43,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotificationManager"
-            android:label="@string/title_activity_notification_manager"
+            android:label="@string/notifiTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WelcomePage"
@@ -56,11 +56,11 @@
 
         <activity
             android:name=".InformationSelection"
-            android:label="@string/title_activity_information_selection"
+            android:label="@string/notifiTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TypeSelection"
-            android:label="@string/title_activity_type_selection"
+            android:label="@string/notifiTitle"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

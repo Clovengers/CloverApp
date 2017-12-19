@@ -72,6 +72,7 @@ public class Periodic extends Notification {
             daysSince = 0;
             timeSince = 0;
             calendar = cal;
+            salesAmount = 0;
             if (!emailList.isEmpty()) {
 
                 message = "EMPTY";
@@ -84,7 +85,7 @@ public class Periodic extends Notification {
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total $" + (MainActivity.totalSales / 100.0);
+                phoneMessage = "Sales data total $" + (( MainActivity.totalSales )/ 100.0);
                 for (String p : phoneNumberList) {
                     sendMobileText(phoneMessage, p);
                 }
@@ -135,4 +136,7 @@ public class Periodic extends Notification {
         return calendar;
     }
 
+    protected void addSale(double sale){
+        salesAmount += sale;
+    }
 }

@@ -92,6 +92,9 @@ public class RefundReceiver extends BroadcastReceiver {
                 } else {
                     lastOrder = orderConnector.getOrder(lastOrderId);
                     MainActivity.totalSales += lastOrder.getTotal();
+                    for(Periodic p : MainActivity.periodicList){
+                        p.addSale(lastOrder.getTotal());
+                    }
 
                 }
 
