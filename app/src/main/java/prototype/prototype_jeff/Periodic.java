@@ -54,6 +54,8 @@ public class Periodic extends Notification {
         return numberOfDaysInterval;
     }
 
+    public long getNumberOfMinutesInterval() { return numberOfMinutesInterval; }
+
 //    protected String message = "Periodic message email";
 //
 //    protected String phoneMessage = "Periodic message text";
