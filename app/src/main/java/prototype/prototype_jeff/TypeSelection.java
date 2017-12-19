@@ -1,7 +1,9 @@
 package prototype.prototype_jeff;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +28,8 @@ public class TypeSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+        //getActionBar().setBackgroundDrawable(new ColorDrawable(MainActivity.color));
+
 
         setContentView(R.layout.activity_type_selection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,7 +92,7 @@ public class TypeSelection extends AppCompatActivity {
 
                             }
                             if(type.equals("PERIODIC")){
-                                Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, (long)value);
+                                Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), (long)value);
                                 periodic.emailList.add(mEmail.getText().toString());
 
                                 MainActivity.periodicList.add(periodic);
@@ -169,7 +173,7 @@ public class TypeSelection extends AppCompatActivity {
                                 finish();
                             }
                             if(type.equals("PERIODIC")){
-                                Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, (long)value);
+                                Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), (long)value);
                                 periodic.phoneNumberList.add(mText.getText().toString());
 
                                 MainActivity.periodicList.add(periodic);

@@ -33,8 +33,8 @@ public class Periodic extends Notification {
         salesAmount = MainActivity.totalSales;
     }
 
-    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays, long numMinutes) {
-        this(emails, phoneNumbers, calendar, numDays);
+    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, long numMinutes) {
+        this(emails, phoneNumbers, calendar, 0);
         numberOfMinutesInterval = numMinutes;
     }
 
