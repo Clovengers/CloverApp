@@ -82,7 +82,8 @@ public class NotificationManager extends AppCompatActivity {
                     }
 
                     notifications.remove(currentIndex);
-
+                    //Currently recreates the DB with new info
+                    MainActivity.deleteNotification();
                     currentIndex = 0;
                     updateInfo();
 

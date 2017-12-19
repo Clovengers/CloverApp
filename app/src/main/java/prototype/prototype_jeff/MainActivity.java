@@ -418,11 +418,35 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
-    protected boolean deleteNotification(){
-        myDB.getReadableDatabase().toString();
+    //TODO do this the proper way
+    protected static boolean deleteNotification(){
+        myDB.deleteAll();
+        ArrayList<Refund> list = refundReceiver.refundList;
+        for(Refund refund : list){
+            if(refund != null) {
+                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList));
+            }
+
+        }
+
+        for(Periodic periodic : periodicList){
+            if(periodic != null){
+                myDB.insertData("PERIODIC", -1.0, periodic.getCalendar().getTimeInMillis(), sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList));
+            }
+        }
+
 
 
         return true;
+    }
+
+
+    //Checks the size of a String array and that the first string is not empty
+    private static String sizeChecker(ArrayList<String> list){
+        if(list.size()>0&&!list.get(0).equals("")){
+            return list.get(0);
+        }
+        return null;
     }
 
 }

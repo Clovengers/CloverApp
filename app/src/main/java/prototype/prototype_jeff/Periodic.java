@@ -131,5 +131,8 @@ public class Periodic extends Notification {
         return holder;
     }
 
+    protected Calendar getCalendar(){
+        return calendar;
+    }
 
 }
