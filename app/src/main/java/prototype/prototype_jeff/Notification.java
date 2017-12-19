@@ -57,6 +57,7 @@ public class Notification extends AppCompatActivity {
     private String emailToBeSent;
     protected String message = "Generic Notification Alert";
     protected String phoneMessage = "Generic Phone Notification Alert";
+    private boolean check = false;
 
     protected void sendNotification() {
         if (!emailList.isEmpty()) {
@@ -81,33 +82,35 @@ public class Notification extends AppCompatActivity {
         }
     }
 
-    @Override
+
     public String toString() {
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size());
         if(emailList.size()>0){
-            holder += "EMAIL: \n";
             for(String s : emailList){
                 if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
                 }
             }
         }
 
         if (phoneNumberList.size() > 0) {
-            holder += "PHONE NUMBER: \n";
 
             for(String s : phoneNumberList){
                 if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
                 }
 
             }
-            /**
-            for (int x = 0; x < phoneNumberList.size(); x++) {
-                holder += phoneNumberList.get(x) + "\n";
-            }
-             **/
         }
 
         return holder;

@@ -12,6 +12,7 @@ public class Refund extends Notification{
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
+    private boolean check = false;
 
 
 
@@ -66,31 +67,33 @@ public class Refund extends Notification{
 
     @Override
     public String toString(){
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
-            holder += "EMAIL: \n";
             for(String s : emailList){
                 if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
                 }
             }
         }
 
         if (phoneNumberList.size() > 0) {
-            holder += "PHONE NUMBER: \n";
 
             for(String s : phoneNumberList){
                 if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
                 }
 
             }
-            /**
-             for (int x = 0; x < phoneNumberList.size(); x++) {
-             holder += phoneNumberList.get(x) + "\n";
-             }
-             **/
         }
         holder += "AMOUNT: " + -refundAmount;
 

@@ -21,7 +21,7 @@ public class Periodic extends Notification {
     private Calendar calendar;
     private boolean testing = false;
     private double salesAmount;
-
+    private boolean check = false;
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
         setEmailList(emails);
@@ -100,29 +100,33 @@ public class Periodic extends Notification {
 
     @Override
     public String toString(){
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
-            holder += "EMAIL: \n";
             for(String s : emailList){
+                if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
-
+                }
             }
         }
 
         if (phoneNumberList.size() > 0) {
-            holder += "PHONE NUMBER: \n";
 
             for(String s : phoneNumberList){
+                if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
                     holder += s + "\n";
-
+                }
 
             }
-            /**
-             for (int x = 0; x < phoneNumberList.size(); x++) {
-             holder += phoneNumberList.get(x) + "\n";
-             }
-             **/
         }
 
         holder += "TIME: " + numberOfDaysInterval + " days " + numberOfMinutesInterval + " minutes";
