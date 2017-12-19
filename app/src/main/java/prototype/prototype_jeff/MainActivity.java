@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(milliSeconds);
 
-                    Periodic periodic = new Periodic(dataArray, dataArray, calendar,  0);
+                    Periodic periodic = new Periodic(dataArray, dataArray, calendar, 0);
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
                     dataArray.add(result.getString(4));
