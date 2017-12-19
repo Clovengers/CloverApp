@@ -1,1 +1,20 @@
+List of issues that arise during the demo and got resolved for the final submission:
 
+December 4th 2017: (Project Final Demo)
+-Display total sales in one minutes interval.
+-the need to fix the interface of the app to a more friendly look.
+
+November 29th 2017: (Project Demo)
+-Refund notification doesn't function properly as the app crash during the demo.
+-periodic and custom notification doesn't work
+-text message notification need to work
+
+November 8th 2017: (Mid Assesment)
+-Text and email notification need to be implement.
+-Custom and periodic notification need to have a better interface.
+-Refund notification needs to work.
+
+October 18th 2017: (Early Prototype)
+-Custom notifcation need to be implement.
+-refund notification need to be implement.
+-
