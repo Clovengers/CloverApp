@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Refund> list = refundReceiver.refundList;
         for(Refund refund : list){
             if(refund != null) {
-                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), null);
+                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), (long)-1);
             }
 
         }

@@ -44,8 +44,11 @@ public class Refund extends Notification{
         if (!emailList.isEmpty()) {
 
             for(String s : emailList){
+                if(s != null){
                     sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
                     Log.d("EMAIL SENDING TO:", s );
+                }
+
 
 
             }
@@ -56,7 +59,10 @@ public class Refund extends Notification{
         if (!phoneNumberList.isEmpty()) {
 
             for(String p : phoneNumberList){
+                if(p != null){
                     sendMobileText(phoneMessage, p);
+
+                }
 
 
             }
