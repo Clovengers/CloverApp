@@ -457,11 +457,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Checks the size of a String array and that the first string is not empty
-<<<<<<< HEAD
     protected static String sizeChecker(ArrayList<String> list){
-=======
-    public static String sizeChecker(ArrayList<String> list){
->>>>>>> 42157c6a6e490efc71257ace76ae9508a9be79f4
         if(list.size()>0&&!list.get(0).equals("")){
 
             return list.get(0);
