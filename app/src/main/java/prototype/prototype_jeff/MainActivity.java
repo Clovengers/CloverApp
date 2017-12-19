@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     // Adds the refund notification
                     Log.d("REFUND CREATION", "DATA= " + refund.toString());
                     refundReceiver.refundList.add(refund);
+                    dataArray = new ArrayList<String>();
 
                 } else if (type.equals("PERIODIC")) {
                     dataArray=new ArrayList<String>();
