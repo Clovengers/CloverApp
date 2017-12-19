@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -82,10 +83,15 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> dataArray= new ArrayList<String>();
     private Timer timer;
 
+    protected static int color = Color.parseColor("#5CB7DA");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        MainActivity.mainActivity = this;
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+
         informationSelection = new InformationSelection();
 
 

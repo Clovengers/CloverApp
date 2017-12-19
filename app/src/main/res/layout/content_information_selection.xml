@@ -25,17 +25,17 @@
 
     <Button
         android:id="@+id/periodicButton"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:drawableTop="@android:drawable/arrow_down_float"
-        android:gravity="top"
         android:background="@drawable/emblem_money"
         android:elevation="0dp"
+        android:gravity="top"
         android:lineSpacingExtra="8sp"
+        android:text="Sales Data"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -43,13 +43,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Sales Data" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/refundButton"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
