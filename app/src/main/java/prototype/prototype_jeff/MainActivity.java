@@ -357,34 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Transport.send(msg);
 
-//                HashSet<String> gateways = new HashSet<>();
-//                gateways.add("@txt.att.net");
-//                gateways.add("@tmomail.net");
-//                gateways.add("@vtext.com");
-//                gateways.add("@messaging.sprintpcs.com");
-//                gateways.add("@pm.sprint.com");
-//                gateways.add("@vmobl.com");
-//                gateways.add("@mmst5.tracfone.com");
-//                gateways.add("@mymetropcs.com");
-//                gateways.add("@myboostmobile.com");
-//                gateways.add("@mms.cricketwireless.net");
-//                gateways.add("@ptel.com");
-//                gateways.add("@text.republicwireless.com");
-//                gateways.add("@msg.fi.google.com");
-//                gateways.add("@tms.suncom.com");
-//                gateways.add("@message.ting.com");
-//                gateways.add("@email.uscc.net");
-//                gateways.add("@cingularme.com");
-//                gateways.add("@cspire1.com");
 
-//                to = NotificationWizard.recipientPhoneNumber + "@vtext.com";
-//                msg = new MimeMessage(mailSession);
-//                msg.setFrom(new InternetAddress(from));
-//                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-//                msg.setSubject(mailSubject);
-//                msg.setText(mailText);
-//
-//                Transport.send(msg);
 
 
             } catch (MessagingException e) {
@@ -484,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Checks the size of a String array and that the first string is not empty
-    private static String sizeChecker(ArrayList<String> list){
+    protected static String sizeChecker(ArrayList<String> list){
         if(list.size()>0&&!list.get(0).equals("")){
 
             return list.get(0);
