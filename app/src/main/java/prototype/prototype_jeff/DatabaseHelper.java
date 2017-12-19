@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_1 = "ID";
     public static final String COL_2 = "type";
     public static final String COL_3 = "threshhold";
-    public static final String COL_4 = "time";
+    public static final String COL_4 = "date";
     public static final String COL_5 = "email";
     public static final String COL_6 = "phone";
 
@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, threshhold DOUBLE, time TEXT, email TEXT, phone TEXT)");
+        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, threshhold DOUBLE, date TEXT, email TEXT, phone TEXT)");
     }
 
     @Override
@@ -40,12 +40,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String type, Double threshhold, long time, String email, String phone) {
+    public boolean insertData(String type, Double threshhold, long date, String email, String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, type);
         contentValues.put(COL_3, threshhold);
-        contentValues.put(COL_4, time);
+        contentValues.put(COL_4, Long.toString(date));
         contentValues.put(COL_5, email);
         contentValues.put(COL_6, phone);
         long result = db.insert(TABLE_NAME, null, contentValues);
