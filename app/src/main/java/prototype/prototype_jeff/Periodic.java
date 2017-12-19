@@ -20,7 +20,7 @@ public class Periodic extends Notification {
     private long timeSince;
     private Calendar calendar;
     private boolean testing = false;
-
+    private double salesAmount;
 
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
@@ -30,6 +30,7 @@ public class Periodic extends Notification {
         numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
+        salesAmount = MainActivity.totalSales;
     }
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays, long numMinutes) {

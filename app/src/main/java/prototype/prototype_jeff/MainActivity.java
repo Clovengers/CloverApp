@@ -20,7 +20,6 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -180,17 +179,10 @@ public class MainActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendEmail();
-                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 7);
-                ArrayList<String> emailTestList = new ArrayList<String>();
-                emailTestList.add("First");
-                emailTestList.add("Second");
-                emailTestList.add("Third");
 
-                for (String s : emailTestList) {
-                    sendEmail("Test email", s);
+                Log.d("DataBase toString", "" + myDB.getReadableDatabase().toString());
 
-                }
+
 
             }
         });
@@ -418,6 +410,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Periodic> list = new ArrayList<Periodic>();
         myDB.getReadableDatabase();
         return list;
+    }
+
+    protected boolean deleteNotification(){
+        myDB.getReadableDatabase().toString();
+
+
+        return true;
     }
 
 }
