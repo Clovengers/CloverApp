@@ -29,6 +29,9 @@ public class InformationSelection extends AppCompatActivity {
         refundButton = (Button) findViewById(R.id.refundButton);
         periodicButton = (Button) findViewById(R.id.periodicButton);
 
+        //sets background to consitent color
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+
 
         refundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +62,7 @@ public class InformationSelection extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
+                        try { // if (mRefund.getText().toString().length() > 0 && isNumeric(mRefund.getText().toString()) ) {
                             refundAmount = Double.parseDouble(mRefund.getText().toString());
                             refundAmount *= -1;
 
@@ -96,7 +99,18 @@ public class InformationSelection extends AppCompatActivity {
 
     }
 
-
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
 
     protected String getType(){
         return type;
