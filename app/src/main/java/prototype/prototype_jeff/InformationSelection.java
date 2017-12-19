@@ -59,7 +59,7 @@ public class InformationSelection extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (true ) {
+                        try {
                             refundAmount = Double.parseDouble(mRefund.getText().toString());
                             refundAmount *= -1;
 
@@ -71,10 +71,10 @@ public class InformationSelection extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), TypeSelection.class));
                             finish();
 
-                            dialog.dismiss();
-
-                        } else {
+                        } catch (NumberFormatException | NullPointerException e) {
                             Toast.makeText(InformationSelection.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                        } finally {
+                            dialog.dismiss();
                         }
                     }
                 });

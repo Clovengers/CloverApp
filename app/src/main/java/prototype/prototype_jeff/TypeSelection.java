@@ -147,7 +147,7 @@ public class TypeSelection extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //Checks for standard phone number can be changed
-                        if (mText.getText().toString().length() != 10 ) {
+                        if (mText.getText().toString().length() >= 7 ) {
                             Toast.makeText(TypeSelection.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             //TODO Now a Refund or Periodic has to be created
