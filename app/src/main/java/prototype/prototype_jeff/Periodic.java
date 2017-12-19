@@ -14,7 +14,7 @@ public class Periodic extends Notification {
     private int dayOfWeek;
 
     private int numberOfDaysInterval = 7; //7 would be weekly
-    private long numberOfMinutesInterval = 1; // 60 would be hourly
+    protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
     private int daysSince;
     private long timeSince;

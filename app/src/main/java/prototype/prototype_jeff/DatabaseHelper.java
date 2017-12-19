@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "date";
     public static final String COL_5 = "email";
     public static final String COL_6 = "phone";
+    public static final String COL_7 = "numMinutes";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -31,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, threshhold DOUBLE, date TEXT, email TEXT, phone TEXT)");
+        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, threshhold DOUBLE, date TEXT, email TEXT, phone TEXT, numMinutes TEXT)");
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String type, Double threshhold, long date, String email, String phone) {
+    public boolean insertData(String type, Double threshhold, long date, String email, String phone, Long numMinutes) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, type);
@@ -48,6 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_4, Long.toString(date));
         contentValues.put(COL_5, email);
         contentValues.put(COL_6, phone);
+        contentValues.put(COL_7, numMinutes);
+
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1) {
             Log.d("DATABASE TEST", "REFUND INSERTED TO DATABASE FAILED ");
