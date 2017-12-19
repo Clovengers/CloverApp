@@ -32,57 +32,9 @@ public class InformationSelection extends AppCompatActivity {
         setContentView(R.layout.activity_information_selection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
         refundButton = (Button) findViewById(R.id.refundButton);
         periodicButton = (Button) findViewById(R.id.periodicButton);
-        minuteCheck = (CheckBox) findViewById(R.id.minBox);
-        hourCheck = (CheckBox) findViewById(R.id.hBox);
-        dayCheck = (CheckBox) findViewById(R.id.daysBox);
-        //sets background to consitent color
-        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
-        minuteCheck.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (minuteCheck.isChecked()) {
-                            hourCheck.setVisibility(View.INVISIBLE);
-                            dayCheck.setVisibility(View.INVISIBLE);
-                            hourCheck.setChecked(false);
-                            dayCheck.setChecked(false);
-                            }
-                            else{
-                            minuteCheck.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
-        hourCheck.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                    public void onClick(View v) {
-                        if (hourCheck.isChecked()) {
-                            minuteCheck.setVisibility(View.INVISIBLE);
-                            dayCheck.setVisibility(View.INVISIBLE);
-                            minuteCheck.setChecked(false);
-                            dayCheck.setChecked(false);
-                        }
-                        else{
-                            hourCheck.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
-        dayCheck.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        if(dayCheck.isChecked()){
-                            minuteCheck.setVisibility(View.INVISIBLE);
-                            hourCheck.setVisibility(View.INVISIBLE);
-                            minuteCheck.setChecked(false);
-                            hourCheck.setChecked(false);
-                        }
-                        else{
-                            dayCheck.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
-
 
         refundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +95,44 @@ public class InformationSelection extends AppCompatActivity {
                 View mView = getLayoutInflater().inflate(R.layout.periodic_pop_up, null);
                 final EditText mPeriodic = (EditText) mView.findViewById(R.id.etPeriodic);
 
+
+                minuteCheck = (CheckBox) mView.findViewById(R.id.minBox);
+                hourCheck = (CheckBox)mView.findViewById(R.id.hBox);
+                dayCheck = (CheckBox)mView.findViewById(R.id.daysBox);
+                minuteCheck.setChecked(true);
+                //sets background to consitent color
+                minuteCheck.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (minuteCheck.isChecked()) {
+                            hourCheck.setChecked(false);
+                            dayCheck.setChecked(false);
+                        }
+                    }
+                });
+                hourCheck.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (hourCheck.isChecked()) {
+                            minuteCheck.setChecked(false);
+                            dayCheck.setChecked(false);
+                        }
+                    }
+                });
+                dayCheck.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        if(dayCheck.isChecked()){
+                            minuteCheck.setChecked(false);
+                            hourCheck.setChecked(false);
+                        }
+                    }
+                });
+
+
+
+
+
                 //TODO attach periodic popup to this
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
@@ -157,51 +147,7 @@ public class InformationSelection extends AppCompatActivity {
                     }
                 });
 
-//                minuteRBN.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if (minuteRBN.isChecked()) {
-//                            hourRBN.setVisibility(View.INVISIBLE);
-//                            dayRBN.setVisibility(View.INVISIBLE);
-//                            hourRBN.setChecked(false);
-//                            dayRBN.setChecked(false);
-//                            }
-//                    }
-//                });
-//                hourRBN.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if (hourRBN.isChecked()) {
-//                            minuteRBN.setVisibility(View.INVISIBLE);
-//                            dayRBN.setVisibility(View.INVISIBLE);
-//                            minuteRBN.setChecked(false);
-//                            dayRBN.setChecked(false);
-//                        }
-//                    }
-//                });
-//                dayRBN.setOnClickListener(new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View v){
-//                        if(dayRBN.isChecked()){
-//                            minuteRBN.setVisibility(View.INVISIBLE);
-//                            hourRBN.setVisibility(View.INVISIBLE);
-//                            minuteRBN.setChecked(false);
-//                            hourRBN.setChecked(false);
-//                        }
-//                    }
-//                });
-//              if (minuteRBN.isChecked()) {
-//                    hourRBN.setVisibility(mView.INVISIBLE);
-//                    dayRBN.setVisibility(mView.INVISIBLE);
-//                }
-//                if (hourRBN.isChecked()) {
-//                    minuteRBN.setVisibility(mView.INVISIBLE);
-//                    dayRBN.setVisibility(mView.INVISIBLE);
-//                }
-//                if (dayRBN.isChecked()) {
-//                    minuteRBN.setVisibility(mView.INVISIBLE);
-//                    hourRBN.setVisibility(mView.INVISIBLE);
-//                }
+
 
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
@@ -230,6 +176,9 @@ public class InformationSelection extends AppCompatActivity {
 
                         MainActivity.informationSelection.setType(type);
                         MainActivity.informationSelection.setValue(value);
+                        startActivity(new Intent(getApplicationContext(), TypeSelection.class));
+                        finish();
+
 
                     }
                     //startActivity(new Intent(getApplicationContext(), InformationSelection.class));

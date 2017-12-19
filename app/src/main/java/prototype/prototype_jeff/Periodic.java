@@ -13,7 +13,7 @@ public class Periodic extends Notification {
 
     private int dayOfWeek;
 
-    private int numberOfDaysInterval = 7; //7 would be weekly
+    private int numberOfDaysInterval; //7 would be weekly
     protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
     private int daysSince;
@@ -27,7 +27,7 @@ public class Periodic extends Notification {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-        numberOfMinutesInterval = numDays*24*60;
+        //numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
         salesAmount = MainActivity.totalSales;
