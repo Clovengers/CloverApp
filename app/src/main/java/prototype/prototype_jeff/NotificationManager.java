@@ -46,63 +46,66 @@ public class NotificationManager extends AppCompatActivity {
         notifications = MainActivity.refundReceiver.getNotifications();
         updateInfo();
 
-//        prevButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
-//
-//
-//                if(currentIndex >0){
-//                    currentIndex--;
-//                    updateInfo();
-//                }
-//            }
-//        });
-//
-//        nexButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(currentIndex +1 < notifications.size()){
-//                    currentIndex++;
-//                    updateInfo();
-//                }
-//            }
-//        });
-//
-//        delButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if(notifications.size()  != 0) {
-//                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Refund")) {
-//                        MainActivity.refundReceiver.refundList.remove(notifications.get(currentIndex));
-//                    }
-//
-//                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Stock")) {
-//                        MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
-//                    }
-//
-//                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")) {
-//                        NotificationWizard.periodicList.remove(notifications.get(currentIndex));
-//                    }
-//
-//                    notifications.remove(currentIndex);
-//                    //Currently recreates the DB with new info
-//                    MainActivity.deleteNotification();
-//                    currentIndex = 0;
-//                    updateInfo();
-//
-//                }
-//
-//            }
-//        });
+        prevButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
+
+
+                if(currentIndex >0){
+                    currentIndex--;
+                    updateInfo();
+                }
+            }
+        });
+
+        nexButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentIndex +1 < notifications.size()){
+                    currentIndex++;
+                    updateInfo();
+                }
+            }
+        });
+
+        delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(notifications.size()  != 0) {
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Refund")) {
+                        MainActivity.refundReceiver.refundList.remove(notifications.get(currentIndex));
+                    }
+
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Stock")) {
+                        MainActivity.refundReceiver.stockList.remove(notifications.get(currentIndex));
+                    }
+
+                    if (notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")) {
+                        MainActivity.periodicList.remove(notifications.get(currentIndex));
+                    }
+
+                    notifications.remove(currentIndex);
+                    //Currently recreates the DB with new info
+                    MainActivity.deleteNotification();
+                    currentIndex = 0;
+                    updateInfo();
+
+                }
+
+            }
+        });
+
 
 
     }
 
 
     private void updateInfo(){
+        notifications = new ArrayList<Notification>();
+
         notifications = MainActivity.refundReceiver.getNotifications();
         Log.d("MANAGER: ", "notifications list " + notifications.toString()+ " size " + notifications.size());
 

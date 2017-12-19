@@ -91,23 +91,23 @@ public class TypeSelection extends AppCompatActivity {
                                 finish();
 
                             }
-                            if(type.equals("PERIODIC")){
-                                Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), (long)value);
-                                periodic.emailList.add(mEmail.getText().toString());
+                                if(type.equals("PERIODIC")){
+                                    Periodic periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), (long)value);
+                                    periodic.emailList.add(mEmail.getText().toString());
 
-                                MainActivity.periodicList.add(periodic);
-                                //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
-                                //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
-                                if(sizeChecker(periodic.emailList)!=null||sizeChecker(periodic.phoneNumberList)!=null) {
-                                    long holder = Calendar.getInstance().getTimeInMillis();
-                                    MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long) value);
-                                    Log.d("DATABSE ENTRY: ", periodic.toString());
+                                    MainActivity.periodicList.add(periodic);
+                                    //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
+                                    //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
+                                        long holder = Calendar.getInstance().getTimeInMillis();
+                                        MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long) value);
+                                        Log.d("DATABSE ENTRY: ", periodic.toString());
 
-                                    finish();
+
+                                        finish();
+
+
+
                                 }
-
-
-                            }
 
 
                             //close after done?

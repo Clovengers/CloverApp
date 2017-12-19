@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         Log.d("DATABASE", myDB.getDatabaseName());
         // uncomment code below to wipe the database
-        // myDB.deleteAll();
+        //myDB.deleteAll();
         Cursor result = myDB.getData();
 
 
@@ -150,13 +150,15 @@ public class MainActivity extends AppCompatActivity {
                 } else if (type.equals("PERIODIC")) {
                     dataArray=new ArrayList<String>();
 
-                    String x = result.getString(4);
+                    String x = result.getString(3);
+
                     DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     long milliSeconds= Long.parseLong(x);
                     System.out.println(milliSeconds);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(milliSeconds);
-                    Long numMinutes = Long.parseLong(result.getColumnName(7));
+                    Long numMinutes = Long.parseLong(result.getString(6));
+
 
                     Periodic periodic = new Periodic(dataArray, dataArray, calendar, numMinutes);
 
@@ -482,8 +484,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Checks the size of a String array and that the first string is not empty
-    public static String sizeChecker(ArrayList<String> list){
-        if(list != null && list.size() > 0 && list.get(0) != null && !list.get(0).equals("")){
+    private static String sizeChecker(ArrayList<String> list){
+        if(list.size()>0&&!list.get(0).equals("")){
+
             return list.get(0);
         }
         return null;
