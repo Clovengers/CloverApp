@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -96,6 +97,8 @@ public class TypeSelection extends AppCompatActivity {
                                 if(sizeChecker(periodic.emailList)!=null||sizeChecker(periodic.phoneNumberList)!=null) {
                                     long holder = Calendar.getInstance().getTimeInMillis();
                                     MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList));
+                                    Log.d("DATABSE ENTRY: ", periodic.toString());
+
                                     finish();
                                 }
 

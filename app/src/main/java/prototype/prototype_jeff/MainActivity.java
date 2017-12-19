@@ -20,7 +20,10 @@ import android.widget.Toast;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -134,6 +137,31 @@ public class MainActivity extends AppCompatActivity {
                     refundReceiver.refundList.add(refund);
 
                 } else if (type.equals("PERIODIC")) {
+                    dataArray=new ArrayList<String>();
+
+                    String x = result.getString(4);
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    long milliSeconds= Long.parseLong(x);
+                    System.out.println(milliSeconds);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(milliSeconds);
+
+                    Periodic periodic = new Periodic(dataArray, dataArray, calendar, 0, 0);
+
+                    // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
+                    dataArray.add(result.getString(4));
+                    periodic.emailList=dataArray;
+
+                    // create empty arraylist, repeat for phone number
+                    dataArray=new ArrayList<String>();
+                    dataArray.add(result.getString(5));
+                    periodic.phoneNumberList=dataArray;
+
+                    periodicList.add(periodic);
+
+
+
+
 
                 }
             }
