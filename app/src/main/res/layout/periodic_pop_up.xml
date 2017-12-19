@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/PeriodicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.37"
+        android:text="@string/when_to_notify"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etPeriodic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_a_number"
+        android:inputType= "number|time" />
+    <CheckBox
+        android:id="@+id/minBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/minutes" />
+
+    <CheckBox
+        android:id="@+id/hBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hours" />
+
+    <CheckBox
+        android:id="@+id/daysBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.37"
+        android:text="@string/days" />
+</LinearLayout>

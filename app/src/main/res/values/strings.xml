@@ -19,6 +19,12 @@
     <string name="cell_number">Cell Number</string>
     <string name="amount">Amount</string>
     <string name="enter_amount">Enter Inventory amount</string>
+    <string name="notifiTitle">NOTIFI</string>
+    <string name="when_to_notify">When to Notify</string>
+    <string name="enter_a_number">Enter a number</string>
+    <string name="minutes">Minutes</string>
+    <string name="hours">Hours</string>
+    <string name="days">Days</string>
 
 
 </resources>

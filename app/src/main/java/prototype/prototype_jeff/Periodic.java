@@ -14,14 +14,14 @@ public class Periodic extends Notification {
     private int dayOfWeek;
 
     private int numberOfDaysInterval = 7; //7 would be weekly
-    private long numberOfMinutesInterval = 1; // 60 would be hourly
+    protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
     private int daysSince;
     private long timeSince;
     private Calendar calendar;
     private boolean testing = false;
-
-
+    private double salesAmount;
+    private boolean check = false;
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays) {
         setEmailList(emails);
@@ -30,10 +30,11 @@ public class Periodic extends Notification {
         numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
+        salesAmount = MainActivity.totalSales;
     }
 
-    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, int numDays, long numMinutes) {
-        this(emails, phoneNumbers, calendar, numDays);
+    protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, long numMinutes) {
+        this(emails, phoneNumbers, calendar, 0);
         numberOfMinutesInterval = numMinutes;
     }
 
@@ -71,21 +72,28 @@ public class Periodic extends Notification {
             daysSince = 0;
             timeSince = 0;
             calendar = cal;
+            salesAmount = 0;
             if (!emailList.isEmpty()) {
 
                 message = "EMPTY";
                 for (String s : emailList) {
-                    sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
-                    Log.d("EMAIL SENDING TO:", s);
+                    if( s != null){
+                        sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
+                        Log.d("EMAIL SENDING TO:", s);
+                    }
+
                 }
 
 
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total $" + (MainActivity.totalSales / 100.0);
+                phoneMessage = "Sales data total $" + (( MainActivity.totalSales )/ 100.0);
                 for (String p : phoneNumberList) {
-                    sendMobileText(phoneMessage, p);
+                    if( p != null){
+                        sendMobileText(phoneMessage, p);
+
+                    }
                 }
 
             }
@@ -98,19 +106,32 @@ public class Periodic extends Notification {
 
     @Override
     public String toString(){
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
-            holder += "EMAIL: \n";
-            for(int x=0; x< emailList.size(); x++){
-                holder += emailList.get(x) + "\n";
+            for(String s : emailList){
+                if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
             }
         }
 
-        if(phoneNumberList.size()>0){
-            holder += "PHONE NUMBER: \n";
-            for(int x=0; x< phoneNumberList.size(); x++){
-                holder += phoneNumberList.get(x) + "\n";
+        if (phoneNumberList.size() > 0) {
+
+            for(String s : phoneNumberList){
+                if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
+
             }
         }
 
@@ -119,5 +140,11 @@ public class Periodic extends Notification {
         return holder;
     }
 
+    protected Calendar getCalendar(){
+        return calendar;
+    }
 
+    protected void addSale(double sale){
+        salesAmount += sale;
+    }
 }

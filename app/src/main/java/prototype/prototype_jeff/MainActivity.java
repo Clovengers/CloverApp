@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
@@ -83,10 +86,15 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> dataArray= new ArrayList<String>();
     private Timer timer;
 
+    protected static int color = Color.parseColor("#5CB7DA");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        MainActivity.mainActivity = this;
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+
         informationSelection = new InformationSelection();
 
 
@@ -99,12 +107,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (result.getCount() == 0) {
+            Log.d("DATABASE", "EMPTY");
             //START FIRST TIME USE ACTIVITY
             /*contentValues.put(COL_2, type);
             contentValues.put(COL_3, threshhold);
-            contentValues.put(COL_4, time);
+            contentValues.put(COL_4, data);
             contentValues.put(COL_5, email);
-            contentValues.put(COL_6, phone);*/
+            contentValues.put(COL_6, phone);
+            contentValues(Col_7, value*/
         } else {
             StringBuffer buffer = new StringBuffer();
             while (result.moveToNext()) {
@@ -116,19 +126,53 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("REFUND CREATION", "THRESHHOLD=" + refund.getRefundAmount());
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
+
                     dataArray.add(result.getString(4));
-                    refund.emailList=dataArray;
+                    if(dataArray != null){
+                        refund.emailList=dataArray;
+
+                    }
 
                     // create empty arraylist, repeat for phone number
                     dataArray=new ArrayList<String>();
                     dataArray.add(result.getString(5));
-                    refund.phoneNumberList=dataArray;
+                    if(dataArray != null){
+                        refund.phoneNumberList=dataArray;
+
+                    }
+
 
                     // Adds the refund notification
                     Log.d("REFUND CREATION", "DATA= " + refund.toString());
                     refundReceiver.refundList.add(refund);
 
                 } else if (type.equals("PERIODIC")) {
+                    dataArray=new ArrayList<String>();
+
+                    String x = result.getString(4);
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    long milliSeconds= Long.parseLong(x);
+                    System.out.println(milliSeconds);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(milliSeconds);
+                    Long numMinutes = Long.parseLong(result.getColumnName(7));
+
+                    Periodic periodic = new Periodic(dataArray, dataArray, calendar, numMinutes);
+
+                    // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
+                    dataArray.add(result.getString(4));
+                    periodic.emailList=dataArray;
+
+                    // create empty arraylist, repeat for phone number
+                    dataArray=new ArrayList<String>();
+                    dataArray.add(result.getString(5));
+                    periodic.phoneNumberList=dataArray;
+
+                    periodicList.add(periodic);
+
+
+
+
 
                 }
             }
@@ -180,17 +224,10 @@ public class MainActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendEmail();
-                Periodic test = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 7);
-                ArrayList<String> emailTestList = new ArrayList<String>();
-                emailTestList.add("First");
-                emailTestList.add("Second");
-                emailTestList.add("Third");
 
-                for (String s : emailTestList) {
-                    sendEmail("Test email", s);
+                Log.d("DataBase toString", "" + myDB.getReadableDatabase().toString());
 
-                }
+
 
             }
         });
@@ -418,6 +455,37 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Periodic> list = new ArrayList<Periodic>();
         myDB.getReadableDatabase();
         return list;
+    }
+
+    //TODO do this the proper way
+    protected static boolean deleteNotification(){
+        myDB.deleteAll();
+        ArrayList<Refund> list = refundReceiver.refundList;
+        for(Refund refund : list){
+            if(refund != null) {
+                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), (long)-1);
+            }
+
+        }
+
+        for(Periodic periodic : periodicList){
+            if(periodic != null){
+                myDB.insertData("PERIODIC", -1.0, periodic.getCalendar().getTimeInMillis(), sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), periodic.numberOfMinutesInterval);
+            }
+        }
+
+
+
+        return true;
+    }
+
+
+    //Checks the size of a String array and that the first string is not empty
+    private static String sizeChecker(ArrayList<String> list){
+        if(list.size()>0&&!list.get(0).equals("")){
+            return list.get(0);
+        }
+        return null;
     }
 
 }

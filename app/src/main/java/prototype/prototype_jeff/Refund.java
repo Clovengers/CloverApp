@@ -12,6 +12,7 @@ public class Refund extends Notification{
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over
 
+    private boolean check = false;
 
 
 
@@ -34,17 +35,22 @@ public class Refund extends Notification{
     }
 
     protected void sendNotification(double amount){
-        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount
+        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + -refundAmount
                 + "\n\n" + "If that wasn't you, you may need to look into this.";
 
-        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + refundAmount
+        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + -refundAmount
                 + "\n\n" + "If that wasn't you, you may need to look into this.";
 
         if (!emailList.isEmpty()) {
 
             for(String s : emailList){
-                sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
-                Log.d("EMAIL SENDING TO:", s );
+                if(s != null){
+                    sendEmail(this.getClass().getSimpleName() + " Alert", message, s  );
+                    Log.d("EMAIL SENDING TO:", s );
+                }
+
+
+
             }
 
 
@@ -53,7 +59,12 @@ public class Refund extends Notification{
         if (!phoneNumberList.isEmpty()) {
 
             for(String p : phoneNumberList){
-                sendMobileText(phoneMessage, p);
+                if(p != null){
+                    sendMobileText(phoneMessage, p);
+
+                }
+
+
             }
 
         }
@@ -62,22 +73,35 @@ public class Refund extends Notification{
 
     @Override
     public String toString(){
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size() );
         if(emailList.size()>0){
-            holder += "EMAIL: \n";
-            for(int x=0; x< emailList.size(); x++){
-                holder += emailList.get(x) + "\n";
+            for(String s : emailList){
+                if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
             }
         }
 
-        if(phoneNumberList.size()>0){
-            holder += "PHONE NUMBER: \n";
-            for(int x=0; x< phoneNumberList.size(); x++){
-                holder += phoneNumberList.get(x) + "\n";
+        if (phoneNumberList.size() > 0) {
+
+            for(String s : phoneNumberList){
+                if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
+
             }
         }
-        holder += "AMOUNT: " + refundAmount;
+        holder += "AMOUNT: " + -refundAmount;
 
         return holder;
     }

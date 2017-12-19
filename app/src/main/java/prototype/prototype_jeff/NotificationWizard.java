@@ -196,7 +196,7 @@ public class NotificationWizard extends AppCompatActivity {
                         MainActivity.refundReceiver.refundList.add(createdRefund);
 
                         //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
-                        MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, sizeChecker(createdRefund.emailList), sizeChecker(createdRefund.phoneNumberList));
+                        MainActivity.myDB.insertData("REFUND", createdRefund.getRefundAmount(), -1, sizeChecker(createdRefund.emailList), sizeChecker(createdRefund.phoneNumberList), null);
                         finish();
 
                     }
@@ -220,7 +220,7 @@ public class NotificationWizard extends AppCompatActivity {
                         //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
                         if(sizeChecker(createdPeriodic.emailList)!=null||sizeChecker(createdPeriodic.phoneNumberList)!=null) {
                             long holder = Calendar.getInstance().getTimeInMillis();
-                            MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(createdPeriodic.emailList), sizeChecker(createdPeriodic.phoneNumberList));
+                            MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(createdPeriodic.emailList), sizeChecker(createdPeriodic.phoneNumberList), null);
                             finish();
                         }
 //                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -240,11 +240,11 @@ public class NotificationWizard extends AppCompatActivity {
         if (minuteRBN.isChecked()) {
             periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0);
         } else if (hourRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 0, 60);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  60);
         } else if (dayRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 1, 0);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  0);
         } else if (monthRBN.isChecked()) {
-            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(), 30, 0);
+            periodic = new Periodic(new ArrayList<String>(), new ArrayList<String>(), Calendar.getInstance(),  0);
         } else {
             return null;
         }

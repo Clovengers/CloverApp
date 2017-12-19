@@ -26,6 +26,8 @@ public class NotificationManager extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setBackgroundColor(MainActivity.color);
+
         setContentView(R.layout.activity_notification_manager);
 
         prevButton = (Button) findViewById(R.id.prevButton);
@@ -80,7 +82,8 @@ public class NotificationManager extends AppCompatActivity {
                     }
 
                     notifications.remove(currentIndex);
-
+                    //Currently recreates the DB with new info
+                    MainActivity.deleteNotification();
                     currentIndex = 0;
                     updateInfo();
 

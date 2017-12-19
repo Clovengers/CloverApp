@@ -1,10 +1,7 @@
 package prototype.prototype_jeff;
 
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -60,13 +57,19 @@ public class Notification extends AppCompatActivity {
     private String emailToBeSent;
     protected String message = "Generic Notification Alert";
     protected String phoneMessage = "Generic Phone Notification Alert";
+    private boolean check = false;
 
     protected void sendNotification() {
         if (!emailList.isEmpty()) {
 
             for (String s : emailList) {
-                sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
-                Log.d("EMAIL SENDING TO:", s);
+                if( s != null){
+                    sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
+                    Log.d("EMAIL SENDING TO:", s);
+                }
+
+
+
             }
 
 
@@ -74,27 +77,45 @@ public class Notification extends AppCompatActivity {
         if (!phoneNumberList.isEmpty()) {
 
             for (String p : phoneNumberList) {
-                sendMobileText(phoneMessage, p);
+                if(p != null){
+                    sendMobileText(phoneMessage, p);
+
+                }
+
+
             }
 
         }
     }
 
-    @Override
+
     public String toString() {
+        check = false;
         String holder = getClass().getSimpleName() + " \n";
         Log.d("Notfication", "Notification, email check size" + emailList.size());
-        if (emailList.size() > 0) {
-            holder += "EMAIL: \n";
-            for (int x = 0; x < emailList.size(); x++) {
-                holder += emailList.get(x) + "\n";
+        if(emailList.size()>0){
+            for(String s : emailList){
+                if(s != null){
+                    if( !check){
+                        holder += "EMAIL: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
             }
         }
 
         if (phoneNumberList.size() > 0) {
-            holder += "PHONE NUMBER: \n";
-            for (int x = 0; x < phoneNumberList.size(); x++) {
-                holder += phoneNumberList.get(x) + "\n";
+
+            for(String s : phoneNumberList){
+                if(s != null){
+                    if( !check){
+                        holder += "PHONE NUMBER: \n";
+                        check = true;
+                    }
+                    holder += s + "\n";
+                }
+
             }
         }
 
