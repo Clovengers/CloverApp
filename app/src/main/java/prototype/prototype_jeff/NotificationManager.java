@@ -78,7 +78,7 @@ public class NotificationManager extends AppCompatActivity {
                     }
 
                     if (notifications.get(currentIndex).getClass().getSimpleName().equals("Periodic")) {
-                        NotificationWizard.periodicList.remove(notifications.get(currentIndex));
+                        MainActivity.periodicList.remove(notifications.get(currentIndex));
                     }
 
                     notifications.remove(currentIndex);
