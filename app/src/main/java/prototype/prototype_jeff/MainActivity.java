@@ -145,8 +145,9 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(milliSeconds);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(milliSeconds);
+                    Long numMinutes = Long.parseLong(result.getColumnName(7));
 
-                    Periodic periodic = new Periodic(dataArray, dataArray, calendar, 0);
+                    Periodic periodic = new Periodic(dataArray, dataArray, calendar, numMinutes);
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
                     dataArray.add(result.getString(4));
@@ -452,14 +453,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Refund> list = refundReceiver.refundList;
         for(Refund refund : list){
             if(refund != null) {
-                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList));
+                myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), null);
             }
 
         }
 
         for(Periodic periodic : periodicList){
             if(periodic != null){
-                myDB.insertData("PERIODIC", -1.0, periodic.getCalendar().getTimeInMillis(), sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList));
+                myDB.insertData("PERIODIC", -1.0, periodic.getCalendar().getTimeInMillis(), sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), periodic.numberOfMinutesInterval);
             }
         }
 

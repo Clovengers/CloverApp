@@ -87,7 +87,7 @@ public class TypeSelection extends AppCompatActivity {
                                 MainActivity.refundReceiver.refundList.add(refund);
 
                                 //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
-                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList));
+                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), null);
                                 finish();
 
                             }
@@ -100,7 +100,7 @@ public class TypeSelection extends AppCompatActivity {
                                 //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
                                 if(sizeChecker(periodic.emailList)!=null||sizeChecker(periodic.phoneNumberList)!=null) {
                                     long holder = Calendar.getInstance().getTimeInMillis();
-                                    MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList));
+                                    MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long) value);
                                     Log.d("DATABSE ENTRY: ", periodic.toString());
 
                                     finish();
@@ -169,7 +169,7 @@ public class TypeSelection extends AppCompatActivity {
                                 MainActivity.refundReceiver.refundList.add(refund);
 
                                 //INSERTION INTO DATABASE, -1 is irrelevant since this is a Refund, not periodic
-                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList));
+                                MainActivity.myDB.insertData("REFUND", refund.getRefundAmount(), -1, sizeChecker(refund.emailList), sizeChecker(refund.phoneNumberList), null);
                                 finish();
                             }
                             if(type.equals("PERIODIC")){
@@ -181,7 +181,7 @@ public class TypeSelection extends AppCompatActivity {
                                 //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
                                 if(sizeChecker(periodic.emailList)!=null||sizeChecker(periodic.phoneNumberList)!=null) {
                                     long holder = Calendar.getInstance().getTimeInMillis();
-                                    MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList));
+                                    MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long)value);
                                     finish();
                                 }
                             }
