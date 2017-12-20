@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     static public DatabaseHelper myDB;
 
     // Set this constant to "" if you don't think it should be included in the emails sent
-    public static final String RECEIVEDINERROR = "\n\nIf you received this in error, " +
+    protected static final String RECEIVEDINERROR = "\n\nIf you received this in error, " +
             "please delete it and block seniorprojectclover@gmail.com.";
 
 
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     periodic.phoneNumberList=dataArray;
 
                     periodicList.add(periodic);
-
+                    dataArray = new ArrayList<String>();
 
 
 

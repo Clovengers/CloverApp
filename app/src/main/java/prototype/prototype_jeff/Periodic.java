@@ -2,6 +2,7 @@ package prototype.prototype_jeff;
 
 import android.util.Log;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -78,7 +79,7 @@ public class Periodic extends Notification {
             salesAmount = 0;
             if (!emailList.isEmpty()) {
 
-                message = "EMPTY";
+                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format(salesAmount / 100.0) + MainActivity.RECEIVEDINERROR;
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
@@ -91,7 +92,7 @@ public class Periodic extends Notification {
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total $" + (( MainActivity.totalSales )/ 100.0);
+                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format(salesAmount / 100.0);
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);

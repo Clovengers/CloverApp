@@ -2,6 +2,7 @@ package prototype.prototype_jeff;
 
 import android.util.Log;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -35,10 +36,12 @@ public class Refund extends Notification{
     }
 
     protected void sendNotification(double amount){
-        message = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + -refundAmount
-                + "\n\n" + "If that wasn't you, you may need to look into this.";
+        message = "A refund was just issued of " + NumberFormat.getCurrencyInstance().format(amount) + ". This exceeds your threshold of "
+                + NumberFormat.getCurrencyInstance().format(refundAmount) + "."
+                + "\n\n" + "If that wasn't you, you may need to look into this." + MainActivity.RECEIVEDINERROR;
 
-        phoneMessage = "A refund was just issued of $" + amount + " this exceeds your threshold of $" + -refundAmount
+        phoneMessage = "A refund was just issued of $" + NumberFormat.getCurrencyInstance().format(amount) + ". This exceeds your threshold of "
+                + NumberFormat.getCurrencyInstance().format(refundAmount) + "."
                 + "\n\n" + "If that wasn't you, you may need to look into this.";
 
         if (!emailList.isEmpty()) {
