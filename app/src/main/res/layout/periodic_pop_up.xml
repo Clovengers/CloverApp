@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/enter_a_number"
-        android:inputType= "number|time" />
+        android:inputType="number" />
     <CheckBox
         android:id="@+id/minBox"
         android:layout_width="match_parent"

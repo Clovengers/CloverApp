@@ -164,11 +164,18 @@ public class MainActivity extends AppCompatActivity {
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
                     dataArray.add(result.getString(4));
-                    periodic.emailList=dataArray;
+                    if(dataArray != null){
+                        periodic.emailList=dataArray;
+
+                    }
 
                     // create empty arraylist, repeat for phone number
                     dataArray=new ArrayList<String>();
                     dataArray.add(result.getString(5));
+                    if(dataArray != null){
+                        periodic.phoneNumberList=dataArray;
+
+                    }
                     periodic.phoneNumberList=dataArray;
 
                     periodicList.add(periodic);
@@ -195,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (NotificationWizard.periodicList != null) {
                     //send notification method call on each saved periodic
-                    ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
+                    ArrayList<Periodic> periodicArrayList = MainActivity.periodicList;
 
                     for (Periodic p : periodicArrayList) {
                         p.sendNotification();
@@ -206,14 +213,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if (demo) {
             // schedule the task to run starting now and then every minute...
-            //TODO multiple by 60
             timer.schedule(hourlyTask, 0l, 1000 * 60);
-        } else {
-            // schedule the task to run starting now and then every hour...
-            timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
-        }
+            //timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
+
 
 
         settings = establishSettings();
@@ -250,17 +253,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 builder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
-                //final TextView title = (TextView) mView.findViewById(R.id.TitleTextView);
-                //title.setText("Testing This");
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                View mView = getLayoutInflater().inflate(R.layout.help_popup, null);
 
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -271,19 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.create();
                 dialog.show();
                 dialog.setCanceledOnTouchOutside(false);
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!mEmail.getText().toString().isEmpty()) {
-                                   Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                   dialog.dismiss();
-
-                        } else {
-                                 Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                            }
-                    }
-                });
-
 
             }
         });
@@ -357,34 +339,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Transport.send(msg);
 
-//                HashSet<String> gateways = new HashSet<>();
-//                gateways.add("@txt.att.net");
-//                gateways.add("@tmomail.net");
-//                gateways.add("@vtext.com");
-//                gateways.add("@messaging.sprintpcs.com");
-//                gateways.add("@pm.sprint.com");
-//                gateways.add("@vmobl.com");
-//                gateways.add("@mmst5.tracfone.com");
-//                gateways.add("@mymetropcs.com");
-//                gateways.add("@myboostmobile.com");
-//                gateways.add("@mms.cricketwireless.net");
-//                gateways.add("@ptel.com");
-//                gateways.add("@text.republicwireless.com");
-//                gateways.add("@msg.fi.google.com");
-//                gateways.add("@tms.suncom.com");
-//                gateways.add("@message.ting.com");
-//                gateways.add("@email.uscc.net");
-//                gateways.add("@cingularme.com");
-//                gateways.add("@cspire1.com");
 
-//                to = NotificationWizard.recipientPhoneNumber + "@vtext.com";
-//                msg = new MimeMessage(mailSession);
-//                msg.setFrom(new InternetAddress(from));
-//                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-//                msg.setSubject(mailSubject);
-//                msg.setText(mailText);
-//
-//                Transport.send(msg);
 
 
             } catch (MessagingException e) {
@@ -484,10 +439,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Checks the size of a String array and that the first string is not empty
-    private static String sizeChecker(ArrayList<String> list){
-        if(list.size()>0&&!list.get(0).equals("")){
+    protected static String sizeChecker(ArrayList<String> list){
+        if(list.size()>0){
+            if(list.get(0)!= null){
+                if(!list.get(0).equals("")){
+                    return list.get(0);
 
-            return list.get(0);
+                }
+
+            }
         }
         return null;
     }

@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_weight="0.37"
-        android:text="@string/popupactivity"
+        android:text="@string/enter_your_email"
         android:textSize="25sp"
         android:textStyle="bold" />
 

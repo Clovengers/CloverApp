@@ -76,8 +76,8 @@ public class TypeSelection extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!mEmail.getText().toString().isEmpty() || mEmail.getText().toString().contains("@") ) {
-                            Toast.makeText(TypeSelection.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        if (!mEmail.getText().toString().isEmpty() && mEmail.getText().toString().contains("@") && mEmail.getText().toString().length() < 256) {
+                            Toast.makeText(TypeSelection.this, "Successful", Toast.LENGTH_SHORT).show();
 
                             if(type.equals("REFUND")){
                                 Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), value);
@@ -157,8 +157,8 @@ public class TypeSelection extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //Checks for standard phone number can be changed
-                        if (mText.getText().toString().length() >= 7 ) {
-                            Toast.makeText(TypeSelection.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        if (mText.getText().toString().length() >= 7 && mText.getText().toString().length() <= 12) {
+                            Toast.makeText(TypeSelection.this, "Successful", Toast.LENGTH_SHORT).show();
 
                             //TODO Now a Refund or Periodic has to be created
                             if(type.equals("REFUND")){
@@ -192,7 +192,7 @@ public class TypeSelection extends AppCompatActivity {
                             dialog.dismiss();
 
                         } else {
-                            Toast.makeText(TypeSelection.this, "Invalid Email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TypeSelection.this, "Invalid Number", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
