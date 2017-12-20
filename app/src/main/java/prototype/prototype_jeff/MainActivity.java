@@ -200,11 +200,10 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Log.d("Sales data testing", "" + totalSales);
 
-                if (NotificationWizard.periodicList != null) {
+                if (periodicList != null) {
                     //send notification method call on each saved periodic
-                    ArrayList<Periodic> periodicArrayList = MainActivity.periodicList;
 
-                    for (Periodic p : periodicArrayList) {
+                    for (Periodic p : periodicList) {
                         p.sendNotification();
                     }
 
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
             // schedule the task to run starting now and then every minute...
-            timer.schedule(hourlyTask, 0l, 1000 * 60);
+            timer.schedule(hourlyTask, 0l, 1000 * 6);
             //timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
 
 
@@ -393,6 +392,12 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         getApplicationContext().registerReceiver(refundReceiver, new IntentFilter("com.clover.intent.action.ORDER_CREATED"));
         mAccount = CloverAccount.getAccount(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        refundReceiver.orderConnector.disconnect();
     }
 
     protected void onUpdate() {

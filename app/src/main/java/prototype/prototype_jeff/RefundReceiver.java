@@ -64,7 +64,7 @@ public class RefundReceiver extends BroadcastReceiver {
                 Intent newIntent = new Intent(context, PopupActivity.class);
               newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(newIntent);
+                //context.startActivity(newIntent);
            } catch (Exception e) {
                e.printStackTrace();
             }
@@ -91,10 +91,13 @@ public class RefundReceiver extends BroadcastReceiver {
                     orderConnector.disconnect();
                 } else {
                     lastOrder = orderConnector.getOrder(lastOrderId);
-                    MainActivity.totalSales += lastOrder.getTotal();
-                    for(Periodic p : MainActivity.periodicList){
-                        p.addSale(lastOrder.getTotal());
+
+
+                    if(lastOrder.getTotal()>0) {
+                        MainActivity.totalSales += lastOrder.getTotal();
                     }
+
+
 
                 }
 
@@ -119,6 +122,9 @@ public class RefundReceiver extends BroadcastReceiver {
                     refund.sendNotification(lastOrder.getTotal() * 1 / 100.0);
 
                 }
+            }
+            for(Periodic p : MainActivity.periodicList){
+                p.addSale(lastOrder.getTotal());
             }
             orderConnector.disconnect();
         }

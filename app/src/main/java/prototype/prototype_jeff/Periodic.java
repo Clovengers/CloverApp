@@ -32,7 +32,7 @@ public class Periodic extends Notification {
         //numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
-        salesAmount = MainActivity.totalSales;
+        salesAmount = 0;
     }
 
     protected Periodic(ArrayList<String> emails, ArrayList<String> phoneNumbers, Calendar calendar, long numMinutes) {
@@ -76,30 +76,34 @@ public class Periodic extends Notification {
             daysSince = 0;
             timeSince = 0;
             calendar = cal;
-            salesAmount = 0;
-            if (!emailList.isEmpty()) {
 
-                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format(salesAmount / 100.0) + MainActivity.RECEIVEDINERROR;
+            if (!emailList.isEmpty()) {
+                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales - salesAmount) / 100.0) + MainActivity.RECEIVEDINERROR;
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
+                        //salesAmount = MainActivity.totalSales;
+
                         Log.d("EMAIL SENDING TO:", s);
                     }
 
                 }
 
 
+
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format(salesAmount / 100.0);
+                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales-  salesAmount) / 100.0);
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);
+                        //salesAmount = MainActivity.totalSales;
+                            Log.d("Kill me", "please"+ salesAmount);
+                        salesAmount=0;
 
                     }
                 }
-
             }
         } else {
             Log.d("Hourly testing", "TimeSince:" + timeSince

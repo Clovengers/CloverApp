@@ -145,7 +145,7 @@ public class Notification extends AppCompatActivity {
         phoneCarriers.add("@cspire1.com");
 
         String host = "smtp.gmail.com";
-        final String user = "SeniorProjectClover@gmail.com";
+        final String user = "seniorprojectclover2@gmail.com";
         final String pass = "S3n10rPr0j3ct";
 
 
