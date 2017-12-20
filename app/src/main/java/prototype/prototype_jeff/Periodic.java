@@ -78,7 +78,7 @@ public class Periodic extends Notification {
             calendar = cal;
 
             if (!emailList.isEmpty()) {
-                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales - salesAmount) / 100.0);
+                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format(( salesAmount) / 100.0);
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
@@ -94,7 +94,7 @@ public class Periodic extends Notification {
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales-  salesAmount) / 100.0);
+                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format(( salesAmount) / 100.0);
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);
