@@ -123,8 +123,10 @@ public class RefundReceiver extends BroadcastReceiver {
 
                 }
             }
-            for(Periodic p : MainActivity.periodicList){
-                p.addSale(lastOrder.getTotal());
+            if (lastOrder.getTotal() > 0) {
+                for (Periodic p : MainActivity.periodicList) {
+                    p.addSale(lastOrder.getTotal());
+                }
             }
             orderConnector.disconnect();
         }
