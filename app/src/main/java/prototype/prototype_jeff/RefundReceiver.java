@@ -115,8 +115,8 @@ public class RefundReceiver extends BroadcastReceiver {
             for (Refund refund : refundList) {
                 double amt = refund.getRefundAmount();
                 holder = !holder;
-                if (lastOrder.getTotal() < amt * -1 * 100  ) {
-                    refund.sendNotification(lastOrder.getTotal() * -1 / 100.0);
+                if (lastOrder.getTotal() < amt * 1 * 100  ) {
+                    refund.sendNotification(lastOrder.getTotal() * 1 / 100.0);
 
                 }
             }
