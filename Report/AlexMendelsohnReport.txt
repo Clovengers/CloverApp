@@ -1,0 +1,18 @@
+Artifacts
+-Project Specification
+-Design Document
+  -Design Document Class Diagram
+-Presentation
+  -Jing video (https://www.screencast.com/t/dg9WXqbYg3)
+Coding
+-Email functionality via JavaMail
+-Initial sending of emails for refunds exceeding $50
+-Successfuly merging troublesome branches
+-Enabled NotificationManager to show Periodics
+-Enabled creation of 4 varying types of Periodics
+-Enabled activities to close themselves with finish()
+-Implementation of Brian's email+gateway idea
+-Enabled Periodic to include sakes total (sales minus refunds)
+-Created RECEIVEDINERROR string to append to emails
+-Overhauled NotificationManager to use a TableLayout
+-Fixing bugs throughout the project
