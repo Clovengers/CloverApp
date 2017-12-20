@@ -38,7 +38,7 @@ public class Refund extends Notification{
     protected void sendNotification(double amount){
         message = "A refund was just issued of " + NumberFormat.getCurrencyInstance().format(amount) + ". This exceeds your threshold of "
                 + NumberFormat.getCurrencyInstance().format(refundAmount) + "."
-                + "\n\n" + "If that wasn't you, you may need to look into this." + MainActivity.RECEIVEDINERROR;
+                + "\n\n" + "If that wasn't you, you may need to look into this.";
 
         phoneMessage = "A refund was just issued of $" + NumberFormat.getCurrencyInstance().format(amount) + ". This exceeds your threshold of "
                 + NumberFormat.getCurrencyInstance().format(refundAmount) + "."
