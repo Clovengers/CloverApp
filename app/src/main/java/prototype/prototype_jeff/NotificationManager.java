@@ -52,11 +52,11 @@ public class NotificationManager extends AppCompatActivity {
             TextView txtReceivedAt = new TextView(this);
             Button deleteNotificationButton = new Button(this);
             if (n.getClass().getSimpleName().equals("Periodic")) {
-                txtNotification.setText("Sales Total\t\t\t\t");
-                txtAmount.setText(((Periodic) n).getNumberOfMinutesInterval() + "\t\t\t\t");
+                txtNotification.setText("Sales Total\t");
+                txtAmount.setText(((Periodic) n).getNumberOfMinutesInterval() + "\t");
             } else if (n.getClass().getSimpleName().equals("Refund")) {
-                txtNotification.setText("Refund\t\t\t\t");
-                txtAmount.setText(NumberFormat.getCurrencyInstance().format(((Refund) n).getRefundAmount()) + "\t\t\t\t");
+                txtNotification.setText("Refund\t");
+                txtAmount.setText(NumberFormat.getCurrencyInstance().format(((Refund) n).getRefundAmount()) + "\t");
             }
             if (MainActivity.sizeChecker(n.getEmailList()) != null) {
                 txtReceivedAt.setText(n.getEmailList().get(0) + "\t");
