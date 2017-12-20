@@ -253,17 +253,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 builder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.pop_up_activity, null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
-                //final TextView title = (TextView) mView.findViewById(R.id.TitleTextView);
-                //title.setText("Testing This");
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                View mView = getLayoutInflater().inflate(R.layout.help_popup, null);
 
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -274,19 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.create();
                 dialog.show();
                 dialog.setCanceledOnTouchOutside(false);
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!mEmail.getText().toString().isEmpty()) {
-                                   Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                   dialog.dismiss();
-
-                        } else {
-                                 Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                            }
-                    }
-                });
-
 
             }
         });

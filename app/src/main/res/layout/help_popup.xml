@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.37"
+        android:text="@string/welcome_to_notify"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.37"
+        android:text="Press the BEGIN button to start setting up what kind of notifications you get.  You can choose to get notifications through intervals (SALES DATA) or when a certain refund amount is hit (REFUND).  You can manage your notifications in the notification manager (EDIT NOTIFICATIONS)."
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

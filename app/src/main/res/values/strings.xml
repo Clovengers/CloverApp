@@ -26,6 +26,10 @@
     <string name="hours">Hours</string>
     <string name="days">Days</string>
     <string name="enter_your_email">Enter Your Email</string>
+<<<<<<< HEAD
+=======
+    <string name="welcome_to_notify">Welcome to Notify!</string>
+>>>>>>> Periodic_popup_error
 
 
 </resources>
