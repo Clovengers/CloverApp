@@ -78,7 +78,7 @@ public class Periodic extends Notification {
             calendar = cal;
 
             if (!emailList.isEmpty()) {
-                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales - salesAmount) / 100.0) + MainActivity.RECEIVEDINERROR;
+                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales - salesAmount) / 100.0);
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
