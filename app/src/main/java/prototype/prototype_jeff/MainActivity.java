@@ -164,11 +164,18 @@ public class MainActivity extends AppCompatActivity {
 
                     // Adds the email to an arraylist then sets the Refund arraylist to this arraylist
                     dataArray.add(result.getString(4));
-                    periodic.emailList=dataArray;
+                    if(dataArray != null){
+                        periodic.emailList=dataArray;
+
+                    }
 
                     // create empty arraylist, repeat for phone number
                     dataArray=new ArrayList<String>();
                     dataArray.add(result.getString(5));
+                    if(dataArray != null){
+                        periodic.phoneNumberList=dataArray;
+
+                    }
                     periodic.phoneNumberList=dataArray;
 
                     periodicList.add(periodic);
@@ -195,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (NotificationWizard.periodicList != null) {
                     //send notification method call on each saved periodic
-                    ArrayList<Periodic> periodicArrayList = NotificationWizard.periodicList;
+                    ArrayList<Periodic> periodicArrayList = MainActivity.periodicList;
 
                     for (Periodic p : periodicArrayList) {
                         p.sendNotification();
@@ -206,14 +213,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if (demo) {
             // schedule the task to run starting now and then every minute...
-            //TODO multiple by 60
             timer.schedule(hourlyTask, 0l, 1000 * 60);
-        } else {
-            // schedule the task to run starting now and then every hour...
-            timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
-        }
+            //timer.schedule(hourlyTask, 0l, 1000 * 60 * 60);
+
 
 
         settings = establishSettings();
