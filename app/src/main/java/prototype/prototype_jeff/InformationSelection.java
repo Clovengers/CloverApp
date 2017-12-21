@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+// This class is an activity which handles the creation of notifications. User interface included.
 public class InformationSelection extends AppCompatActivity {
     CheckBox minuteCheck;
     CheckBox hourCheck;

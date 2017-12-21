@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+// This handles the notification manager activity. That includes the user interface and deletion.
 public class NotificationManager extends AppCompatActivity {
 
 
