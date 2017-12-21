@@ -39,7 +39,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /*
- * Astract: The first activity to run when the app is started
+ * Abstract: The first activity to run when the app is started
  * This creates all required parts of the application including layout functionality
  *
  * Updated: 1 December 2017
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
 
     static public RefundReceiver refundReceiver;
-//    static public MainActivity mainActivity;
     static public InformationSelection informationSelection;
 
     private Intent emailInent;
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        MainActivity.mainActivity = this;
         getWindow().getDecorView().setBackgroundColor(MainActivity.color);
 
         informationSelection = new InformationSelection();
@@ -226,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         settingsButton = (Button) findViewById(R.id.settingsButton);
         emailButton = (Button) findViewById(R.id.emailButton);
 
+        // this button originally send three emails to seniorprojectclover@gmail.com
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //HELP BUTTON
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //EDIT NOTIFICATIONS BUTTON
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,6 +279,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Used by the email button to send an email. Now in the Notification class.
+     * @param mailSubject
+     * @param mailText
+     */
     protected void sendEmail(String mailSubject, String mailText) {
         String host = "smtp.gmail.com";
         final String user = "SeniorProjectClover@gmail.com";
@@ -309,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This class exists just to send an email
+     * This class exists just to send an email. Now in Notification class.
      */
     private class MailSenderTask extends AsyncTask<String, Void, String> {
 
@@ -351,7 +357,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * all settings will be established here so their visibility can be toggled
+     * Originally returned all View children with toggleable visibility, but that button
+     * is the EDIT NOTIFICATIONS BUTTON now.
+     * @return all View children to be toggled by the settings button.
      */
     private ArrayList<View> establishSettings() {
         ArrayList<View> list = new ArrayList<>();
@@ -366,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * toggles visibility of all settings
+     * Toggled visibility of all settings before settings button became EDIT NOTIFICATIONS button.
      */
     private void toggleSettingsVisibility() {
         if (settingsButton.getText().equals("Show Settings")) {
@@ -420,7 +428,10 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
-    //TODO do this the proper way
+    /**
+     * Deletes database and recreates it after a notification has been removed
+     * @return true if successful
+     */
     protected static boolean deleteNotification(){
         myDB.deleteAll();
         ArrayList<Refund> list = refundReceiver.refundList;
@@ -442,8 +453,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-    //Checks the size of a String array and that the first string is not empty
+    /**
+     * Checks the size of a String array and that the first string is not empty
+     * @param list
+     * @return the first String of the list
+     */
     protected static String sizeChecker(ArrayList<String> list){
         if(list.size()>0){
             if(list.get(0)!= null){
