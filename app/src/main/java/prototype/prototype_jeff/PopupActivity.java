@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by Brian on 10/14/2017.
+ * Old file, no longer used
  */
 
 public class PopupActivity extends Activity {
