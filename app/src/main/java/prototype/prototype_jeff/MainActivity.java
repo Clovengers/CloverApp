@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             contentValues.put(COL_6, phone);
             contentValues(Col_7, value*/
         } else {
-            StringBuffer buffer = new StringBuffer();
             while (result.moveToNext()) {
                 type = result.getString(1);
                 Log.d("DATABASE", type);

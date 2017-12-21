@@ -11,9 +11,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Jeff on 12/13/2017.
+ * SQLite database class to create, add and delete from a db
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    // Denote columns index 1-7
     public static final String DATABASE_NAME = "notificationsS.db";
     public static final String TABLE_NAME = "notifications2_table";
     public static final String COL_1 = "ID";
@@ -41,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Takes input and adds it to the database in the cooresponding columns
     public boolean insertData(String type, Double threshhold, long date, String email, String phone, Long numMinutes) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -71,6 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery("select * from " + TABLE_NAME, null);
         return result;
     }
+
+    // Deletes all data in case the db should be cleared for any reason
     public void deleteAll()
     {
         SQLiteDatabase db = this.getWritableDatabase();

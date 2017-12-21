@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CloverApp.iml" filepath="$PROJECT_DIR$/CloverApp.iml" />
-      <module fileurl="file://C:\Users\Brian French\Documents\GitHub\CloverApp\CloverApp.iml" filepath="C:\Users\Brian French\Documents\GitHub\CloverApp\CloverApp.iml" />
-      <module fileurl="file://C:\Users\Brian French\Documents\GitHub\CloverApp\Notifi.iml" filepath="C:\Users\Brian French\Documents\GitHub\CloverApp\Notifi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

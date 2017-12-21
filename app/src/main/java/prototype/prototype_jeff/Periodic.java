@@ -64,6 +64,7 @@ public class Periodic extends Notification {
 
     @Override
     protected void sendNotification(){
+        boolean first=true;
         Calendar cal = Calendar.getInstance();
         if(testing){
             numberOfDaysInterval = -1;
@@ -78,7 +79,13 @@ public class Periodic extends Notification {
             calendar = cal;
 
             if (!emailList.isEmpty()) {
-                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales - salesAmount) / 100.0);
+                if(first == true){
+                    message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales) / 100.0);
+                }
+                else{
+                    message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((salesAmount-MainActivity.totalSales) / -100.0);
+                }
+
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
@@ -94,17 +101,24 @@ public class Periodic extends Notification {
             }
             if (!phoneNumberList.isEmpty()) {
 
-                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales-  salesAmount) / 100.0);
+                if(first == true){
+                    phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales) / 100.0);
+                }
+                else{
+                    phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((salesAmount-MainActivity.totalSales) / -100.0);
+                }
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);
                         //salesAmount = MainActivity.totalSales;
                             Log.d("Kill me", "please"+ salesAmount);
-                        salesAmount=0;
+
 
                     }
                 }
             }
+            salesAmount=0;
+            first=false;
         } else {
             Log.d("Hourly testing", "TimeSince:" + timeSince
                     + " NumberOfMinutesIntervalScaled:" + (numberOfMinutesInterval * 60 * 1000));
