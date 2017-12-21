@@ -6,9 +6,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
+ * Sends the amount of money just refunded if it exceeds refundAmount
+ *
  * Created by Jeff on 11/5/2017.
+ * This is a type of Notification, contains the variables and methods required to send messages and receive data
  */
-
 public class Refund extends Notification{
 
     private double refundAmount; // Amount that the user wants to be alerted if a refund is equal or over

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+// This class is an activity which handles the means of notification used by a Notification and creates it
 public class TypeSelection extends AppCompatActivity {
 
     private Button emailButton;

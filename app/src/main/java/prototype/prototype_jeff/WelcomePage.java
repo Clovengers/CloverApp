@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Possible start screen we ultimately didn't use
+ */
 public class WelcomePage extends AppCompatActivity {
 
     private Button startButton;
