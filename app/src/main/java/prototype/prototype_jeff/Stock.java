@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Jeff on 11/5/2017.
+ * Updated: December 20 2017
+ * This class has not been updated since but it can be use for future implementation
  */
 
 public class Stock extends Notification{
