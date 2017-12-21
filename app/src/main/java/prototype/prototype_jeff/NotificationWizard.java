@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+// I believe this holds some data we need but the Wizard itself is no longer in use
 public class NotificationWizard extends AppCompatActivity {
 
 
