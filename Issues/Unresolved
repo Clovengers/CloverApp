@@ -1,2 +1,4 @@
 List of all known issues/bugs that are in the project:
--
+-Inventory did not implement.
+- Sometimes will receive multiple sms messages since some carriers run through several email gateways. Can be resolved by implementing Twilio which was solved a few days after the gateway method used.
+- Email quota, can be solved by implementing different email service

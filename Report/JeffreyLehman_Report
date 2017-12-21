@@ -1,0 +1,11 @@
+- Planning
+  -Initial palnning for design and interface
+- Programming
+  - Had a hand in almost everything but the user interface, not the most artistic
+    - BroadcastReceivers
+    - Clover functionality
+    - Intent research and implementation
+    - All database creation and upkeep in SQLite
+    - Code upkeep (documentation and cleaning up useless statements)
+    - A lot of debugging, Log.d all over the code to create almost a verbose type of error detecting
+    - SMS research and implementation over several types

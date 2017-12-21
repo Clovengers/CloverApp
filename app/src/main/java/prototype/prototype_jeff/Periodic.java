@@ -14,7 +14,6 @@ public class Periodic extends Notification {
 
     private int dayOfWeek;
 
-    private int numberOfDaysInterval; //7 would be weekly
 
     protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
@@ -29,7 +28,6 @@ public class Periodic extends Notification {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-        //numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
         salesAmount = 0;
@@ -48,27 +46,15 @@ public class Periodic extends Notification {
         return dayOfWeek;
     }
 
-    protected void setNumberOfDaysInterval(int interval){
-        numberOfDaysInterval = interval;
-    }
 
-    protected int getNumberOfDaysInterval(){
-        return numberOfDaysInterval;
-    }
 
     public long getNumberOfMinutesInterval() { return numberOfMinutesInterval; }
 
-//    protected String message = "Periodic message email";
-//
-//    protected String phoneMessage = "Periodic message text";
 
     @Override
     protected void sendNotification(){
-        boolean first=true;
         Calendar cal = Calendar.getInstance();
-        if(testing){
-            numberOfDaysInterval = -1;
-        }
+
 
 
         timeSince = cal.getTimeInMillis() - calendar.getTimeInMillis();
@@ -79,13 +65,7 @@ public class Periodic extends Notification {
             calendar = cal;
 
             if (!emailList.isEmpty()) {
-                if(first == true){
-                    message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales) / 100.0);
-                }
-                else{
-                    message = "Sales data total: " + NumberFormat.getCurrencyInstance().format((salesAmount-MainActivity.totalSales) / -100.0);
-                }
-
+                message = "Sales data total: " + NumberFormat.getCurrencyInstance().format(( salesAmount) / 100.0);
                 for (String s : emailList) {
                     if( s != null){
                         sendEmail(this.getClass().getSimpleName() + " Alert", message, s);
@@ -101,24 +81,17 @@ public class Periodic extends Notification {
             }
             if (!phoneNumberList.isEmpty()) {
 
-                if(first == true){
-                    phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((MainActivity.totalSales) / 100.0);
-                }
-                else{
-                    phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format((salesAmount-MainActivity.totalSales) / -100.0);
-                }
+                phoneMessage = "Sales data total: " + NumberFormat.getCurrencyInstance().format(( salesAmount) / 100.0);
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);
                         //salesAmount = MainActivity.totalSales;
                             Log.d("Kill me", "please"+ salesAmount);
-
+                        salesAmount=0;
 
                     }
                 }
             }
-            salesAmount=0;
-            first=false;
         } else {
             Log.d("Hourly testing", "TimeSince:" + timeSince
                     + " NumberOfMinutesIntervalScaled:" + (numberOfMinutesInterval * 60 * 1000));
@@ -157,7 +130,6 @@ public class Periodic extends Notification {
             }
         }
 
-        holder += "TIME: " + numberOfDaysInterval + " days " + numberOfMinutesInterval + " minutes";
 
         return holder;
     }
