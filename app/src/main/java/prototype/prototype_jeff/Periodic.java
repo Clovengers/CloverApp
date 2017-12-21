@@ -10,6 +10,7 @@ import java.util.Calendar;
  * Child of Notification that sends salesAmount when the allotted time has passed.
  *
  * Created by Jeff on 11/5/2017.
+ * This is a type of Notification, contains the variables and methods required to send messages and receive data
  */
 public class Periodic extends Notification {
 

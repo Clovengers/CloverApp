@@ -1,12 +1,15 @@
+Artifact:
 -Design Document
 -Project Specification Document
 -Presentation Power Point
--Report issues during testing phase
--Testing app
--Planning the design
+Communication:
 -Set up time to test code on Clover device
 -Set up meeting
--Documentation of code
--App interface with Paul Browser
 -Communication with team members
 -Communication between Dev Team and Stakeholder
+Code:
+-Planning the design
+-Report issues during testing phase
+-Testing app
+-Documentation of code
+-App interface with Paul Browser
