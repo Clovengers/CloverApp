@@ -14,7 +14,6 @@ public class Periodic extends Notification {
 
     private int dayOfWeek;
 
-    private int numberOfDaysInterval; //7 would be weekly
 
     protected long numberOfMinutesInterval = 1; // 60 would be hourly
 
@@ -29,7 +28,6 @@ public class Periodic extends Notification {
         setEmailList(emails);
         setPhoneNumberList(phoneNumbers);
         setDayOfWeek(dayOfWeek);
-        //numberOfMinutesInterval = numDays*24*60;
         daysSince = 0;
         this.calendar = calendar;
         salesAmount = 0;
@@ -48,26 +46,15 @@ public class Periodic extends Notification {
         return dayOfWeek;
     }
 
-    protected void setNumberOfDaysInterval(int interval){
-        numberOfDaysInterval = interval;
-    }
 
-    protected int getNumberOfDaysInterval(){
-        return numberOfDaysInterval;
-    }
 
     public long getNumberOfMinutesInterval() { return numberOfMinutesInterval; }
 
-//    protected String message = "Periodic message email";
-//
-//    protected String phoneMessage = "Periodic message text";
 
     @Override
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
-        if(testing){
-            numberOfDaysInterval = -1;
-        }
+
 
 
         timeSince = cal.getTimeInMillis() - calendar.getTimeInMillis();
@@ -143,7 +130,6 @@ public class Periodic extends Notification {
             }
         }
 
-        holder += "TIME: " + numberOfDaysInterval + " days " + numberOfMinutesInterval + " minutes";
 
         return holder;
     }

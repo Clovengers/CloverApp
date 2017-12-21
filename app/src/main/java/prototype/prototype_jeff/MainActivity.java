@@ -13,9 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.order.OrderConnector;
@@ -104,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor result = myDB.getData();
 
 
+        //This begins the section of code to read in data from the DB on startup
         if (result.getCount() == 0) {
             Log.d("DATABASE", "EMPTY");
             //START FIRST TIME USE ACTIVITY
@@ -192,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         RefundReceiver.orderConnector = new OrderConnector(this, mAccount, null);
         refundReceiver.orderConnector.connect();
 
+        //Creates a timer that checks periodically to see if a periodics need to be send
         timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     //send notification method call on each saved periodic
 
                     for (Periodic p : periodicList) {
+                        //Send notification checks within the periodic class if enough time has passed and only sends a notification if X time has passed
                         p.sendNotification();
                     }
 
@@ -224,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         settingsButton = (Button) findViewById(R.id.settingsButton);
         emailButton = (Button) findViewById(R.id.emailButton);
 
+        // On click listeners declaration
         // this button originally send three emails to seniorprojectclover@gmail.com
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String from = "SeniorProjectClover@gmail.com";
-//                String to = "SeniorProjectClover@gmail.com";
                 String to = NotificationWizard.recipientEmailAddress;
 
                 Message msg = new MimeMessage(mailSession);
@@ -408,13 +409,7 @@ public class MainActivity extends AppCompatActivity {
         refundReceiver.orderConnector.disconnect();
     }
 
-    protected void onUpdate() {
-        //TODO add in timer for periodic checking of current data
 
-        for (int x = 0; x < periodicList.size(); x++) {
-            periodicList.get(x).sendNotification();
-        }
-    }
 
     private static ArrayList<Refund> getRefundsDB() {
         ArrayList<Refund> list = new ArrayList<Refund>();
@@ -429,8 +424,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Deletes database and recreates it after a notification has been removed
-     * @return true if successful
+     * This method clears the database and recreates it using the local data. It is called after a Notification is deleted.
+     * @return true
      */
     protected static boolean deleteNotification(){
         myDB.deleteAll();

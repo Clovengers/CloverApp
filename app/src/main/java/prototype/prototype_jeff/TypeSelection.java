@@ -1,9 +1,7 @@
 package prototype.prototype_jeff;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,8 +26,6 @@ public class TypeSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         getWindow().getDecorView().setBackgroundColor(MainActivity.color);
-        //getActionBar().setBackgroundDrawable(new ColorDrawable(MainActivity.color));
-
 
         setContentView(R.layout.activity_type_selection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -37,8 +33,6 @@ public class TypeSelection extends AppCompatActivity {
 
         value = MainActivity.informationSelection.getValue();
         type = MainActivity.informationSelection.getType();
-
-
 
         emailButton = (Button) findViewById(R.id.EmailButton);
         smsButton = (Button) findViewById(R.id.SMSButton);
@@ -132,6 +126,7 @@ public class TypeSelection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Creates the popup
                 AlertDialog.Builder builder = new AlertDialog.Builder(TypeSelection.this);
                 View mView = getLayoutInflater().inflate(R.layout.txt_pop_up_activity, null);
                 //Is actually a phone number in the case but copied for use
@@ -160,7 +155,6 @@ public class TypeSelection extends AppCompatActivity {
                         if (mText.getText().toString().length() >= 7 && mText.getText().toString().length() <= 12) {
                             Toast.makeText(TypeSelection.this, "Successful", Toast.LENGTH_SHORT).show();
 
-                            //TODO Now a Refund or Periodic has to be created
                             if(type.equals("REFUND")){
                                 Refund refund = new Refund(new ArrayList<String>(), new ArrayList<String>(), value);
                                 refund.phoneNumberList.add(mText.getText().toString());
@@ -177,8 +171,6 @@ public class TypeSelection extends AppCompatActivity {
                                 periodic.phoneNumberList.add(mText.getText().toString());
 
                                 MainActivity.periodicList.add(periodic);
-                                //TODO COMPLETE DATA INSERTION FOR PERIODIC BELOW. THE NEGATIVE VALUES ARE IRRELEVANT SINCE THIEY ARE FOR REFUNDS
-                                //TODO THIS MAY NEED TO SAVE SOMETHING ELSE AS time, MAYBE CONVERT CALENDER TO STRING?
                                 if(sizeChecker(periodic.emailList)!=null||sizeChecker(periodic.phoneNumberList)!=null) {
                                     long holder = Calendar.getInstance().getTimeInMillis();
                                     MainActivity.myDB.insertData("PERIODIC", -1.0, holder, sizeChecker(periodic.emailList), sizeChecker(periodic.phoneNumberList), (long)value);
@@ -186,9 +178,6 @@ public class TypeSelection extends AppCompatActivity {
                                 }
                             }
 
-
-
-                            //startActivity(new Intent(getApplicationContext(), InformationSelection.class));
                             dialog.dismiss();
 
                         } else {
@@ -202,19 +191,6 @@ public class TypeSelection extends AppCompatActivity {
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
