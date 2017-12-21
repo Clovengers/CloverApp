@@ -87,8 +87,6 @@ public class Periodic extends Notification {
                 for (String p : phoneNumberList) {
                     if( p != null){
                         sendMobileText(phoneMessage, p);
-                        //salesAmount = MainActivity.totalSales;
-                            Log.d("Kill me", "please"+ salesAmount);
                         salesAmount=0;
 
                     }
