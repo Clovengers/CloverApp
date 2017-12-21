@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
+ * Child of Notification that sends salesAmount when the allotted time has passed.
+ *
  * Created by Jeff on 11/5/2017.
  */
-
 public class Periodic extends Notification {
 
     private int dayOfWeek;
@@ -50,7 +51,7 @@ public class Periodic extends Notification {
 
     public long getNumberOfMinutesInterval() { return numberOfMinutesInterval; }
 
-
+    // even if called, will not notify unless enough time has passed.
     @Override
     protected void sendNotification(){
         Calendar cal = Calendar.getInstance();
@@ -138,6 +139,10 @@ public class Periodic extends Notification {
         return calendar;
     }
 
+    /**
+     * Adds positive values provided by RefundReceiver to salesAmount
+     * @param sale (positive amount)
+     */
     protected void addSale(double sale){
         salesAmount += sale;
     }
