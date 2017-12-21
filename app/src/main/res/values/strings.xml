@@ -29,7 +29,8 @@
 
 =======
     <string name="welcome_to_notify">Welcome to Notify!</string>
->>>>>>> Periodic_popup_error
+    <string name="welcome_to_notifi">Welcome to Notifi</string>
+    >>>>>>> Periodic_popup_error
 
 
 </resources>
